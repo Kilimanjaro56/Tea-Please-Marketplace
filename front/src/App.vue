@@ -2,8 +2,9 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </div>
+   <h1> HELLO RILESY EDIT </h1>
   <router-view/>
+  </div>
 </template>
 
 <style>
