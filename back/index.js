@@ -24,5 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+const Listing = require("./models/Listing");
 
 //END POINTS HERE

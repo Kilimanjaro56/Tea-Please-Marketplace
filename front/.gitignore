@@ -2,7 +2,11 @@
 node_modules
 /dist
 
+.eslintcache 
+.eslintcache/
+.eslint-release-info.json
 
+package-lock.json
 # local env files
 .env.local
 .env.*.local
