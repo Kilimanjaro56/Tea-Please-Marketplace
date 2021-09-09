@@ -3,8 +3,9 @@ node_modules
 /dist
 
 .eslintcache 
-.eslintcache/
-.eslint-release-info.json
+.eslintcache /
+*/eslintcache/
+eslint-release-info.json
 
 package-lock.json
 # local env files
