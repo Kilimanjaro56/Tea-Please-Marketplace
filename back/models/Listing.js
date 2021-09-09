@@ -30,4 +30,16 @@ const ListingSchema = mongoose.Schema({
     { timestamps: true}
 );
 
+
+//Delete Functionality - Annabel 
+const deleteBlog = async (req, res, next)=> {
+  try{
+      console.log('deleted')
+      const deletedBlog = await Blog.findByIdAndDelete(req.params.blogId);
+      res.status(200).json(deletedBlog);
+  }catch(err){
+      next(err)
+  }
+}
+
 module.exports = mongoose.model("Listing", ListingSchema);
