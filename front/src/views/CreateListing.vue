@@ -1,7 +1,7 @@
 <template>
   <div class="create-listing-component">
     <div class="form">
-      <h2>Create Listing</h2>
+      <h2>Create a Listing</h2>
       <form @submit.prevent="sendListing">
         <div class="form-group">
           <label for="title">Title</label>
@@ -19,10 +19,10 @@
           </div>
           <div class="form-group">
             <label for="category">Category</label>
-            <select name="category" id="category" v-model="listing.category">
-              <option selected hidden value="Select Category">
+            <select name="category" id="category" placeholder="select" v-model="listing.category">
+              <!-- <option selected hidden value="Select Category">
                 Select category...
-              </option>
+              </option> -->
               <option value="Tea">Tea</option>
               <option value="Teacups">Teacups</option>
               <option value="Teapots">Teapots</option>
@@ -80,7 +80,7 @@ export default {
       listing.author = 'Test User'; // testing purposes until users are added
 
       console.log(listing);
-      const response = await fetch('http://localhost:3000/listings', {
+      const response = await fetch('http://localhost:3000/create-listing', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(listing),
@@ -92,7 +92,7 @@ export default {
     resetCreate() {
       this.listing.title = null;
       this.listing.price = null;
-      this.listing.category = null;
+      this.listing.category = 'Select...';
       this.listing.description = null;
       this.listing.imageUrl = null;
     },
@@ -127,7 +127,8 @@ select {
   padding: 0.6em 0.4em;
 }
 select {
-  padding: 0.4em;
+  background-color: white;
+  padding: 0.5em 0.4em;
 }
 textarea {
   height: 10vh;

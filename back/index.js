@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 const Listing = require("./models/Listing");
 
 //END POINTS HERE
-app.post("/listings", async (req, res, next) => {
+app.post("/create-listing", async (req, res, next) => {
   try{const listing = new Listing({
       author:req.body.author,
       title:req.body.title,
