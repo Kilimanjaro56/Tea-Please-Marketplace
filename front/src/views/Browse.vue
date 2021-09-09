@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h2>About</h2>
+  <div class="browse">
+    <h2>Browse Listings</h2>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h2>About</h2>
+  <div class="payment">
+    <h2>Payment</h2>
   </div>
 </template>
 
