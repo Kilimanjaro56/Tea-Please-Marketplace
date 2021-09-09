@@ -28,3 +28,19 @@ app.use(morgan('dev'));
 const Listing = require("./models/Listing");
 
 //END POINTS HERE
+app.post("/listings", async (req, res, next) => {
+  try{const listing = new Listing({
+      author:req.body.author,
+      title:req.body.title,
+      imageUrl:req.body.imageUrl,
+      description:req.body.description,
+      price:req.body.price,
+      category:req.body.category,
+    });
+    console.log(listing)
+    const savedListing = await listing.save(); 
+    res.json(savedListing);
+  }catch(error){
+    console.error(error)
+  }
+  });
