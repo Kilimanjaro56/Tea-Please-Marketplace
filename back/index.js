@@ -51,14 +51,3 @@ app.post("/create-listing", async (req, res, next) => {
     console.log(error)
   }
   });
-
-  //Delete Functionality - Annabel
-app.delete("listings/edit/:listingId",async (req, res, next) => {
-  try {
-    const deletedListing = await Listing.findByIdAndDelete(req.params.listingId);
-    res.status(200).json(deletedListing);
-  }catch (error) {
-    console.log(error);
-  }
-});
-
