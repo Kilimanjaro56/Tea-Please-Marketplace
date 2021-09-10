@@ -1,3 +1,4 @@
+//Initial Set Up - Keely
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -29,12 +30,13 @@ const Listing = require("./models/Listing");
 
 //END POINTS HERE
 
+//Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
   const listing = await Listing.findById(req.params.listingId);
   res.status(200).json(listing); 
 });
 
-
+//Post End Point - Keely
 app.post("/create-listing", async (req, res, next) => {
   try {
     const listing = new Listing({

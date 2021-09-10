@@ -1,4 +1,5 @@
 <template>
+<!-- Listing Detail Front End + Styling - Keely -->
   <div class="item-detail" >
     <h2>Listing Details</h2>
     <div class="listing" v-if="listing.title">

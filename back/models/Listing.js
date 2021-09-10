@@ -1,3 +1,4 @@
+//Schema Set Up - Keely
 const mongoose = require("mongoose");
 const CommentSchema = mongoose.Schema(
     {
