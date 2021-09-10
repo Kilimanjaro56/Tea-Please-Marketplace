@@ -60,6 +60,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-end;
+  justify-content: center;
   border-radius: 10px;
   margin-bottom: 0.4em;
 }
@@ -69,8 +70,8 @@ p{
 }
 
 img{
-  height: auto;
-  width: 100%;
+  width: 140%;
+  min-height: 100%;
 }
 h4{
 font-size: 1.1em;

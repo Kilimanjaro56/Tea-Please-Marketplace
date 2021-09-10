@@ -44,9 +44,10 @@
         <div class="form-group">
           <label for="description">Product Description</label>
           <textarea
-            maxlength="200"
+            maxlength="800"
             row="50"
             name="description"
+            placeholder="Max limit 800 characters"
             v-model="listing.description"
           />
         </div>
