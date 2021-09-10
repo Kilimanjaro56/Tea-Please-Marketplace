@@ -23,7 +23,7 @@ mongoose.connect(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 const Listing = require("./models/Listing");
 
@@ -36,18 +36,27 @@ app.get("/listings/:listingId", async (req, res) => {
 
 
 app.post("/create-listing", async (req, res, next) => {
-  try{const listing = new Listing({
-      author:req.body.author,
-      title:req.body.title,
-      imageUrl:req.body.imageUrl,
-      description:req.body.description,
-      price:req.body.price,
-      category:req.body.category,
+  try {
+    const listing = new Listing({
+      author: req.body.author,
+      title: req.body.title,
+      imageUrl: req.body.imageUrl,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
     });
-    console.log(listing)
-    const savedListing = await listing.save(); 
+    console.log(listing);
+    const savedListing = await listing.save();
     res.json(savedListing);
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.error(error);
   }
+});
+
+//Delete Functionality - Annabel
+  app.delete("/listings/edit/:listingId",
+    async (req, res) => {
+    const deletedListing = await Listing.findByIdAndDelete(
+      req.params.listingId);
+    res.status(200).json(deletedListing);
   });
