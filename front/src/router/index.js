@@ -1,6 +1,6 @@
+//  Routes Set Up - Keely(To ensure we can access all pages without relying on other members' code)
+
 import { createRouter, createWebHistory } from 'vue-router';
-//Router Set Up - Keely 
-//(To ensure we can access all pages without relying on other code being completed)
 
 const routes = [
   {

@@ -1,5 +1,5 @@
 <template>
-  <div class="edit">
+  <div class='edit'>
     <h2>Edit</h2>
   </div>
 </template>

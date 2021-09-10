@@ -1,16 +1,16 @@
 <template>
 <!-- Listing Detail Front End + Styling - Keely -->
-  <div class="item-detail" >
+  <div class='item-detail' >
     <h2>Listing Details</h2>
-    <div class="listing" v-if="listing.title">
-      <div id="content-above-image">
-        <div id="seller-container" >
+    <div class='listing' v-if='listing.title'>
+      <div id='content-above-image'>
+        <div id='seller-container' >
           <h3>Seller: {{this.listing.author}}</h3>
         </div>
             <button>Purchase</button>
       </div>
-      <div class="image-container"><img :src="this.listing.imageUrl" alt="" /></div>
-      <div class="listing-details">
+      <div class='image-container'><img :src='this.listing.imageUrl' alt='' /></div>
+      <div class='listing-details'>
         <h3>{{this.listing.title}}</h3>
         <h4>${{this.listing.price}}.00</h4>
       </div>

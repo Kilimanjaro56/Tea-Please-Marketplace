@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
 dotenv.config();
 
 mongoose.connect(
@@ -33,7 +34,7 @@ const Listing = require("./models/Listing");
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
   const listing = await Listing.findById(req.params.listingId);
-  res.status(200).json(listing); 
+  res.status(200).json(listing);
 });
 
 //Post End Point - Keely
@@ -56,9 +57,37 @@ app.post("/create-listing", async (req, res, next) => {
 });
 
 //Delete Functionality - Annabel
-  app.delete("/listings/edit/:listingId",
-    async (req, res) => {
-    const deletedListing = await Listing.findByIdAndDelete(
-      req.params.listingId);
-    res.status(200).json(deletedListing);
-  });
+app.delete("/listings/edit/:listingId", async (req, res) => {
+  const deletedListing = await Listing.findByIdAndDelete(req.params.listingId);
+  res.status(200).json(deletedListing);
+});
+
+
+//User Schema - Keely
+const User = require("./models/User");
+
+//User Registration - Keely
+app.post("/signup", async (req, res) => {
+  try {
+    const existingsUser = await User.findOne({ email: req.body.email });
+    if (existingsUser) {
+      return res.status(409).json({ message: "This email already exists, log in below" });
+    } else {
+      bcrypt.hash(req.body.password, 10, async (err, hash) => {
+        if (err) {
+          return res.status(500).json({ error: err });
+        } else {
+          const user = new User({
+            name: req.body.name,
+            password: hash,
+            email: req.body.email,
+          });
+          const savedUser = await user.save();
+          res.json(savedUser);
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
