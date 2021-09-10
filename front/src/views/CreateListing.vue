@@ -1,8 +1,15 @@
 <template>
+<!-- Create Listing Front End + Validation + Styling - Keely -->
   <div class="create-listing-component">
     <div class="form">
       <h2>Create a Listing</h2>
-      <form @submit.prevent="sendListing">
+      <form @submit.prevent="checkForm">
+          <p v-if="errors.length">
+    <b>Please correct the following error(s):</b>
+    <ul>
+      <li v-for="error in errors" :key="error">{{ error }}</li>
+    </ul>
+  </p>
         <div class="form-group">
           <label for="title">Title</label>
           <input type="text" name="title" v-model="listing.title" />
@@ -10,19 +17,22 @@
         <div id="price-and-category">
           <div class="form-group">
             <label for="price">Price</label>
-            <input
-              type="number"
-              name="price"
-              placeholder="$"
-              v-model="listing.price"
-            />
+            <div id="wrap-price">
+              <input type="text" id="price-sign" value="$" readonly="readonly" />
+              <input
+                id="price-input"
+                type="number"
+                name="price"
+                max="999"
+                min="1"
+                v-model="listing.price"
+              />
+              <input type="text" id="price-static" value=".00" readonly="readonly" />
+            </div>
           </div>
           <div class="form-group">
             <label for="category">Category</label>
             <select name="category" id="category" placeholder="select" v-model="listing.category">
-              <!-- <option selected hidden value="Select Category">
-                Select category...
-              </option> -->
               <option value="Tea">Tea</option>
               <option value="Teacups">Teacups</option>
               <option value="Teapots">Teapots</option>
@@ -43,7 +53,7 @@
         <div class="form-group">
           <label for="image-url">Image URL</label>
           <input
-            type="text"
+            type="url"
             name="image-url"
             placeholder="eg: https://image-url"
             v-model="listing.imageUrl"
@@ -67,6 +77,7 @@ export default {
         description: null,
         imageUrl: null,
       },
+      errors: [],
     };
   },
   methods: {
@@ -96,6 +107,27 @@ export default {
       this.listing.description = null;
       this.listing.imageUrl = null;
     },
+    checkForm() {
+      this.errors = [];
+      if (!this.listing.title) {
+        this.errors.push('Title required.');
+      }
+      if (!this.listing.price) {
+        this.errors.push('Price required.');
+      }
+      if (!this.listing.category) {
+        this.errors.push('Category required.');
+      }
+      if (!this.listing.description) {
+        this.errors.push('Product Description required.');
+      }
+      if (!this.listing.imageUrl) {
+        this.errors.push('Image URL required.');
+      } else {
+        this.sendListing();
+        this.errors = [];
+      }
+    },
   },
 };
 </script>
@@ -106,6 +138,7 @@ export default {
   width: 75vw;
   margin-left: 2vw;
 }
+
 form {
   width: 75vw;
   height: 55vh;
@@ -115,10 +148,12 @@ form {
   text-align: center;
   justify-content: space-between;
 }
+
 input,
 textarea {
   width: 100%;
 }
+
 input,
 textarea,
 select {
@@ -126,12 +161,19 @@ select {
   border-radius: 3px;
   padding: 0.6em 0.4em;
 }
+
 select {
   background-color: white;
   padding: 0.5em 0.4em;
 }
+
 textarea {
   height: 10vh;
+  font-family: 'Questrial', sans-serif;
+}
+
+input:focus, textarea:focus {
+  outline: none;
 }
 
 #price-and-category {
@@ -141,19 +183,23 @@ textarea {
   justify-content: space-between;
   align-items: center;
 }
+
 #price-and-category input,
 #price-and-category select {
   width: 9em;
 }
+
 .form-group {
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 label {
   margin-bottom: 0.3em;
 }
+
 button {
   background-color: #a9c596;
   color: #2b463c;
@@ -162,5 +208,41 @@ button {
   border: none;
   margin-top: 2em;
   margin-left: 20vw;
+}
+
+#wrap-price{
+  display: flex;
+}
+
+#wrap-price input{
+  width: 5.9vw;
+  padding: 0.56em 0.1em;
+  padding-left: 0.2em;
+}
+
+#wrap-price input:focus{
+  outline: none;
+}
+
+#price-sign{
+  border-right: hidden;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right: -1.2em;
+  color: #2b463c77;
+}
+
+#price-input{
+  border-right: hidden;
+  border-left: hidden;
+  border-radius: 0;
+  margin-right: -0.1em;
+}
+
+#price-static{
+  border-left: hidden;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  color: #2b463c77;
 }
 </style>
