@@ -60,3 +60,23 @@ app.post("/create-listing", async (req, res, next) => {
       req.params.listingId);
     res.status(200).json(deletedListing);
   });
+
+  app.patch("/listings/edit/:listingId", async (req, res, next) => {
+    try {
+      const listingData = {
+        author: req.body.author,
+        title: req.body.title,
+        imageUrl: req.body.imageUrl,
+        description: req.body.description,
+        price: req.body.price,
+        category: req.body.category,
+      };
+      const updatedListing = await Listing.findByIdAndUpdate(
+        req.params.listingId,
+        listingData
+      );
+      res.json(updatedListing);
+    } catch (error) {
+      next(error);
+    }
+  });
