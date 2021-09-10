@@ -28,6 +28,13 @@ app.use(morgan('dev'));
 const Listing = require("./models/Listing");
 
 //END POINTS HERE
+
+app.get("/listings/:listingId", async (req, res) => {
+  const listing = await Listing.findById(req.params.listingId);
+  res.status(200).json(listing); 
+});
+
+
 app.post("/create-listing", async (req, res, next) => {
   try{const listing = new Listing({
       author:req.body.author,
@@ -41,6 +48,17 @@ app.post("/create-listing", async (req, res, next) => {
     const savedListing = await listing.save(); 
     res.json(savedListing);
   }catch(error){
-    console.error(error)
+    console.log(error)
   }
   });
+
+  //Delete Functionality - Annabel
+app.delete("listings/edit/:listingId",async (req, res, next) => {
+  try {
+    const deletedListing = await Listing.findByIdAndDelete(req.params.listingId);
+    res.status(200).json(deletedListing);
+  }catch (error) {
+    console.log(error);
+  }
+});
+
