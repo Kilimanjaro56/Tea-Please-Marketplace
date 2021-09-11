@@ -134,6 +134,9 @@ export default {
 </script>
 
 <style scoped>
+.create-listing-component{
+  margin-top: 3em;
+}
 .form {
   color: #2b463c;
   width: 75vw;
