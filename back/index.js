@@ -67,7 +67,7 @@ app.delete("/listings/edit/:listingId", async (req, res) => {
 const User = require("./models/User");
 
 //User Registration - Keely
-app.post("/signup", async (req, res) => {
+app.post("/signup", async (req, res, next) => {
   try {
     const existingsUser = await User.findOne({ email: req.body.email });
     if (existingsUser) {
