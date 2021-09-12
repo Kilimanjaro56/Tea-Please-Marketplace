@@ -1,6 +1,7 @@
 <template>
 <!-- Create Listing Front End + Validation + Styling - Keely -->
   <div class='create-listing-component'>
+    <BackButton/>
     <div class='form'>
       <h2>Create a Listing</h2>
       <form @submit.prevent='checkForm'>
@@ -67,6 +68,8 @@
 </template>
 
 <script>
+import BackButton from '../components/BackButton.vue';
+
 export default {
   data() {
     return {
@@ -80,6 +83,9 @@ export default {
       },
       errors: [],
     };
+  },
+  components: {
+    BackButton,
   },
   methods: {
     async sendListing() {
@@ -140,11 +146,11 @@ export default {
 .form {
   color: #2b463c;
   width: 75vw;
-  margin-left: 2vw;
+  margin-left: 11vw;
 }
 
 form {
-  width: 75vw;
+  width: 80vw;
   height: 55vh;
   display: flex;
   flex-direction: column;
@@ -190,7 +196,7 @@ input:focus, textarea:focus {
 
 #price-and-category input,
 #price-and-category select {
-  width: 9em;
+  width: 10.2em;
 }
 
 .form-group {

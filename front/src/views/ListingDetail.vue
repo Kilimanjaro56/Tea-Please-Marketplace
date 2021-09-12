@@ -1,5 +1,6 @@
 <template>
 <!-- Listing Detail Front End + Styling - Keely -->
+<BackButton/>
   <div class='item-detail' >
     <h2>Listing Details</h2>
     <div class='listing' v-if='listing.title'>
@@ -26,11 +27,16 @@
 </template>
 
 <script>
+import BackButton from '../components/BackButton.vue';
+
 export default {
   data() {
     return {
       listing: [],
     };
+  },
+  components: {
+    BackButton,
   },
   props: {
     listingId: String,
@@ -64,6 +70,7 @@ export default {
   justify-content: center;
   border-radius: 10px;
   margin-bottom: 0.4em;
+  margin-left: 11vw;
 }
 p{
   text-align: left;

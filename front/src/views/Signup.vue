@@ -106,16 +106,19 @@ export default {
 <style scoped>
 .signup{
   margin-top: 3em;
+  text-align: center;
 }
 hr{
   width: 80vw;
   border: 1px #A26360 solid;
   margin: 0;
+  margin-left: 8vw;
 }
 h2{
   margin-bottom: 0.2em;
 }
 form {
+  margin-left: 9vw;
   width: 75vw;
   height: 45vh;
   margin-top: 3em;
@@ -152,7 +155,7 @@ button{
   width: 60vw;
   height: 5vh;
   font-size: 1em;
-  margin-left: 10vw;
+  margin-left: 8vw;
 }
 #error-message{
   margin-top: 2em;
