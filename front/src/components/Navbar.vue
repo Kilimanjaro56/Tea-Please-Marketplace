@@ -3,7 +3,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   />
-  <div class="navbar">
+  <div class="navbar" v-if="user">
     <router-link to="/listings">
       <img src="../assets/Logo.png" alt="" />
     </router-link>
@@ -12,7 +12,7 @@
       <router-link to="/favourites">Favourites</router-link>
       <router-link to="/profile" class="alt-link-styling">My Profile</router-link>
       <router-link to="/about">About Us</router-link>
-      <router-link to="/login" class="alt-link-styling">Log Out</router-link>
+      <LogOutButton/>
     </div>
     <a class="icon" id="open-icon" @click="openMenu(); openIcon();">
       <i class="fa fa-bars"></i>
@@ -24,7 +24,20 @@
 </template>
 
 <script>
+import LogOutButton from './LogOut.vue';
+
 export default {
+  components: {
+    LogOutButton,
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  mounted() {
+    this.userLoggedIn();
+  },
   methods: {
     openMenu() {
       const items = document.getElementById('links');
@@ -65,6 +78,11 @@ export default {
       }
       if (openIcon.style.display === 'none') {
         openIcon.style.display = 'block';
+      }
+    },
+    userLoggedIn() {
+      if (window.localStorage.getItem('email')) {
+        this.user = window.localStorage.getItem('email');
       }
     },
   },

@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 dotenv.config();
 
 mongoose.connect(
@@ -24,7 +26,7 @@ mongoose.connect(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
 app.use(morgan("dev"));
 
 const Listing = require("./models/Listing");
@@ -62,7 +64,6 @@ app.delete("/listings/edit/:listingId", async (req, res) => {
   res.status(200).json(deletedListing);
 });
 
-
 //User Schema - Keely
 const User = require("./models/User");
 
@@ -71,7 +72,9 @@ app.post("/signup", async (req, res, next) => {
   try {
     const existingsUser = await User.findOne({ email: req.body.email });
     if (existingsUser) {
-      return res.status(409).json({ message: "This email already exists, log in below" });
+      return res
+        .status(409)
+        .json({ message: "This email already exists, log in below" });
     } else {
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
         if (err) {
@@ -90,4 +93,36 @@ app.post("/signup", async (req, res, next) => {
   } catch (error) {
     console.error(error);
   }
+});
+
+//Log In Keely
+app.post("/login", async (req, res) => {
+  const existingUser = await User.findOne({ email: req.body.email });
+  if (!existingUser) {
+    return res.status(401).json({ message: "Authenticaton Failed" });
+  } else {
+    bcrypt.compare(req.body.password, existingUser.password, (err, result) => {
+      if (err) {
+        return res.status(401).json({ message: "Authentication Failed" });
+      } else {
+        if (result) {
+          const lifespan = 1 * 60 * 60;
+          const token = jwt.sign(
+            { id: existingUser._id, email: existingUser.email },
+            "secretKey",
+            { expiresIn: lifespan }
+          );
+          res.cookie("jwt", token, { maxAge: lifespan * 1000, httpOnly : true});
+          res.status(200).json({email: existingUser.email})
+        } else {
+          res.status(401).json({ message: "Authentication Failed" });
+        }
+      }
+    });
+  }
+});
+
+app.get("/logout", async (req, res) => {
+  res.cookie("jwt", "", {maxAge: 1});
+  res.json({message: 'logged Out'});
 });

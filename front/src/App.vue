@@ -1,6 +1,6 @@
 <template>
-  <Navbar/>
-  <router-view/>
+    <Navbar/>
+    <router-view/>
 </template>
 
 <script>
@@ -42,5 +42,9 @@ button {
   padding: 0.8em 2.3em;
   border-radius: 4px;
   border: none;
+}
+a{
+  color: #2B463C;
+  text-decoration: none;
 }
 </style>
