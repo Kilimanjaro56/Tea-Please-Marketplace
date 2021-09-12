@@ -59,6 +59,7 @@ export default {
 <style scoped>
 .item-detail{
   margin-top: 3em;
+  margin-left: 8vw;
 }
 .image-container{
   width: 80vw;
@@ -70,7 +71,6 @@ export default {
   justify-content: center;
   border-radius: 10px;
   margin-bottom: 0.4em;
-  margin-left: 11vw;
 }
 p{
   text-align: left;

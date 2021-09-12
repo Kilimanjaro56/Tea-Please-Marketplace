@@ -33,7 +33,7 @@
       </div>
       <p id ='error-message' v-if="message">{{message.message}}</p>
       <div class='form-group'>
-        <button type='submit'><router-link to='/listings'>Log In</router-link></button>
+        <button type='submit' @click="checkForm" >Log In</button>
       </div>
     </form>
     <div>
@@ -69,8 +69,13 @@ export default {
         credentials: 'include',
       });
       const data = await response.json();
+      this.message = data;
       if (data.email) {
         window.localStorage.setItem('email', data.email);
+      }
+      if (window.localStorage.getItem('email')) {
+        console.log('Will proceed');
+        window.location.assign('http://localhost:8080/listings');
       }
       this.$emit('loggedin');
     },
@@ -82,8 +87,8 @@ export default {
       if (!this.user.password) {
         this.errors.push('Password required.');
       } else {
-        this.logIn();
         this.errors = [];
+        this.logIn();
       }
     },
     resetForm() {
