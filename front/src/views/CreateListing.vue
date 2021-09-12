@@ -104,8 +104,11 @@ export default {
         body: JSON.stringify(listing),
       });
       const data = await response.json();
-      console.log(data);
+      /* eslint-disable */
+      console.log(data._id);
       this.resetCreate();
+      window.location.assign(`http://localhost:8080/listings/${data._id}`)
+      // /* eslint-enable */
     },
     resetCreate() {
       this.listing.title = null;
