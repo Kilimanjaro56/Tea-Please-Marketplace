@@ -19,7 +19,7 @@ const CommentSchema = mongoose.Schema(
   );
 
 const ListingSchema = mongoose.Schema({
-    author: { type: String, default: "anonymous" },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     imageUrl: { type: String, required: true },
     description: { type: String, required: true },

@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/login" class="alt-link-styling" @click="logOut">Log Out</router-link>
+  <a class="alt-link" @click="logOut">Log Out</a>
 </template>
 
 <script>
@@ -18,6 +18,7 @@ export default {
       console.log(data);
       this.user = window.localStorage.removeItem('email');
       this.user = null;
+      window.location.assign('http://localhost:8080/login');
     },
   },
 };

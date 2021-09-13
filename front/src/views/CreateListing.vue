@@ -65,23 +65,12 @@
       </form>
     </div>
   </div>
-  <div v-else>
-    <h2>Sorry!</h2>
-    <p>You must be logged in to use Tea Please!</p>
-    <p>Log in or Sign up below!</p>
-     <div id="error-buttons">
-       <router-link id='login-link' to='/login'>
-           <button>Login</button>
-       </router-link>
-       <router-link id='signup-link' to='/signup'>
-           <button>Signup</button>
-       </router-link>
-     </div>
-  </div>
+<UserErrorMessage v-else/>
 </template>
 
 <script>
 import BackButton from '../components/BackButton.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   data() {
@@ -101,6 +90,7 @@ export default {
   },
   components: {
     BackButton,
+    UserErrorMessage,
   },
   methods: {
     async sendListing() {
@@ -122,8 +112,8 @@ export default {
       /* eslint-disable */
       console.log(data._id);
       this.resetCreate();
-      window.location.assign(`http://localhost:8080/listings/${data._id}`)
-      // /* eslint-enable */
+      window.location.assign(`http://localhost:8080/listings/${data._id}`);
+      /* eslint-enable */
     },
     resetCreate() {
       this.listing.title = null;
@@ -278,8 +268,5 @@ button {
 }
 b{
   color: #a26360;
-}
-#error-buttons{
-  margin-left: -20vw;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <Navbar/>
+    <Navbar v-if="user"/>
     <router-view @loggedin="checkLoggedIn" :user="user"/>
 </template>
 

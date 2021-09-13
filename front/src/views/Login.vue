@@ -1,5 +1,5 @@
 <template>
-  <div class='Login'>
+  <div class='login'>
     <!-- Keely Log In + Validation -->
     <h2>Log In</h2>
     <hr>
@@ -100,9 +100,11 @@ export default {
 </script>
 
 <style scoped>
-.signup{
-  margin-top: 3em;
-  text-align: center;
+.login{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 hr{
   width: 80vw;
@@ -116,7 +118,7 @@ h2{
 form {
   margin-left: 9vw;
   width: 75vw;
-  height: 45vh;
+  height: 35vh;
   margin-top: 3em;
   display: flex;
   flex-direction: column;

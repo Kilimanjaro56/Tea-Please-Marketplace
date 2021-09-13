@@ -24,26 +24,47 @@ mongoose.connect(
   }
 );
 
+//Middleware
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
 app.use(morgan("dev"));
+app.use(cookieParser());
 
-const Listing = require("./models/Listing");
+//Route Protection - Keely
+const authUser = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if(!token){
+    console.log('No Token');
+    return res.status(401).json({message: 'Access Denied'});
+  } else {
+    jwt.verify(token, 'secretKey', (err, decodedToken) => {
+      if(err) {
+        console.log(err);
+        return res.status(500).json({message: err.message});
+      } else {
+        req.userId = decodedToken.id;
+        next();
+      }
+    });
+  } 
+};
 
 //END POINTS HERE
+const Listing = require("./models/Listing");
 
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
-  const listing = await Listing.findById(req.params.listingId);
+  const listing = await Listing.findById(req.params.listingId).populate('author', 'name');
   res.status(200).json(listing);
 });
 
 //Post End Point - Keely
-app.post("/create-listing", async (req, res, next) => {
+app.post("/create-listing", authUser, async (req, res, next) => {
   try {
     const listing = new Listing({
-      author: req.body.author,
+      author: req.userId,
       title: req.body.title,
       imageUrl: req.body.imageUrl,
       description: req.body.description,
@@ -66,6 +87,7 @@ app.delete("/listings/edit/:listingId", async (req, res) => {
 
 //User Schema - Keely
 const User = require("./models/User");
+const { response } = require("express");
 
 //User Registration - Keely
 app.post("/signup", async (req, res, next) => {
@@ -95,7 +117,7 @@ app.post("/signup", async (req, res, next) => {
   }
 });
 
-//Log In Keely
+//Log In - Keely
 app.post("/login", async (req, res) => {
   const existingUser = await User.findOne({ email: req.body.email });
   if (!existingUser) {
@@ -121,7 +143,7 @@ app.post("/login", async (req, res) => {
     });
   }
 });
-
+//Log Out - Keely
 app.get("/logout", async (req, res) => {
   res.cookie("jwt", "", {maxAge: 1});
   res.json({message: 'logged Out'});

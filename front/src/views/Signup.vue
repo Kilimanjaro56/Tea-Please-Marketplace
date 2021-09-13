@@ -106,8 +106,10 @@ export default {
 
 <style scoped>
 .signup{
-  margin-top: 3em;
-  text-align: center;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 hr{
   width: 80vw;

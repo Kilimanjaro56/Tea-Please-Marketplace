@@ -8,9 +8,9 @@
       <img src="../assets/Logo.png" alt="" />
     </router-link>
     <div id="links" @click="closeMenu">
-      <router-link to="/listings" id="no-shadow" class="alt-link-styling">Home</router-link>
+      <router-link to="/listings" id="no-shadow" class="alt-link">Home</router-link>
       <router-link to="/favourites">Favourites</router-link>
-      <router-link to="/profile" class="alt-link-styling">My Profile</router-link>
+      <router-link to="/profile" class="alt-link">My Profile</router-link>
       <router-link to="/about">About Us</router-link>
       <LogOutButton/>
     </div>
@@ -35,7 +35,7 @@ export default {
       user: null,
     };
   },
-  mounted() {
+  created() {
     this.userLoggedIn();
   },
   methods: {
@@ -129,7 +129,7 @@ img {
   -webkit-box-shadow: 0px -3px 24px -2px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: 0px -3px 24px -2px rgba(0, 0, 0, 0.08);
 }
-#links .alt-link-styling {
+#links .alt-link {
   background-color: #f4f1e9;
 }
 .navbar a.icon {

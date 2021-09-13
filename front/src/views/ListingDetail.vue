@@ -1,7 +1,7 @@
 <template>
 <!-- Listing Detail Front End + Styling - Keely -->
+  <div class='item-detail' v-if="user" >
 <BackButton/>
-  <div class='item-detail' >
     <h2>Listing Details</h2>
     <div class='listing' v-if='listing.title'>
       <div id='content-above-image'>
@@ -20,14 +20,16 @@
     </div>
         <div v-else>
           <h3>Error!</h3>
-          <h4>Sorry this page isn't avalible, please check the link and try again</h4>
+          <h4>Sorry this listing isn't avalible, please check the link and try again</h4>
           <button>Return to Home</button>
         </div>
   </div>
+<UserErrorMessage v-else/>
 </template>
 
 <script>
 import BackButton from '../components/BackButton.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   data() {
@@ -37,9 +39,11 @@ export default {
   },
   components: {
     BackButton,
+    UserErrorMessage,
   },
   props: {
     listingId: String,
+    user: String,
   },
   methods: {
     async getListingDetail() {
