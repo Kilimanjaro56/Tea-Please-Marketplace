@@ -8,7 +8,7 @@
         <div id='seller-container' >
           <h3>Seller: {{this.listing.author.name}}</h3>
         </div>
-            <button v-if="this.listing.isActive" @click="toggle">Purchase</button>
+            <button v-if="this.listing.isActive" @click="temporaryToggle">Purchase</button>
       </div>
       <div class='image-container'><img :src='this.listing.imageUrl' alt='' /></div>
       <div class='listing-details'>
@@ -61,8 +61,8 @@ export default {
       const data = await response.json();
       this.listing = data;
     },
-    toggle() {
-      this.listing.isActive = !this.listing.isActive
+    async temporaryToggle() {
+      this.listing.isActive = !this.listing.isActive;
     },
   },
   mounted() {
