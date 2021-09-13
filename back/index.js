@@ -57,11 +57,16 @@ app.post("/create-listing", async (req, res, next) => {
 });
 
 //Delete Functionality - Annabel
-app.delete("/listings/edit/:listingId", async (req, res) => {
-  const deletedListing = await Listing.findByIdAndDelete(req.params.listingId);
-  res.status(200).json(deletedListing);
+app.delete("/listings/edit/:listingId", async (req, res, next) => {
+  try {
+    const deletedListing = await Listing.findByIdAndDelete(
+      req.params.listingId
+    );
+    res.status(200).json(deletedListing);
+  } catch (err) {
+    next(err);
+  }
 });
-
 
 //User Schema - Keely
 const User = require("./models/User");
@@ -71,7 +76,9 @@ app.post("/signup", async (req, res, next) => {
   try {
     const existingsUser = await User.findOne({ email: req.body.email });
     if (existingsUser) {
-      return res.status(409).json({ message: "This email already exists, log in below" });
+      return res
+        .status(409)
+        .json({ message: "This email already exists, log in below" });
     } else {
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
         if (err) {
