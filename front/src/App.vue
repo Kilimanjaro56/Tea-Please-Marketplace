@@ -1,10 +1,32 @@
 <template>
-  <div id="nav">
-    <router-link to="/listings">Home</router-link>
-    <router-link to="/about">About</router-link>
-    <router-view />
-  </div>
+    <Navbar v-if="user"/>
+    <router-view @loggedin="checkLoggedIn" :user="user"/>
 </template>
+
+<script>
+import Navbar from './components/Navbar.vue';
+
+export default ({
+  data() {
+    return {
+      user: null,
+    };
+  },
+  components: {
+    Navbar,
+  },
+  created() {
+    this.checkLoggedIn();
+  },
+  methods: {
+    checkLoggedIn() {
+      if (window.localStorage.getItem('email')) {
+        this.user = window.localStorage.getItem('email');
+      }
+    },
+  },
+});
+</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@500;700&family=Questrial&display=swap');
@@ -28,19 +50,6 @@ h3{
   color: #2B463C;
   font-weight: 500;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 button {
   background-color: #a9c596;
   height: 2.7em;
@@ -48,5 +57,9 @@ button {
   padding: 0.8em 2.3em;
   border-radius: 4px;
   border: none;
+}
+a{
+  color: #2B463C;
+  text-decoration: none;
 }
 </style>

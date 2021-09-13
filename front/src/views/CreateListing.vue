@@ -1,84 +1,96 @@
 <template>
 <!-- Create Listing Front End + Validation + Styling - Keely -->
-  <div class="create-listing-component">
-    <div class="form">
+  <div class='create-listing-component' v-if="user">
+    <BackButton/>
+    <div class='form'>
       <h2>Create a Listing</h2>
-      <form @submit.prevent="checkForm">
-          <p v-if="errors.length">
-    <b>Please correct the following error(s):</b>
-    <ul>
-      <li v-for="error in errors" :key="error">{{ error }}</li>
-    </ul>
-  </p>
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" name="title" v-model="listing.title" />
+      <form @submit.prevent='checkForm'>
+          <p id='errors' v-if='errors.length'>
+            <b>Please check the following field(s):</b>
+            <ul>
+              <li v-for='error in errors' :key='error'>{{ error }}</li>
+            </ul>
+            </p>
+        <div class='form-group'>
+          <label for='title'>Title</label>
+          <input type='text' name='title' v-model='listing.title' />
         </div>
-        <div id="price-and-category">
-          <div class="form-group">
-            <label for="price">Price</label>
-            <div id="wrap-price">
-              <input type="text" id="price-sign" value="$" readonly="readonly" />
+        <div id='price-and-category'>
+          <div class='form-group'>
+            <label for='price'>Price</label>
+            <div id='wrap-price'>
+              <input type='text' id='price-sign' value='$' readonly='readonly' />
               <input
-                id="price-input"
-                type="number"
-                name="price"
-                max="999"
-                min="1"
-                v-model="listing.price"
+                id='price-input'
+                type='number'
+                name='price'
+                max='999'
+                min='1'
+                v-model='listing.price'
               />
-              <input type="text" id="price-static" value=".00" readonly="readonly" />
+              <input type='text' id='price-static' value='.00' readonly='readonly' />
             </div>
           </div>
-          <div class="form-group">
-            <label for="category">Category</label>
-            <select name="category" id="category" placeholder="select" v-model="listing.category">
-              <option value="Tea">Tea</option>
-              <option value="Teacups">Teacups</option>
-              <option value="Teapots">Teapots</option>
-              <option value="Tea Sets">Tea Sets</option>
-              <option value="Misc">Misc</option>
+          <div class='form-group'>
+            <label for='category'>Category</label>
+            <select name='category' id='category' placeholder='select' v-model='listing.category'>
+              <option value='Tea'>Tea</option>
+              <option value='Teacups'>Teacups</option>
+              <option value='Teapots'>Teapots</option>
+              <option value='Tea Sets'>Tea Sets</option>
+              <option value='Misc'>Misc</option>
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label for="description">Product Description</label>
+        <div class='form-group'>
+          <label for='description'>Product Description</label>
           <textarea
-            maxlength="200"
-            row="50"
-            name="description"
-            v-model="listing.description"
+            maxlength='800'
+            row='50'
+            name='description'
+            placeholder='Max limit 800 characters'
+            v-model='listing.description'
           />
         </div>
-        <div class="form-group">
-          <label for="image-url">Image URL</label>
+        <div class='form-group'>
+          <label for='image-url'>Image URL</label>
           <input
-            type="url"
-            name="image-url"
-            placeholder="eg: https://image-url"
-            v-model="listing.imageUrl"
+            type='url'
+            name='image-url'
+            placeholder='eg: https://image-url'
+            v-model='listing.imageUrl'
           />
         </div>
-        <button type="submit">Upload Listing</button>
+        <button type='submit'>Upload Listing</button>
       </form>
     </div>
   </div>
+<UserErrorMessage v-else/>
 </template>
 
 <script>
+import BackButton from '../components/BackButton.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
+
 export default {
   data() {
     return {
       listing: {
         title: null,
         price: null,
-        author: null,
         category: null,
         description: null,
         imageUrl: null,
       },
       errors: [],
     };
+  },
+  props: {
+    user: String,
+  },
+  components: {
+    BackButton,
+    UserErrorMessage,
   },
   methods: {
     async sendListing() {
@@ -88,17 +100,20 @@ export default {
       listing.category = this.listing.category;
       listing.description = this.listing.description;
       listing.imageUrl = this.listing.imageUrl;
-      listing.author = 'Test User'; // testing purposes until users are added
 
       console.log(listing);
       const response = await fetch('http://localhost:3000/create-listing', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(listing),
+        credentials: 'include',
       });
       const data = await response.json();
-      console.log(data);
+      /* eslint-disable */
+      console.log(data._id);
       this.resetCreate();
+      window.location.assign(`http://localhost:8080/listings/${data._id}`);
+      /* eslint-enable */
     },
     resetCreate() {
       this.listing.title = null;
@@ -133,14 +148,17 @@ export default {
 </script>
 
 <style scoped>
+.create-listing-component{
+  margin-top: 3em;
+}
 .form {
   color: #2b463c;
   width: 75vw;
-  margin-left: 2vw;
+  margin-left: 11vw;
 }
 
 form {
-  width: 75vw;
+  width: 80vw;
   height: 55vh;
   display: flex;
   flex-direction: column;
@@ -186,7 +204,7 @@ input:focus, textarea:focus {
 
 #price-and-category input,
 #price-and-category select {
-  width: 9em;
+  width: 10.2em;
 }
 
 .form-group {
@@ -244,5 +262,11 @@ button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   color: #2b463c77;
+}
+#errors{
+  color: #2b463c;
+}
+b{
+  color: #a26360;
 }
 </style>

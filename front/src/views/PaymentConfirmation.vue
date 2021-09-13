@@ -1,5 +1,5 @@
 <template>
-  <div class="payment-confirmation">
+  <div class='payment-confirmation'>
     <h2>Payment Confirmation</h2>
   </div>
 </template>

@@ -1,15 +1,17 @@
 <template>
-  <div class="item-detail" >
+<!-- Listing Detail Front End + Styling - Keely -->
+  <div class='item-detail' v-if="user" >
+<BackButton/>
     <h2>Listing Details</h2>
-    <div class="listing" v-if="listing.title">
-      <div id="content-above-image">
-        <div id="seller-container" >
-          <h3>Seller: {{this.listing.author}}</h3>
+    <div class='listing' v-if='listing.title'>
+      <div id='content-above-image'>
+        <div id='seller-container' >
+          <h3>Seller: {{this.listing.author.name}}</h3>
         </div>
             <button>Purchase</button>
       </div>
-      <div class="image-container"><img :src="this.listing.imageUrl" alt="" /></div>
-      <div class="listing-details">
+      <div class='image-container'><img :src='this.listing.imageUrl' alt='' /></div>
+      <div class='listing-details'>
         <h3>{{this.listing.title}}</h3>
         <h4>${{this.listing.price}}.00</h4>
       </div>
@@ -18,21 +20,30 @@
     </div>
         <div v-else>
           <h3>Error!</h3>
-          <h4>Sorry this page isn't avalible, please check the link and try again</h4>
+          <h4>Sorry this listing isn't avalible, please check the link and try again</h4>
           <button>Return to Home</button>
         </div>
   </div>
+<UserErrorMessage v-else/>
 </template>
 
 <script>
+import BackButton from '../components/BackButton.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
+
 export default {
   data() {
     return {
       listing: [],
     };
   },
+  components: {
+    BackButton,
+    UserErrorMessage,
+  },
   props: {
     listingId: String,
+    user: String,
   },
   methods: {
     async getListingDetail() {
@@ -52,6 +63,7 @@ export default {
 <style scoped>
 .item-detail{
   margin-top: 3em;
+  margin-left: 8vw;
 }
 .image-container{
   width: 80vw;
@@ -60,6 +72,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-end;
+  justify-content: center;
   border-radius: 10px;
   margin-bottom: 0.4em;
 }
@@ -69,8 +82,8 @@ p{
 }
 
 img{
-  height: auto;
-  width: 100%;
+  width: 140%;
+  min-height: 100%;
 }
 h4{
 font-size: 1.1em;
