@@ -29,6 +29,7 @@
           name='password'
           placeholder='e.g: i10veT3a'
           id='password'
+          minlength="8"
         />
       </div>
       <div class='form-group'>

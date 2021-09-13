@@ -6,7 +6,7 @@
     <div class='listing' v-if='listing.title'>
       <div id='content-above-image'>
         <div id='seller-container' >
-          <h3>Seller: {{this.listing.author}}</h3>
+          <h3>Seller: {{this.listing.author.name}}</h3>
         </div>
             <button>Purchase</button>
       </div>

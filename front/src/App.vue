@@ -1,14 +1,29 @@
 <template>
     <Navbar/>
-    <router-view/>
+    <router-view @loggedin="checkLoggedIn" :user="user"/>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue';
 
 export default ({
+  data() {
+    return {
+      user: null,
+    };
+  },
   components: {
     Navbar,
+  },
+  created() {
+    this.checkLoggedIn();
+  },
+  methods: {
+    checkLoggedIn() {
+      if (window.localStorage.getItem('email')) {
+        this.user = window.localStorage.getItem('email');
+      }
+    },
   },
 });
 </script>

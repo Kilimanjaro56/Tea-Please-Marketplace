@@ -19,11 +19,6 @@ export default {
       this.user = window.localStorage.removeItem('email');
       this.user = null;
     },
-    userLoggedIn() {
-      if (window.localStorage.getItem('email')) {
-        this.user = window.localStorage.getItem('email');
-      }
-    },
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
 <!-- Create Listing Front End + Validation + Styling - Keely -->
-  <div class='create-listing-component'>
+  <div class='create-listing-component' v-if="user">
     <BackButton/>
     <div class='form'>
       <h2>Create a Listing</h2>
@@ -65,6 +65,19 @@
       </form>
     </div>
   </div>
+  <div v-else>
+    <h2>Sorry!</h2>
+    <p>You must be logged in to use Tea Please!</p>
+    <p>Log in or Sign up below!</p>
+     <div id="error-buttons">
+       <router-link id='login-link' to='/login'>
+           <button>Login</button>
+       </router-link>
+       <router-link id='signup-link' to='/signup'>
+           <button>Signup</button>
+       </router-link>
+     </div>
+  </div>
 </template>
 
 <script>
@@ -76,13 +89,15 @@ export default {
       listing: {
         title: null,
         price: null,
-        author: null,
         category: null,
         description: null,
         imageUrl: null,
       },
       errors: [],
     };
+  },
+  props: {
+    user: String,
   },
   components: {
     BackButton,
@@ -95,13 +110,13 @@ export default {
       listing.category = this.listing.category;
       listing.description = this.listing.description;
       listing.imageUrl = this.listing.imageUrl;
-      listing.author = 'Test User'; // testing purposes until users are added
 
       console.log(listing);
       const response = await fetch('http://localhost:3000/create-listing', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(listing),
+        credentials: 'include',
       });
       const data = await response.json();
       /* eslint-disable */
@@ -263,5 +278,8 @@ button {
 }
 b{
   color: #a26360;
+}
+#error-buttons{
+  margin-left: -20vw;
 }
 </style>
