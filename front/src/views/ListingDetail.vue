@@ -1,14 +1,14 @@
 <template>
 <!-- Listing Detail Front End + Styling - Keely -->
   <div class='item-detail' v-if="user" >
-<BackButton/>
+    <BackButton/>
     <h2>Listing Details</h2>
     <div class='listing' v-if='listing.title'>
       <div id='content-above-image'>
         <div id='seller-container' >
           <h3>Seller: {{this.listing.author.name}}</h3>
         </div>
-            <button>Purchase</button>
+            <button v-if="this.listing.isActive" @click="toggle">Purchase</button>
       </div>
       <div class='image-container'><img :src='this.listing.imageUrl' alt='' /></div>
       <div class='listing-details'>
@@ -17,6 +17,14 @@
       </div>
         <hr>
         <p>{{this.listing.description}}</p>
+        <div class="comments" v-if="this.listing.isActive">
+          <!-- Insert Comment Component Here -->
+          <p>Comments</p>
+        </div>
+        <div class="reviews" v-else>
+          <!-- Insert Reviews Component Here -->
+          <p>Reviews</p>
+        </div>
     </div>
         <div v-else>
           <h3>Error!</h3>
@@ -52,6 +60,9 @@ export default {
       );
       const data = await response.json();
       this.listing = data;
+    },
+    toggle() {
+      this.listing.isActive = !this.listing.isActive
     },
   },
   mounted() {

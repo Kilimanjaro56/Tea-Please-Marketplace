@@ -25,6 +25,7 @@ const ListingSchema = mongoose.Schema({
     description: { type: String, required: true },
     price:{type: Number, required: true},
     category:{type: String, required: true},
+    isActive:{type: Boolean, required: true, default: true},
     comments: [CommentSchema],
     reviews: [ReviewSchema]
     },

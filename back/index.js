@@ -87,7 +87,6 @@ app.delete("/listings/edit/:listingId", async (req, res) => {
 
 //User Schema - Keely
 const User = require("./models/User");
-const { response } = require("express");
 
 //User Registration - Keely
 app.post("/signup", async (req, res, next) => {
