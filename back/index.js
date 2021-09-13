@@ -80,9 +80,15 @@ app.post("/create-listing", authUser, async (req, res, next) => {
 });
 
 //Delete Functionality - Annabel
-app.delete("/listings/edit/:listingId", async (req, res) => {
-  const deletedListing = await Listing.findByIdAndDelete(req.params.listingId);
-  res.status(200).json(deletedListing);
+app.delete("/listings/edit/:listingId", async (req, res, next) => {
+  try {
+    const deletedListing = await Listing.findByIdAndDelete(
+      req.params.listingId
+    );
+    res.status(200).json(deletedListing);
+  } catch (err) {
+    next(err);
+  }
 });
 
 //User Schema - Keely
