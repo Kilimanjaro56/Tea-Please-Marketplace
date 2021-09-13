@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const CommentSchema = mongoose.Schema(
     {
-      author: { type: String, default: "anon" },
+      author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
       title: { type: String, required: true },
       body: { type: String, required: true },
     },
@@ -11,7 +11,7 @@ const CommentSchema = mongoose.Schema(
 
   const ReviewSchema = mongoose.Schema(
     {
-      author: { type: String, default: "anon" },
+      author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
       title: { type: String, required: true },
       body: { type: String, required: true },
     },
