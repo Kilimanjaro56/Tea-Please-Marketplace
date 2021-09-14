@@ -1,56 +1,77 @@
 <template>
-  <div class='signup'>
+  <div class="signup">
     <!-- Keely Sign Up Front + Validation -->
     <h2>Sign Up</h2>
     <hr>
-    <p id='errors' v-if='errors.length'>
-    <b>Please check the following field(s):</b>
-    <ul>
-    <li v-for='error in errors' :key='error'>{{ error }}</li>
-    </ul>
+    <p
+      v-if="errors.length"
+      id="errors"
+    >
+      <b>Please check the following field(s):</b>
+      <ul>
+        <li
+          v-for="error in errors"
+          :key="error"
+        >
+          {{ error }}
+        </li>
+      </ul>
     </p>
-    <form @submit.prevent='checkForm'>
-      <div class='form-group'>
-        <label for='name'>User Name</label>
+    <form @submit.prevent="checkForm">
+      <div class="form-group">
+        <label for="name">User Name</label>
         <input
-          v-model='user.name'
-          type='text'
-          name='name'
+          id="name"
+          v-model="user.name"
+          type="text"
+          name="name"
           pattern="[a-zA-Z]*[a-zA-Z]"
-          placeholder='e.g: John Doe'
-          id='name'
-        />
+          placeholder="e.g: John Doe"
+        >
       </div>
-      <div class='form-group'>
-        <label for='password'>Password</label>
+      <div class="form-group">
+        <label for="password">Password</label>
         <input
-          v-model='user.password'
-          type='password'
-          name='password'
-          placeholder='e.g: i10veT3a'
-          id='password'
+          id="password"
+          v-model="user.password"
+          type="password"
+          name="password"
+          placeholder="e.g: i10veT3a"
           minlength="8"
-        />
+        >
       </div>
-      <div class='form-group'>
-        <label for='email'>Email Address</label>
+      <div class="form-group">
+        <label for="email">Email Address</label>
         <input
-        @keyup="this.message.message = null"
-          v-model='user.email'
-          type='email'
-          name='email'
-          placeholder='e.g: example@eg.com'
-          id='email'
-        />
+          id="email"
+          v-model="user.email"
+          type="email"
+          name="email"
+          placeholder="e.g: example@eg.com"
+          @keyup="message.message = null"
+        >
       </div>
-      <p id ='error-message' v-if="message">{{message.message}}</p>
-      <div class='form-group'>
-        <button type='submit'>Sign Up</button>
+      <p
+        v-if="message"
+        id="error-message"
+      >
+        {{ message.message }}
+      </p>
+      <div class="form-group">
+        <button type="submit">
+          Sign Up
+        </button>
       </div>
     </form>
     <div>
-      <p>Already have an account?<br>
-        <router-link id='login-link' to='/login'>Click here to Login</router-link>
+      <p>
+        Already have an account?<br>
+        <router-link
+          id="login-link"
+          to="/login"
+        >
+          Click here to Login
+        </router-link>
       </p>
     </div>
   </div>

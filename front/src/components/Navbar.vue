@@ -1,25 +1,59 @@
 <template>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
-  <div class="navbar" v-if="user">
-    <router-link to="/listings">
-      <img src="../assets/Logo.png" alt="" />
-    </router-link>
-    <div id="links" @click="closeMenu">
-      <router-link to="/listings" id="no-shadow" class="alt-link">Home</router-link>
-      <router-link to="/favourites">Favourites</router-link>
-      <router-link to="/profile" class="alt-link">My Profile</router-link>
-      <router-link to="/about">About Us</router-link>
-      <LogOutButton/>
+  <div class="navbar">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    >
+    <div
+      v-if="user"
+      class="navbar"
+    >
+      <router-link to="/listings">
+        <img
+          src="../assets/Logo.png"
+          alt=""
+        >
+      </router-link>
+      <div
+        id="links"
+        @click="closeMenu"
+      >
+        <router-link
+          id="no-shadow"
+          to="/listings"
+          class="alt-link"
+        >
+          Home
+        </router-link>
+        <router-link to="/favourites">
+          Favourites
+        </router-link>
+        <router-link
+          to="/profile"
+          class="alt-link"
+        >
+          My Profile
+        </router-link>
+        <router-link to="/about">
+          About Us
+        </router-link>
+        <LogOutButton />
+      </div>
+      <a
+        id="open-icon"
+        class="icon"
+        @click="openMenu(); openIcon();"
+      >
+        <i class="fa fa-bars" />
+      </a>
+      <a
+        id="close-icon"
+        class="icon"
+        @click="closeMenu(); closeIcon();"
+      >
+        <i class="fa fa-times" />
+      </a>
     </div>
-    <a class="icon" id="open-icon" @click="openMenu(); openIcon();">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a class="icon" id="close-icon" @click="closeMenu(); closeIcon();">
-      <i class="fa fa-times"></i>
-    </a>
   </div>
 </template>
 

@@ -1,5 +1,8 @@
 <template>
-  <a class="alt-link" @click="logOut">Log Out</a>
+  <a
+    class="alt-link"
+    @click="logOut"
+  >Log Out</a>
 </template>
 
 <script>
@@ -15,7 +18,7 @@ export default {
         credentials: 'include',
       });
       const data = await response.json();
-      console.log(data);
+      this.user = data;
       this.user = window.localStorage.removeItem('email');
       this.user = null;
       window.location.assign('http://localhost:8080/login');

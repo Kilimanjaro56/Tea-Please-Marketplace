@@ -1,6 +1,6 @@
 <template>
   <span class="back-button">
-    <button @click="goBack"><i class="fas fa-chevron-left"></i></button>
+    <button @click="goBack"><i class="fas fa-chevron-left" /></button>
   </span>
 </template>
 

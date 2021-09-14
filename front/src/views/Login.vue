@@ -1,44 +1,67 @@
 <template>
-  <div class='login'>
+  <div class="login">
     <!-- Keely Log In + Validation -->
     <h2>Log In</h2>
     <hr>
-    <p id='errors' v-if='errors.length'>
-    <b>Please check the following field(s):</b>
-    <ul>
-    <li v-for='error in errors' :key='error'>{{ error }}</li>
-    </ul>
+    <p
+      v-if="errors.length"
+      id="errors"
+    >
+      <b>Please check the following field(s):</b>
+      <ul>
+        <li
+          v-for="error in errors"
+          :key="error"
+        >
+          {{ error }}
+        </li>
+      </ul>
     </p>
-    <form @submit.prevent='checkForm'>
-      <div class='form-group'>
-        <label for='email'>Email Address</label>
+    <form @submit.prevent="checkForm">
+      <div class="form-group">
+        <label for="email">Email Address</label>
         <input
-        @keyup="this.message.message = null"
-          v-model='user.email'
-          type='email'
-          name='email'
-          placeholder='e.g: example@eg.com'
-          id='email'
-        />
+          id="email"
+          v-model="user.email"
+          type="email"
+          name="email"
+          placeholder="e.g: example@eg.com"
+          @keyup="message.message = null"
+        >
       </div>
-      <div class='form-group'>
-        <label for='password'>Password</label>
+      <div class="form-group">
+        <label for="password">Password</label>
         <input
-          v-model='user.password'
-          type='password'
-          name='password'
-          placeholder='e.g: i10veT3a'
-          id='password'
-        />
+          id="password"
+          v-model="user.password"
+          type="password"
+          name="password"
+          placeholder="e.g: i10veT3a"
+        >
       </div>
-      <p id ='error-message' v-if="message">{{message.message}}</p>
-      <div class='form-group'>
-        <button type='submit' @click="checkForm" >Log In</button>
+      <p
+        v-if="message"
+        id="error-message"
+      >
+        {{ message.message }}
+      </p>
+      <div class="form-group">
+        <button
+          type="submit"
+          @click="checkForm"
+        >
+          Log In
+        </button>
       </div>
     </form>
     <div>
       <p>
-        <router-link id='signup-link' to='/signup'>Click here to Sign Up</router-link>
+        <router-link
+          id="signup-link"
+          to="/signup"
+        >
+          Click here to Sign Up
+        </router-link>
       </p>
     </div>
   </div>
@@ -74,7 +97,6 @@ export default {
         window.localStorage.setItem('email', data.email);
       }
       if (window.localStorage.getItem('email')) {
-        console.log('Will proceed');
         window.location.assign('http://localhost:8080/listings');
       }
       this.$emit('loggedin');

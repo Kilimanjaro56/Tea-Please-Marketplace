@@ -1,4 +1,4 @@
-//Initial Set Up - Keely
+// Initial Set Up - Keely
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -24,7 +24,7 @@ mongoose.connect(
   }
 );
 
-//Middleware
+// Middleware
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -51,7 +51,7 @@ const authUser = (req, res, next) => {
   } 
 };
 
-//END POINTS HERE
+// END POINTS HERE
 const Listing = require("./models/Listing");
 
 //Get Single Post End Point - Keely

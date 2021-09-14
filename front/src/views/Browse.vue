@@ -1,5 +1,5 @@
 <template>
-  <div class='browse'>
+  <div class="browse">
     <h2>Browse Listings</h2>
   </div>
 </template>

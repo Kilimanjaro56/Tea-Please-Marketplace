@@ -4,10 +4,16 @@
     <p>You must be logged in to use Tea Please!</p>
     <p>Log in or Sign up below!</p>
     <div id="error-buttons">
-      <router-link id="login-link" to="/login">
+      <router-link
+        id="login-link"
+        to="/login"
+      >
         <button>Login</button>
       </router-link>
-      <router-link id="signup-link" to="/signup">
+      <router-link
+        id="signup-link"
+        to="/signup"
+      >
         <button>Signup</button>
       </router-link>
     </div>

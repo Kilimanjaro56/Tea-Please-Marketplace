@@ -1,38 +1,60 @@
 <template>
-<!-- Listing Detail Front End + Styling - Keely -->
-  <div class='item-detail' v-if="user" >
-    <BackButton/>
+  <!-- Listing Detail Front End + Styling - Keely -->
+  <div
+    v-if="user"
+    class="item-detail"
+  >
+    <BackButton />
     <h2>Listing Details</h2>
-    <div class='listing' v-if='listing.title'>
-      <div id='content-above-image'>
-        <div id='seller-container' >
-          <h3>Seller: {{this.listing.author.name}}</h3>
+    <div
+      v-if="listing.title"
+      class="listing"
+    >
+      <div id="content-above-image">
+        <div id="seller-container">
+          <h3>Seller: {{ listing.author.name }}</h3>
         </div>
-            <button v-if="this.listing.isActive" @click="temporaryToggle">Purchase</button>
+        <button
+          v-if="listing.isActive"
+          @click="temporaryToggle"
+        >
+          Purchase
+        </button>
       </div>
-      <div class='image-container'><img :src='this.listing.imageUrl' alt='' /></div>
-      <div class='listing-details'>
-        <h3>{{this.listing.title}}</h3>
-        <h4>${{this.listing.price}}.00</h4>
+      <div class="image-container">
+        <img
+          :src="listing.imageUrl"
+          alt=""
+        >
       </div>
-        <hr>
-        <p>{{this.listing.description}}</p>
-        <div class="comments" v-if="this.listing.isActive">
-          <!-- Insert Comment Component Here -->
-          <p>Comments</p>
-        </div>
-        <div class="reviews" v-else>
-          <!-- Insert Reviews Component Here -->
-          <p>Reviews</p>
-        </div>
+      <div class="listing-details">
+        <h3>{{ listing.title }}</h3>
+        <h4>${{ listing.price }}.00</h4>
+      </div>
+      <hr>
+      <p>{{ listing.description }}</p>
+      <div
+        v-if="listing.isActive"
+        class="comments"
+      >
+        <!-- Insert Comment Component Here -->
+        <p>Comments</p>
+      </div>
+      <div
+        v-else
+        class="reviews"
+      >
+        <!-- Insert Reviews Component Here -->
+        <p>Reviews</p>
+      </div>
     </div>
-        <div v-else>
-          <h3>Error!</h3>
-          <h4>Sorry this listing isn't avalible, please check the link and try again</h4>
-          <button>Return to Home</button>
-        </div>
+    <div v-else>
+      <h3>Error!</h3>
+      <h4>Sorry this listing isn't avalible, please check the link and try again</h4>
+      <button>Return to Home</button>
+    </div>
   </div>
-<UserErrorMessage v-else/>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -40,11 +62,6 @@ import BackButton from '../components/BackButton.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
-  data() {
-    return {
-      listing: [],
-    };
-  },
   components: {
     BackButton,
     UserErrorMessage,
@@ -52,6 +69,14 @@ export default {
   props: {
     listingId: String,
     user: String,
+  },
+  data() {
+    return {
+      listing: [],
+    };
+  },
+  mounted() {
+    this.getListingDetail();
   },
   methods: {
     async getListingDetail() {
@@ -64,9 +89,6 @@ export default {
     async temporaryToggle() {
       this.listing.isActive = !this.listing.isActive;
     },
-  },
-  mounted() {
-    this.getListingDetail();
   },
 };
 </script>

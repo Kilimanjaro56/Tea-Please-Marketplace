@@ -1,7 +1,7 @@
 <template>
-  <div class='edit'>
+  <div class="edit">
     <h2>Edit</h2>
-    <Delete :listingId="listingId"/>
+    <Delete :listing-id="listingId" />
   </div>
 </template>
 

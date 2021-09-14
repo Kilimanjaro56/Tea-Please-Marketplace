@@ -1,71 +1,113 @@
 <template>
-<!-- Create Listing Front End + Validation + Styling - Keely -->
-  <div class='create-listing-component' v-if="user">
-    <BackButton/>
-    <div class='form'>
+  <!-- Create Listing Front End + Validation + Styling - Keely -->
+  <div
+    v-if="user"
+    class="create-listing-component"
+  >
+    <BackButton />
+    <div class="form">
       <h2>Create a Listing</h2>
-      <form @submit.prevent='checkForm'>
-          <p id='errors' v-if='errors.length'>
-            <b>Please check the following field(s):</b>
-            <ul>
-              <li v-for='error in errors' :key='error'>{{ error }}</li>
-            </ul>
-            </p>
-        <div class='form-group'>
-          <label for='title'>Title</label>
-          <input type='text' name='title' v-model='listing.title' />
+      <form @submit.prevent="checkForm">
+        <p
+          v-if="errors.length"
+          id="errors"
+        >
+          <b>Please check the following field(s):</b>
+          <ul>
+            <li
+              v-for="error in errors"
+              :key="error"
+            >
+              {{ error }}
+            </li>
+          </ul>
+        </p>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            v-model="listing.title"
+            type="text"
+            name="title"
+          >
         </div>
-        <div id='price-and-category'>
-          <div class='form-group'>
-            <label for='price'>Price</label>
-            <div id='wrap-price'>
-              <input type='text' id='price-sign' value='$' readonly='readonly' />
+        <div id="price-and-category">
+          <div class="form-group">
+            <label for="price">Price</label>
+            <div id="wrap-price">
               <input
-                id='price-input'
-                type='number'
-                name='price'
-                max='999'
-                min='1'
-                v-model='listing.price'
-              />
-              <input type='text' id='price-static' value='.00' readonly='readonly' />
+                id="price-sign"
+                type="text"
+                value="$"
+                readonly="readonly"
+              >
+              <input
+                id="price-input"
+                v-model="listing.price"
+                type="number"
+                name="price"
+                max="999"
+                min="1"
+              >
+              <input
+                id="price-static"
+                type="text"
+                value=".00"
+                readonly="readonly"
+              >
             </div>
           </div>
-          <div class='form-group'>
-            <label for='category'>Category</label>
-            <select name='category' id='category' placeholder='select' v-model='listing.category'>
-              <option value='Tea'>Tea</option>
-              <option value='Teacups'>Teacups</option>
-              <option value='Teapots'>Teapots</option>
-              <option value='Tea Sets'>Tea Sets</option>
-              <option value='Misc'>Misc</option>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select
+              id="category"
+              v-model="listing.category"
+              name="category"
+              placeholder="select"
+            >
+              <option value="Tea">
+                Tea
+              </option>
+              <option value="Teacups">
+                Teacups
+              </option>
+              <option value="Teapots">
+                Teapots
+              </option>
+              <option value="Tea Sets">
+                Tea Sets
+              </option>
+              <option value="Misc">
+                Misc
+              </option>
             </select>
           </div>
         </div>
-        <div class='form-group'>
-          <label for='description'>Product Description</label>
+        <div class="form-group">
+          <label for="description">Product Description</label>
           <textarea
-            maxlength='800'
-            row='50'
-            name='description'
-            placeholder='Max limit 800 characters'
-            v-model='listing.description'
+            v-model="listing.description"
+            maxlength="800"
+            row="50"
+            name="description"
+            placeholder="Max limit 800 characters"
           />
         </div>
-        <div class='form-group'>
-          <label for='image-url'>Image URL</label>
+        <div class="form-group">
+          <label for="image-url">Image URL</label>
           <input
-            type='url'
-            name='image-url'
-            placeholder='eg: https://image-url'
-            v-model='listing.imageUrl'
-          />
+            v-model="listing.imageUrl"
+            type="url"
+            name="image-url"
+            placeholder="eg: https://image-url"
+          >
         </div>
-        <button type='submit'>Upload Listing</button>
+        <button type="submit">
+          Upload Listing
+        </button>
       </form>
     </div>
   </div>
-<UserErrorMessage v-else/>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -73,6 +115,13 @@ import BackButton from '../components/BackButton.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
+  components: {
+    BackButton,
+    UserErrorMessage,
+  },
+  props: {
+    user: String,
+  },
   data() {
     return {
       listing: {
@@ -85,13 +134,6 @@ export default {
       errors: [],
     };
   },
-  props: {
-    user: String,
-  },
-  components: {
-    BackButton,
-    UserErrorMessage,
-  },
   methods: {
     async sendListing() {
       const listing = {};
@@ -101,7 +143,6 @@ export default {
       listing.description = this.listing.description;
       listing.imageUrl = this.listing.imageUrl;
 
-      console.log(listing);
       const response = await fetch('http://localhost:3000/create-listing', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -1,19 +1,24 @@
 <template>
-    <Navbar v-if="user"/>
-    <router-view @loggedin="checkLoggedIn" :user="user"/>
+  <div>
+    <Navbar v-if="user" />
+    <router-view
+      :user="user"
+      @loggedin="checkLoggedIn"
+    />
+  </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue';
 
 export default ({
+  components: {
+    Navbar,
+  },
   data() {
     return {
       user: null,
     };
-  },
-  components: {
-    Navbar,
   },
   created() {
     this.checkLoggedIn();
