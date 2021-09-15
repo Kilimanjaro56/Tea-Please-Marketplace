@@ -105,7 +105,7 @@ app.post("/create-listing", authUser, async (req, res, next) => {
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      isActive: req.body.isActive,
+      isAvaliable: req.body.isAvaliable,
     });
     console.log(listing);
     const savedListing = await listing.save();
