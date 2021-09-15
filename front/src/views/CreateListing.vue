@@ -120,7 +120,7 @@ export default {
     UserErrorMessage,
   },
   props: {
-    user: String,
+    user: Object,
   },
   data() {
     return {
@@ -150,11 +150,8 @@ export default {
         credentials: 'include',
       });
       const data = await response.json();
-      /* eslint-disable */
-      console.log(data._id);
       this.resetCreate();
       window.location.assign(`http://localhost:8080/listings/${data._id}`);
-      /* eslint-enable */
     },
     resetCreate() {
       this.listing.title = null;

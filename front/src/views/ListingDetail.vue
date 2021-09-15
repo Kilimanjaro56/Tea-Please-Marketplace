@@ -15,7 +15,7 @@
           <h3>Seller: {{ listing.author.name }}</h3>
         </div>
         <button
-          v-if="listing.isActive"
+          v-if="listing.isAvaliable"
           @click="temporaryToggle"
         >
           Purchase
@@ -34,7 +34,7 @@
       <hr>
       <p>{{ listing.description }}</p>
       <div
-        v-if="listing.isActive"
+        v-if="listing.isAvaliable"
         class="comments"
       >
         <!-- Insert Comment Component Here -->
@@ -44,8 +44,11 @@
         v-else
         class="reviews"
       >
-        <!-- Insert Reviews Component Here -->
-        <p>Reviews</p>
+        <Reviews
+          :listing-id="listingId"
+          :listing="listing"
+          :user="user"
+        />
       </div>
     </div>
     <div v-else>
@@ -60,15 +63,17 @@
 <script>
 import BackButton from '../components/BackButton.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
+import Reviews from '../components/Reviews.vue';
 
 export default {
   components: {
     BackButton,
     UserErrorMessage,
+    Reviews,
   },
   props: {
     listingId: String,
-    user: String,
+    user: Object,
   },
   data() {
     return {
@@ -86,8 +91,8 @@ export default {
       const data = await response.json();
       this.listing = data;
     },
-    async temporaryToggle() {
-      this.listing.isActive = !this.listing.isActive;
+    temporaryToggle() {
+      this.listing.isAvaliable = !this.listing.isAvaliable;
     },
   },
 };

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Delete from '../components/delete.vue';
+import Delete from '../components/Delete.vue';
 
 export default {
   components: {

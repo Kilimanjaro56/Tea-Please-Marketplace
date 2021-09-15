@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const CommentSchema = mongoose.Schema(
     {
       author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+      name: { type: String, required: true },
       body: { type: String, required: true },
     },
     { timestamps: true }
@@ -11,6 +12,7 @@ const CommentSchema = mongoose.Schema(
   const ReviewSchema = mongoose.Schema(
     {
       author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+      name: { type: String, required: true },
       body: { type: String, required: true },
     },
     { timestamps: true }
@@ -23,7 +25,7 @@ const ListingSchema = mongoose.Schema({
     description: { type: String, required: true },
     price:{type: Number, required: true},
     category:{type: String, required: true},
-    isActive:{type: Boolean, required: true, default: true},
+    isAvaliable:{type: Boolean, required: true, default: true},
     comments: [CommentSchema],
     reviews: [ReviewSchema]
     },

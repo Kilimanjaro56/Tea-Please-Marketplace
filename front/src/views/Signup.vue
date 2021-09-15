@@ -25,7 +25,6 @@
           v-model="user.name"
           type="text"
           name="name"
-          pattern="[a-zA-Z]*[a-zA-Z]"
           placeholder="e.g: John Doe"
         >
       </div>
@@ -100,6 +99,7 @@ export default {
       const data = await response.json();
       this.message = data;
       this.resetForm();
+      window.location.assign('http://localhost:8080/login');
     },
     checkForm() {
       this.errors = [];

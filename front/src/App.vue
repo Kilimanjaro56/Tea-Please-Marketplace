@@ -26,7 +26,11 @@ export default ({
   methods: {
     checkLoggedIn() {
       if (window.localStorage.getItem('email')) {
-        this.user = window.localStorage.getItem('email');
+        this.user = {
+          email: window.localStorage.getItem('email'),
+          name: window.localStorage.getItem('name'),
+          id: window.localStorage.getItem('id'),
+        };
       }
     },
   },
