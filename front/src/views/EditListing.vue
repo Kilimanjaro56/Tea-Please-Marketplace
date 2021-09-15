@@ -7,6 +7,7 @@
 
 <script>
 import Delete from '../components/Delete.vue';
+// discussed with Simon - 14/09
 
 export default {
   components: {

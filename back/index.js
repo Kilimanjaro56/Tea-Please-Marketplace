@@ -48,7 +48,7 @@ const authUser = (req, res, next) => {
         next();
       }
     });
-  } 
+  }
 };
 
 // END POINTS HERE
@@ -58,6 +58,24 @@ const Listing = require("./models/Listing");
 app.get("/listings/:listingId", async (req, res) => {
   const listing = await Listing.findById(req.params.listingId).populate('author', 'name');
   res.status(200).json(listing);
+});
+
+//Comments End Point - Annabel
+app.post("/listings/:listingId", authUser,async (req, res, next)=>{
+  try{
+      const listing = await Listing.findById(req.params.listingId);
+      listing.comments.push({
+        author: req.userId,
+        name: req.body.name,
+        body: req.body.body,
+      }
+    )
+    console.log(listing)
+    const savedListing = await listing.save();
+    res.status(200).json(listing);
+  }catch (error) {
+    console.log(error);
+  }
 });
 
 //Reviews - Keely
@@ -87,7 +105,7 @@ app.post("/create-listing", authUser, async (req, res, next) => {
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      isActive: req.body.isActive,
+      isAvaliable: req.body.isAvaliable,
     });
     console.log(listing);
     const savedListing = await listing.save();
@@ -97,7 +115,7 @@ app.post("/create-listing", authUser, async (req, res, next) => {
   }
 });
 
-//Delete Functionality - Annabel
+//Delete End Point - Annabel
 app.delete("/listings/edit/:listingId", async (req, res, next) => {
   try {
     const deletedListing = await Listing.findByIdAndDelete(

@@ -37,7 +37,11 @@
         v-if="listing.isAvaliable"
         class="comments"
       >
-        <!-- Insert Comment Component Here -->
+        <Comments
+          :user="user"
+          :listing-id="listingId"
+          :listing="listing"
+        />
         <p>Comments</p>
       </div>
       <div
@@ -63,12 +67,14 @@
 <script>
 import BackButton from '../components/BackButton.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
+import Comments from '../components/Comments.vue';
 import Reviews from '../components/Reviews.vue';
 
 export default {
   components: {
     BackButton,
     UserErrorMessage,
+    Comments,
     Reviews,
   },
   props: {
