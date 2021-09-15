@@ -29,6 +29,7 @@ export default ({
         this.user = {
           email: window.localStorage.getItem('email'),
           name: window.localStorage.getItem('name'),
+          id: window.localStorage.getItem('id'),
         };
       }
     },

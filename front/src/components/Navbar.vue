@@ -126,7 +126,7 @@ export default {
 <style scoped>
 img {
   height: 3.5em;
-  margin: 0.3em 0;
+  margin-top: 0.5em;
   padding-left: 1em;
 }
 .navbar {
@@ -137,6 +137,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 0.5em;
   width: 100vw;
   z-index: 50;
 }
