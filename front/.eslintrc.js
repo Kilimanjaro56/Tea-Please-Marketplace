@@ -24,5 +24,6 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'no-restricted-globals': 'off',
     'no-alert': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

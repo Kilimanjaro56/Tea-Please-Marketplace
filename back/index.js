@@ -48,7 +48,7 @@ const authUser = (req, res, next) => {
         next();
       }
     });
-  } 
+  }
 };
 
 // END POINTS HERE
@@ -58,6 +58,24 @@ const Listing = require("./models/Listing");
 app.get("/listings/:listingId", async (req, res) => {
   const listing = await Listing.findById(req.params.listingId).populate('author', 'name');
   res.status(200).json(listing);
+});
+
+//Comments End Point - Annabel
+app.post("/listings/:listingId", authUser,async (req, res, next)=>{
+  try{
+      const listing = await Listing.findById(req.params.listingId);
+      listing.comments.push({
+        author: req.userId,
+        name: req.body.name,
+        body: req.body.body,
+      }
+    )
+    console.log(listing)
+    const savedListing = await listing.save();
+    res.status(200).json(listing);
+  }catch (error) {
+    console.log(error);
+  }
 });
 
 //Post End Point - Keely
@@ -80,7 +98,7 @@ app.post("/create-listing", authUser, async (req, res, next) => {
   }
 });
 
-//Delete Functionality - Annabel
+//Delete End Point - Annabel
 app.delete("/listings/edit/:listingId", async (req, res, next) => {
   try {
     const deletedListing = await Listing.findByIdAndDelete(
@@ -141,7 +159,7 @@ app.post("/login", async (req, res) => {
             { expiresIn: lifespan }
           );
           res.cookie("jwt", token, { maxAge: lifespan * 1000, httpOnly : true});
-          res.status(200).json({email: existingUser.email})
+          res.status(200).json({email: existingUser.email, name: existingUser.name})
         } else {
           res.status(401).json({ message: "Authentication Failed" });
         }

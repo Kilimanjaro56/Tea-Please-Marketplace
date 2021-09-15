@@ -1,9 +1,5 @@
-// delete front end - Annabel
-
 <template>
-  <!-- put trash can button here -->
-
-  <!-- import delete into edit listing view -->
+  <!--delete front end - Annabel-->
   <div @click="confirmDelete">
     <i class="far fa-trash-alt" />
     <p>Delete Listing</p>

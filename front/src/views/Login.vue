@@ -93,8 +93,9 @@ export default {
       });
       const data = await response.json();
       this.message = data;
-      if (data.email) {
+      if (data.email && data.name) {
         window.localStorage.setItem('email', data.email);
+        window.localStorage.setItem('name', data.name);
       }
       if (window.localStorage.getItem('email')) {
         window.location.assign('http://localhost:8080/listings');
