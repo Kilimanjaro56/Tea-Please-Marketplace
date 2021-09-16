@@ -71,4 +71,7 @@ a{
   color: #2B463C;
   text-decoration: none;
 }
+i{
+  color: #A26360;
+}
 </style>

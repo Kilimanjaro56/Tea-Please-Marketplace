@@ -61,7 +61,7 @@ app.get("/listings/:listingId", async (req, res) => {
 });
 
 //Comments End Point - Annabel
-app.post("/listings/:listingId", authUser,async (req, res, next)=>{
+app.post("/listings/:listingId/comments", authUser,async (req, res, next)=>{
   try{
       const listing = await Listing.findById(req.params.listingId);
       listing.comments.push({
@@ -79,7 +79,7 @@ app.post("/listings/:listingId", authUser,async (req, res, next)=>{
 });
 
 //Reviews - Keely
-app.post("/listings/:listingId", authUser, async (req, res) => {
+app.post("/listings/:listingId/reviews", authUser, async (req, res) => {
  try{
   const listing = await Listing.findById(req.params.listingId);
   listing.reviews.push(

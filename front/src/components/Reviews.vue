@@ -46,19 +46,19 @@
           Post Review
         </button>
       </form>
-        <div
+      <div
+        v-if="reviews.length <= 0"
         class="reviews-error"
-          v-if="reviews.length === 0"
-        >
-          <p>No reviews yet!</p>
-        </div>
+      >
+        <p>No reviews yet!</p>
+      </div>
       <div
         v-for="singleReview in reviews"
         v-else
         :key="singleReview._id"
         class="review"
       >
-        <div >
+        <div>
           <h3>User: {{ singleReview.name }}</h3>
           <p>{{ singleReview.body }}</p>
         </div>
@@ -88,13 +88,11 @@ export default {
   },
   methods: {
     async postReview() {
-      if (this.user.name === this.listing.author.name) {
-        console.log('Hello');
-      } else {
+      if (this.user.id !== this.listing.author.id) {
         const review = {};
         review.name = this.user.name;
         review.body = this.review.body;
-        const response = await fetch(`http://localhost:3000/listings/${this.listingId}`, {
+        const response = await fetch(`http://localhost:3000/listings/${this.listingId}/reviews`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(review),
