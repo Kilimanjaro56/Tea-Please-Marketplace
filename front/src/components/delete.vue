@@ -1,9 +1,11 @@
 <template>
   <!--delete front end - Annabel-->
-  <div @click="confirmDelete">
-    <i class="far fa-trash-alt" />
-    <p>Delete Listing</p>
-    <p>This action cannot be undone</p>
+  <div @click="confirmDelete" class="delete-function">
+    <div class="bin">
+      <i class="far fa-trash-alt" />
+    <h3>Delete Listing</h3>
+    </div>
+      <p>This action cannot be undone</p>
   </div>
 </template>
 
@@ -33,8 +35,26 @@ export default {
 
 <style>
 
-i, p {
+.delete-function {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.bin {
+  display: flex;
+  flex-direction: row;
+  width: 10em;
+  margin: auto;
+}
+
+i, h3 {
   color: #A26360;
+  margin: auto;
+
 };
 
+p {
+  color: #2B463C;
+}
 </style>
