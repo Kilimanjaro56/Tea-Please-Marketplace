@@ -15,7 +15,6 @@
         Post Comment
       </button>
     </form>
-    <p>{{ user }}</p>
     <ul>
       <li
         v-for="comment of comments"
