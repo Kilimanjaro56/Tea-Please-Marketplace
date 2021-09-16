@@ -1,13 +1,78 @@
 <template>
   <div class="browse">
-    <h2>Browse Listings</h2>
+    <h3>Browse Listings</h3>
+    <Search
+      :listings="listings"
+      @searched="displayFilteredListings"
+      @showAll="getListings"
+    />
+    <a
+      id="clear-search"
+      @click="clearSearch"
+    >Clear Search</a>
+
+    <!-- View List Code Here -->
+
+    <h2
+      v-if="message"
+      id="search-error"
+    >
+      {{ message }}
+    </h2>
   </div>
 </template>
 
 <script>
-export default {};
+import Search from '../components/Search.vue';
+
+export default {
+  components: {
+    Search,
+  },
+  data() {
+    return {
+      listings: [],
+      message: null,
+    };
+  },
+  created() {
+    // this.getListings();
+  },
+  methods: {
+    // async getListings() {
+    //   const response = await fetch('http://localhost:3000/listings');
+    //   const data = await response.json();
+    //   this.listings = data;
+    //   this.message = null;
+    //   document.getElementById('clear-search').style.display = 'none';
+    // },
+
+    displayFilteredListings(filteredArray) {
+      if (filteredArray.length >= 1) {
+        this.listings = filteredArray;
+        this.message = null;
+        document.getElementById('clear-search').style.display = 'block';
+      } else {
+        this.listings = null;
+        this.message = 'Sorry, No Matches';
+        document.getElementById('clear-search').style.display = 'block';
+      }
+    },
+
+    clearSearch() {
+      document.getElementById('clear-search').style.display = 'none';
+      this.getListings();
+    },
+  },
+};
 </script>
 
-<style>
-
+<style scoped>
+#clear-search{
+  display: none;
+  margin: 1em;
+  padding: 0;
+  background-color: transparent;
+  text-align: center;
+}
 </style>
