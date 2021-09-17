@@ -45,6 +45,7 @@ const authUser = (req, res, next) => {
         return res.status(500).json({message: err.message});
       } else {
         req.userId = decodedToken.id;
+        req.userName = decodedToken.name;
         next();
       }
     });
@@ -53,6 +54,12 @@ const authUser = (req, res, next) => {
 
 // END POINTS HERE
 const Listing = require("./models/Listing");
+
+// VIEW LIST TESTING FOR FILTER -Keely
+// app.get("/listings", async (req, res) => {
+//   const listings = await Listing.find().populate('author', 'name');
+//   res.status(200).json(listings);
+// });
 
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
@@ -66,7 +73,7 @@ app.post("/listings/:listingId/comments", authUser,async (req, res, next)=>{
       const listing = await Listing.findById(req.params.listingId);
       listing.comments.push({
         author: req.userId,
-        name: req.body.name,
+        name: req.userName,
         body: req.body.body,
       }
     )
@@ -85,7 +92,7 @@ app.post("/listings/:listingId/reviews", authUser, async (req, res) => {
   listing.reviews.push(
   {
     author: req.userId,
-    name: req.body.name,
+    name: req.userName,
     body: req.body.body,
   })
   const savedListing = await listing.save();
@@ -171,12 +178,12 @@ app.post("/login", async (req, res) => {
         if (result) {
           const lifespan = 1 * 60 * 60;
           const token = jwt.sign(
-            { id: existingUser._id, email: existingUser.email },
+            { id: existingUser._id, name: existingUser.name , email: existingUser.email },
             "secretKey",
             { expiresIn: lifespan }
           );
           res.cookie("jwt", token, { maxAge: lifespan * 1000, httpOnly : true});
-          res.status(200).json({email: existingUser.email, name: existingUser.name, id: existingUser._id})
+          res.status(200).json({email: existingUser.email, id: existingUser._id})
         } else {
           res.status(401).json({ message: "Authentication Failed" });
         }

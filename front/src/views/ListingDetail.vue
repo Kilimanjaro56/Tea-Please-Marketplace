@@ -42,7 +42,6 @@
           :listing-id="listingId"
           :listing="listing"
         />
-        <p>Comments</p>
       </div>
       <div
         v-else

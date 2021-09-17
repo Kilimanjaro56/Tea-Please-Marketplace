@@ -90,7 +90,6 @@ export default {
     async postReview() {
       if (this.user.id !== this.listing.author.id) {
         const review = {};
-        review.name = this.user.name;
         review.body = this.review.body;
         const response = await fetch(`http://localhost:3000/listings/${this.listingId}/reviews`, {
           method: 'POST',
@@ -190,7 +189,7 @@ textarea {
     color: #A26360;
 }
 .reviews-error{
-    height: 10em;
+    height: 5em;
     display: flex;
     align-items: center;
     justify-content: center;

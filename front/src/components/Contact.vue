@@ -1,7 +1,21 @@
 <template>
   <div>
     <h2>Contact Us</h2>
-    <form @submit.prevent="resetForm">
+    <p
+      v-if="errors.length"
+      id="errors"
+    >
+      <b>Please check the following field(s):</b>
+      <ul>
+        <li
+          v-for="error in errors"
+          :key="error"
+        >
+          {{ error }}
+        </li>
+      </ul>
+    </p>
+    <form @submit.prevent="checkForm">
       <div class="form-group">
         <label for="title">First Name</label>
         <input
@@ -22,7 +36,7 @@
         <label for="title">Email Address</label>
         <input
           v-model="contact.email"
-          type="text"
+          type="email"
           name="title"
         >
       </div>
@@ -52,17 +66,43 @@ export default {
         email: null,
         message: null,
       },
+      errors: [],
     };
   },
   methods: {
     resetForm() {
-      this.contact = null;
+      this.contact.firstname = null;
+      this.contact.surname = null;
+      this.contact.email = null;
+      this.contact.message = null;
+    },
+    checkForm() {
+      this.errors = [];
+      if (!this.contact.firstname) {
+        this.errors.push('First Name required.');
+      }
+      if (!this.contact.surname) {
+        this.errors.push('Surname required');
+      }
+      if (!this.contact.email) {
+        this.errors.push('Email required');
+      }
+      if (!this.contact.message) {
+        this.errors.push('Message required.');
+      } else {
+        this.resetForm();
+        this.errors = [];
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+ul{
+  list-style-type: none;
+  padding: 0;
+}
 form {
   width: 80vw;
   height: 55vh;

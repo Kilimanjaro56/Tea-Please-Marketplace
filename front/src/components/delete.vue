@@ -1,16 +1,20 @@
 <template>
   <!--delete front end - Annabel-->
-  <div @click="confirmDelete" class="delete-function">
+  <div
+    class="delete-function"
+    @click="confirmDelete"
+  >
     <div class="bin">
       <i class="far fa-trash-alt" />
-    <h3>Delete Listing</h3>
+      <h3>Delete Listing</h3>
     </div>
-      <p>This action cannot be undone</p>
+    <p>This action cannot be undone</p>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'Delete',
   props: {
     listingId: String,
   },

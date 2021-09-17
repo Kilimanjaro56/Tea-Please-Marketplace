@@ -54,7 +54,6 @@ export default {
   methods: {
     async postComment() {
       const comment = {};
-      comment.name = this.user.name;
       comment.body = this.comment.body;
 
       const response = await fetch(`http://localhost:3000/listings/${this.listingId}/comments`, {

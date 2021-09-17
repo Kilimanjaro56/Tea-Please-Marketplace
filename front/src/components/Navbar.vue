@@ -125,9 +125,9 @@ export default {
 
 <style scoped>
 img {
-  height: 3.5em;
+  height: 3.3em;
   margin-top: 0.5em;
-  padding-left: 1em;
+  padding-left: 1.5em;
 }
 .navbar {
   background-color: white;
@@ -138,16 +138,16 @@ img {
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5em;
-  width: 100vw;
+  width: 101vw;
   z-index: 50;
 }
 .navbar #links {
   display: none;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 105vw;
   position: absolute;
-  top: 4.1em;
+  top: 4.5em;
   height: 35vh;
 }
 .navbar a {

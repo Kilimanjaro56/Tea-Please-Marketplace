@@ -13,6 +13,14 @@
 
     <!-- View List Code Here -->
 
+    <!-- <div
+      v-for="listing of listings"
+      :key="listing._id"
+    >
+      <h2>{{ listing.title }}</h2>
+      <h2>{{ listing._id }}</h2>
+    </div> -->
+
     <h2
       v-if="message"
       id="search-error"
@@ -36,16 +44,16 @@ export default {
     };
   },
   created() {
-    // this.getListings();
+    this.getListings();
   },
   methods: {
-    // async getListings() {
-    //   const response = await fetch('http://localhost:3000/listings');
-    //   const data = await response.json();
-    //   this.listings = data;
-    //   this.message = null;
-    //   document.getElementById('clear-search').style.display = 'none';
-    // },
+    async getListings() {
+      const response = await fetch('http://localhost:3000/listings');
+      const data = await response.json();
+      this.listings = data;
+      this.message = null;
+      document.getElementById('clear-search').style.display = 'none';
+    },
 
     displayFilteredListings(filteredArray) {
       if (filteredArray.length >= 1) {
