@@ -16,7 +16,7 @@
         </div>
         <button
           v-if="listing.isAvaliable"
-          @click="temporaryToggle"
+          @click="$router.push(`/payment/${listingId}`);"
         >
           Purchase
         </button>
@@ -95,9 +95,6 @@ export default {
       );
       const data = await response.json();
       this.listing = data;
-    },
-    temporaryToggle() {
-      this.listing.isAvaliable = !this.listing.isAvaliable;
     },
   },
 };

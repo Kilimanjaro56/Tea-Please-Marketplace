@@ -52,7 +52,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/payment-confirmation',
+    path: '/payment-confirmation/:listingId',
     name: 'PaymentConfirmation',
     component: () => import('../views/PaymentConfirmation.vue'),
     props: true,

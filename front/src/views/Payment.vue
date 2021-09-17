@@ -1,4 +1,5 @@
 <template>
+  <!-- Payment + Delivery - Keely -->
   <div class="payment">
     <h2>Payment</h2>
     <form
@@ -23,7 +24,6 @@
       <div class="form-group">
         <label for="input-cardname">Name on Card</label>
         <input
-          id="input-cardname"
           v-model="card.name"
           type="text"
           name="input-cardname"
@@ -34,7 +34,6 @@
       <div class="form-group">
         <label for="input-cardnumber">Card number</label>
         <input
-          id="input-cardnumber"
           v-model="card.number"
           type="text"
           name="input-cardnumber"
@@ -45,12 +44,10 @@
 
       <div class="exp-cvc-inputs">
         <div
-          id="smallerInputs"
           class="form-group"
         >
           <label for="input-expdate">Expiry Date</label>
           <input
-            id="input-expdate"
             v-model="card.expiry"
             type="text"
             name="input-expdate"
@@ -75,9 +72,61 @@
         </div>
       </div>
       <hr>
+      <h2>Delivery Details</h2>
+      <div class="form-group">
+        <label for="input-cardname">First Name</label>
+        <input
+          v-model="delivery.firstName"
+          type="text"
+          name="input-cardname"
+          placeholder="e.g: John"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="input-cardnumber">Surname</label>
+        <input
+          v-model="delivery.surname"
+          type="text"
+          name="input-cardnumber"
+          placeholder="eg: Doe"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="input-cardnumber">Email Address</label>
+        <input
+          v-model="delivery.email"
+          type="email"
+          name="input-cardnumber"
+          placeholder="eg: example@email.com"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="input-cardnumber">Street Address</label>
+        <input
+          v-model="delivery.address"
+          type="text"
+          name="input-cardnumber"
+          placeholder="eg: 12 example st, region, postcode"
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="input-cardnumber">Delivery Instructions</label>
+        <textarea
+          id="input-cardnumber"
+          v-model="delivery.message"
+          type="text"
+          name="input-cardnumber"
+          placeholder="Type your message here ..."
+        />
+      </div>
       <button type="submit">
         Finalise Purchase
       </button>
+      <a @click="$router.push(`/listings/${listingId}`);">Cancel Purchase</a>
     </form>
   </div>
 </template>
@@ -96,6 +145,12 @@ export default {
         cvc: null,
         expiry: null,
       },
+      delivery: {
+        firstName: null,
+        surname: null,
+        email: null,
+        address: null,
+      },
     };
   },
   methods: {
@@ -103,21 +158,21 @@ export default {
       this.errors = [];
       const cardNumberRegex = /^4[0-9]{12}(?:[0-9]{3})?$/;
       if (!cardNumberRegex.test(this.card.number)) {
-        if (this.errors.length < 3) { this.errors.push('Invalid Card'); }
+        if (this.errors.length < 4) { this.errors.push('Invalid Card'); }
       }
       const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/;
       if (!cardExpiryRegex.test(this.card.expiry)) {
-        if (this.errors.length < 3) { this.errors.push('Invalid Expiry'); }
+        if (this.errors.length < 4) { this.errors.push('Invalid Expiry'); }
       }
       const cardCvc = /^[0-9]{3,4}$/;
       if (!cardCvc.test(this.card.cvc)) {
-        if (this.errors.length < 3) { this.errors.push('Invalid Cvc'); }
+        if (this.errors.length < 4) { this.errors.push('Invalid Cvc'); }
+      }
+      const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
+      if (!addressRegex.test(this.delivery.address)) {
+        if (this.errors.length < 4) { this.errors.push('Invalid Delivery Address'); }
       } else {
         this.errors = [];
-        this.card.name = null;
-        this.card.number = null;
-        this.card.expiry = null;
-        this.card.cvc = null;
         this.completePayment();
       }
     },
@@ -135,7 +190,7 @@ export default {
       );
       const data = await response.json();
       console.log(data);
-      // this.$router.push(`/listings/${this.listingId}`);
+      this.$router.push(`/listings/payment-confirmation/${this.listingId}`);
     },
   },
 };
@@ -174,6 +229,7 @@ select {
 textarea {
   height: 10vh;
   font-family: 'Questrial', sans-serif;
+  resize: none;
 }
 
 input:focus, textarea:focus {
@@ -189,6 +245,7 @@ input:focus, textarea:focus {
 
 label {
   margin-bottom: 0.3em;
+  margin-top: 1em;
 }
 
 button {
@@ -199,6 +256,10 @@ button {
   border: none;
   margin-top: 2em;
   margin-left: 20vw;
+}
+form h2{
+  margin-left: 18vw;
+  margin-bottom: 0.5em;
 }
 .exp-cvc-inputs{
   display: flex;
@@ -213,8 +274,17 @@ button {
 .exp-cvc-inputs:focus{
   outline: none;
 }
+a{
+  text-align: center;
+  font-size: 0.9em;
+  margin: 1em;
+  margin-left: 25vw;
+  padding-bottom: 1.5em;
+}
 hr{
-  width: 80vw;
+  width: 75vw;
   border-top: thin #a26360 solid;
+  margin: 1em 0;
+  margin-top: 2em;
 }
 </style>
