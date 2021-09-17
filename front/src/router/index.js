@@ -46,7 +46,7 @@ const routes = [
     component: () => import('../views/MyListings.vue'),
   },
   {
-    path: '/payment',
+    path: '/payment/:listingId',
     name: 'Payment',
     component: () => import('../views/Payment.vue'),
     props: true,

@@ -61,10 +61,28 @@ const Listing = require("./models/Listing");
 //   res.status(200).json(listings);
 // });
 
+
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
   const listing = await Listing.findById(req.params.listingId).populate('author', 'name');
   res.status(200).json(listing);
+});
+
+//For Sale/ Sold endpoint - Keely
+
+app.patch("/listings/:listingId/sold", async (req, res) => {
+try{
+  const listingData = {
+    isAvaliable: req.body.isAvaliable
+  };
+  const updatedListing = await Listing.findByIdAndUpdate(
+    req.params.listingId,
+    listingData
+  );
+  res.status(200).json(updatedListing);
+} catch (error) {
+  console.log(error);
+}
 });
 
 //Comments End Point - Annabel
