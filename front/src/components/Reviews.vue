@@ -46,19 +46,19 @@
           Post Review
         </button>
       </form>
-        <div
+      <div
+        v-if="reviews.length === 0"
         class="reviews-error"
-          v-if="reviews.length === 0"
-        >
-          <p>No reviews yet!</p>
-        </div>
+      >
+        <p>No reviews yet!</p>
+      </div>
       <div
         v-for="singleReview in reviews"
         v-else
         :key="singleReview._id"
         class="review"
       >
-        <div >
+        <div>
           <h3>User: {{ singleReview.name }}</h3>
           <p>{{ singleReview.body }}</p>
         </div>
