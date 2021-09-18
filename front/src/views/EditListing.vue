@@ -6,9 +6,8 @@
 </template>
 
 <script>
-import Delete from '../components/Delete.vue';
+import Delete from '../components/delete.vue';
 // discussed with Simon - 14/09
-
 export default {
   components: {
     Delete,

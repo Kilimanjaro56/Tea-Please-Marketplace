@@ -46,13 +46,13 @@ const routes = [
     component: () => import('../views/MyListings.vue'),
   },
   {
-    path: '/payment',
+    path: '/payment/:listingId',
     name: 'Payment',
     component: () => import('../views/Payment.vue'),
     props: true,
   },
   {
-    path: '/payment-confirmation',
+    path: '/payment-confirmation/:listingId',
     name: 'PaymentConfirmation',
     component: () => import('../views/PaymentConfirmation.vue'),
     props: true,

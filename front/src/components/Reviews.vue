@@ -47,7 +47,7 @@
         </button>
       </form>
       <div
-        v-if="reviews.length === 0"
+        v-if="reviews.length <= 0"
         class="reviews-error"
       >
         <p>No reviews yet!</p>
@@ -88,13 +88,10 @@ export default {
   },
   methods: {
     async postReview() {
-      if (this.user.name === this.listing.author.name) {
-        console.log('Hello');
-      } else {
+      if (this.user.id !== this.listing.author.id) {
         const review = {};
-        review.name = this.user.name;
         review.body = this.review.body;
-        const response = await fetch(`http://localhost:3000/listings/${this.listingId}`, {
+        const response = await fetch(`http://localhost:3000/listings/${this.listingId}/reviews`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(review),
@@ -192,7 +189,7 @@ textarea {
     color: #A26360;
 }
 .reviews-error{
-    height: 10em;
+    height: 5em;
     display: flex;
     align-items: center;
     justify-content: center;

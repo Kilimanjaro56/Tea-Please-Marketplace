@@ -93,9 +93,8 @@ export default {
       });
       const data = await response.json();
       this.message = data;
-      if (data.email && data.name && data.id) {
+      if (data.email && data.id) {
         window.localStorage.setItem('email', data.email);
-        window.localStorage.setItem('name', data.name);
         window.localStorage.setItem('id', data.id);
       }
       if (window.localStorage.getItem('email')) {

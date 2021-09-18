@@ -28,7 +28,6 @@ export default ({
       if (window.localStorage.getItem('email')) {
         this.user = {
           email: window.localStorage.getItem('email'),
-          name: window.localStorage.getItem('name'),
           id: window.localStorage.getItem('id'),
         };
       }
@@ -70,5 +69,8 @@ button {
 a{
   color: #2B463C;
   text-decoration: none;
+}
+i{
+  color: #A26360;
 }
 </style>
