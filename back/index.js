@@ -28,21 +28,21 @@ mongoose.connect(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+app.use(cors({ credentials: true, origin: "http://localhost:8080" }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
 //Route Protection - Keely
 const authUser = (req, res, next) => {
   const token = req.cookies.jwt;
-  if(!token){
-    console.log('No Token');
-    return res.status(401).json({message: 'Access Denied'});
+  if (!token) {
+    console.log("No Token");
+    return res.status(401).json({ message: "Access Denied" });
   } else {
-    jwt.verify(token, 'secretKey', (err, decodedToken) => {
-      if(err) {
+    jwt.verify(token, "secretKey", (err, decodedToken) => {
+      if (err) {
         console.log(err);
-        return res.status(500).json({message: err.message});
+        return res.status(500).json({ message: err.message });
       } else {
         req.userId = decodedToken.id;
         req.userName = decodedToken.name;
@@ -61,61 +61,74 @@ const Listing = require("./models/Listing");
 //   res.status(200).json(listings);
 // });
 
+// Filter Categories End Point - Annabel
+app.get("/listing/:category", async (req, res) => {
+  let listings;
+  if (req.params.category !== "all") {
+    listings = await listing
+      .find({ category: req.params.category })
+      .populate("author", "name");
+  } else {
+    listings = await listing.find().populate("author", "name");
+  }
+  res.status(200).json(listings);
+});
 
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
-  const listing = await Listing.findById(req.params.listingId).populate('author', 'name');
+  const listing = await Listing.findById(req.params.listingId).populate(
+    "author",
+    "name"
+  );
   res.status(200).json(listing);
 });
 
 //For Sale/ Sold endpoint - Keely
 
 app.patch("/listings/:listingId/sold", async (req, res) => {
-try{
-  const listingData = {
-    isAvaliable: req.body.isAvaliable
-  };
-  const updatedListing = await Listing.findByIdAndUpdate(
-    req.params.listingId,
-    listingData
-  );
-  res.status(200).json(updatedListing);
-} catch (error) {
-  console.log(error);
-}
+  try {
+    const listingData = {
+      isAvaliable: req.body.isAvaliable,
+    };
+    const updatedListing = await Listing.findByIdAndUpdate(
+      req.params.listingId,
+      listingData
+    );
+    res.status(200).json(updatedListing);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //Comments End Point - Annabel
-app.post("/listings/:listingId/comments", authUser,async (req, res, next)=>{
-  try{
-      const listing = await Listing.findById(req.params.listingId);
-      listing.comments.push({
-        author: req.userId,
-        name: req.userName,
-        body: req.body.body,
-      }
-    )
-    console.log(listing)
+app.post("/listings/:listingId/comments", authUser, async (req, res, next) => {
+  try {
+    const listing = await Listing.findById(req.params.listingId);
+    listing.comments.push({
+      author: req.userId,
+      name: req.userName,
+      body: req.body.body,
+    });
+    console.log(listing);
     const savedListing = await listing.save();
     res.status(200).json(listing);
-  }catch (error) {
+  } catch (error) {
     console.log(error);
   }
 });
 
 //Reviews - Keely
 app.post("/listings/:listingId/reviews", authUser, async (req, res) => {
- try{
-  const listing = await Listing.findById(req.params.listingId);
-  listing.reviews.push(
-  {
-    author: req.userId,
-    name: req.userName,
-    body: req.body.body,
-  })
-  const savedListing = await listing.save();
-  res.status(200).json(listing);
-  }catch (error){
+  try {
+    const listing = await Listing.findById(req.params.listingId);
+    listing.reviews.push({
+      author: req.userId,
+      name: req.userName,
+      body: req.body.body,
+    });
+    const savedListing = await listing.save();
+    res.status(200).json(listing);
+  } catch (error) {
     console.log(error);
   }
 });
@@ -196,12 +209,18 @@ app.post("/login", async (req, res) => {
         if (result) {
           const lifespan = 1 * 60 * 60;
           const token = jwt.sign(
-            { id: existingUser._id, name: existingUser.name , email: existingUser.email },
+            {
+              id: existingUser._id,
+              name: existingUser.name,
+              email: existingUser.email,
+            },
             "secretKey",
             { expiresIn: lifespan }
           );
-          res.cookie("jwt", token, { maxAge: lifespan * 1000, httpOnly : true});
-          res.status(200).json({email: existingUser.email, id: existingUser._id})
+          res.cookie("jwt", token, { maxAge: lifespan * 1000, httpOnly: true });
+          res
+            .status(200)
+            .json({ email: existingUser.email, id: existingUser._id });
         } else {
           res.status(401).json({ message: "Authentication Failed" });
         }
@@ -211,6 +230,6 @@ app.post("/login", async (req, res) => {
 });
 //Log Out - Keely
 app.get("/logout", async (req, res) => {
-  res.cookie("jwt", "", {maxAge: 1});
-  res.json({message: 'logged Out'});
+  res.cookie("jwt", "", { maxAge: 1 });
+  res.json({ message: "logged Out" });
 });

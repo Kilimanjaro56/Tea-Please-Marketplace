@@ -51,14 +51,16 @@
     >
       <p>This listing has no comments yet!</p>
     </div>
-    <div
-      v-for="comment of comments"
-      :key="comment._id"
-      class="comment"
-    >
-      <div>
-        <h3>User: {{ comment.name }}</h3>
-        <p>{{ comment.body }}</p>
+    <div id="all-comments">
+      <div
+        v-for="comment of comments"
+        :key="comment._id"
+        class="comment"
+      >
+        <div>
+          <h3>User: {{ comment.name }}</h3>
+          <p>{{ comment.body }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -111,12 +113,20 @@ export default {
       comments.style.display = 'block';
       const topDiv = document.getElementById('comments-preview');
       topDiv.style.display = 'none';
+      const textArea = document.getElementById('comment-form');
+      textArea.style.display = 'flex';
+      const allComments = document.getElementById('all-comments');
+      allComments.style.display = 'block';
     },
     closeComments() {
       const comments = document.getElementById('comments-popup');
       comments.style.display = 'none';
       const topDiv = document.getElementById('comments-preview');
       topDiv.style.display = 'flex';
+      const textArea = document.getElementById('comment-form');
+      textArea.style.display = 'none';
+      const allComments = document.getElementById('all-comments');
+      allComments.style.display = 'none';
     },
   },
 };
@@ -155,7 +165,7 @@ form {
   background-color: white;
   width: 100vw;
   height: 23vh;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -189,8 +199,13 @@ textarea {
   align-items: center;
   justify-content: center;
 }
+
+#all-comments {
+  display: none;
+}
 .comment {
   background-color: white;
+  display: flex;
   border-radius: 5px;
   border: thin #a26360 solid;
   width: 80vw;

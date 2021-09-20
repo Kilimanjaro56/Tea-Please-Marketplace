@@ -1,6 +1,10 @@
 <template>
   <div class="browse">
     <h3>Browse Listings</h3>
+    <Filter
+      :listings="listings"
+      @filtered="getListings"
+    />
     <Search
       :listings="listings"
       @searched="displayFilteredListings"
@@ -32,15 +36,18 @@
 
 <script>
 import Search from '../components/Search.vue';
+import Filter from '../components/Filter.vue';
 
 export default {
   components: {
     Search,
+    Filter,
   },
   data() {
     return {
       listings: [],
       message: null,
+      filter: 'all',
     };
   },
   created() {
@@ -48,7 +55,7 @@ export default {
   },
   methods: {
     async getListings() {
-      const response = await fetch('http://localhost:3000/listings');
+      const response = await fetch(`http://localhost:3000/listings/${this.filter}`);
       const data = await response.json();
       this.listings = data;
       this.message = null;
@@ -76,7 +83,7 @@ export default {
 </script>
 
 <style scoped>
-#clear-search{
+#clear-search {
   display: none;
   margin: 1em;
   padding: 0;
