@@ -42,7 +42,7 @@ export default {
 .delete-function {
   display: flex;
   flex-direction: column;
-
+  margin-left: 8vw;
 }
 
 .bin {

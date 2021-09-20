@@ -8,20 +8,6 @@
     <div class="form">
       <h2>Create a Listing</h2>
       <form @submit.prevent="checkForm">
-        <p
-          v-if="errors.length"
-          id="errors"
-        >
-          <b>Please check the following field(s):</b>
-          <ul>
-            <li
-              v-for="error in errors"
-              :key="error"
-            >
-              {{ error }}
-            </li>
-          </ul>
-        </p>
         <div class="form-group">
           <label for="title">Title</label>
           <input
@@ -30,6 +16,7 @@
             name="title"
           >
         </div>
+        <span id="title-error"><p>Please Enter A Title</p></span>
         <div id="price-and-category">
           <div class="form-group">
             <label for="price">Price</label>
@@ -55,6 +42,7 @@
                 readonly="readonly"
               >
             </div>
+            <span id="price-error"><p>Please Enter A Valid Price</p></span>
           </div>
           <div class="form-group">
             <label for="category">Category</label>
@@ -92,6 +80,7 @@
             placeholder="Max limit 800 characters"
           />
         </div>
+        <span id="description-error"><p>Please Enter A Product Description</p></span>
         <div class="form-group">
           <label for="image-url">Image URL</label>
           <input
@@ -101,6 +90,7 @@
             placeholder="eg: https://image-url"
           >
         </div>
+        <span id="image-error"><p>Please Enter A Valid Image URL</p></span>
         <button type="submit">
           Upload Listing
         </button>
@@ -131,7 +121,7 @@ export default {
         description: null,
         imageUrl: null,
       },
-      errors: [],
+      isError: false,
     };
   },
   methods: {
@@ -161,24 +151,36 @@ export default {
       this.listing.imageUrl = null;
     },
     checkForm() {
-      this.errors = [];
       if (!this.listing.title) {
-        this.errors.push('Title required.');
+        document.getElementById('title-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('title-error').style.display = 'none';
+        this.isError = false;
       }
       if (!this.listing.price) {
-        this.errors.push('Price required.');
-      }
-      if (!this.listing.category) {
-        this.errors.push('Category required.');
+        document.getElementById('price-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('price-error').style.display = 'none';
+        this.isError = false;
       }
       if (!this.listing.description) {
-        this.errors.push('Product Description required.');
+        document.getElementById('description-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('description-error').style.display = 'none';
+        this.isError = false;
       }
       if (!this.listing.imageUrl) {
-        this.errors.push('Image URL required.');
+        document.getElementById('image-error').style.display = 'block';
+        this.isError = true;
       } else {
+        document.getElementById('image-error').style.display = 'none';
+        this.isError = false;
+      }
+      if (this.isError === false) {
         this.sendListing();
-        this.errors = [];
       }
     },
   },
@@ -301,10 +303,11 @@ button {
   border-bottom-left-radius: 0;
   color: #2b463c77;
 }
-#errors{
-  color: #2b463c;
-}
 b{
   color: #a26360;
+}
+#title-error, #price-error, #description-error, #image-error{
+  display: none;
+  color: red;
 }
 </style>

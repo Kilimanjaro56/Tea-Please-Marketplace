@@ -1,26 +1,11 @@
 <template>
-  <!-- Payment + Delivery - Keely -->
+  <!-- Payment + Delivery + Error Validation - Keely -->
   <div class="payment">
     <h2>Payment</h2>
     <form
       id="payment-form"
       @submit.prevent="checkForm "
     >
-      <p
-        v-if="errors.length"
-        id="errors"
-      >
-        <b>Please check the following field(s):</b>
-        <ul>
-          <li
-            v-for="error in errors"
-            :key="error"
-          >
-            {{ error }}
-          </li>
-        </ul>
-      </p>
-
       <div class="form-group">
         <label for="input-cardname">Name on Card</label>
         <input
@@ -31,6 +16,7 @@
           required
         >
       </div>
+      <span id="card-name-error"><p>Please Enter A Valid Name</p></span>
       <div class="form-group">
         <label for="input-cardnumber">Card number</label>
         <input
@@ -41,7 +27,7 @@
           required
         >
       </div>
-
+      <span id="number-error"><p>Please Enter A Valid Card Number</p></span>
       <div class="exp-cvc-inputs">
         <div
           class="form-group"
@@ -56,6 +42,7 @@
             required
           >
         </div>
+        <span id="expiry-error"><p>Please Enter A Valid Expiry Date</p></span>
         <div
           id="smallerInputs"
           class="form-group"
@@ -70,6 +57,7 @@
             required
           >
         </div>
+        <span id="cvc-error"><p>Please Enter A Valid CVC</p></span>
       </div>
       <hr>
       <h2>Delivery Details</h2>
@@ -83,26 +71,29 @@
           required
         >
       </div>
+      <span id="first-name-error"><p>Please Enter A Valid Name</p></span>
       <div class="form-group">
-        <label for="input-cardnumber">Surname</label>
+        <label for="input-surname">Surname</label>
         <input
           v-model="delivery.surname"
           type="text"
-          name="input-cardnumber"
+          name="input-surname"
           placeholder="eg: Doe"
           required
         >
       </div>
+      <span id="surname-error"><p>Please Enter A Valid Name</p></span>
       <div class="form-group">
-        <label for="input-cardnumber">Email Address</label>
+        <label for="input-email">Email Address</label>
         <input
           v-model="delivery.email"
           type="email"
-          name="input-cardnumber"
+          name="input-email"
           placeholder="eg: example@email.com"
           required
         >
       </div>
+      <span id="email-error"><p>Please Enter A Valid Email</p></span>
       <div class="form-group">
         <label for="input-cardnumber">Street Address</label>
         <input
@@ -113,6 +104,7 @@
           required
         >
       </div>
+      <span id="address-error"><p>Please Enter A Valid Address</p></span>
       <div class="form-group">
         <label for="input-cardnumber">Delivery Instructions</label>
         <textarea
@@ -138,7 +130,7 @@ export default {
   },
   data() {
     return {
-      errors: [],
+      isError: false,
       card: {
         number: null,
         name: null,
@@ -155,25 +147,86 @@ export default {
   },
   methods: {
     checkForm() {
-      this.errors = [];
       const cardNumberRegex = /^4[0-9]{12}(?:[0-9]{3})?$/;
       if (!cardNumberRegex.test(this.card.number)) {
-        if (this.errors.length < 4) { this.errors.push('Invalid Card'); }
+        document.getElementById('number-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('number-error').style.display = 'none';
       }
       const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/;
       if (!cardExpiryRegex.test(this.card.expiry)) {
-        if (this.errors.length < 4) { this.errors.push('Invalid Expiry'); }
+        document.getElementById('expiry-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('expiry-error').style.display = 'none';
       }
       const cardCvc = /^[0-9]{3,4}$/;
       if (!cardCvc.test(this.card.cvc)) {
-        if (this.errors.length < 4) { this.errors.push('Invalid Cvc'); }
+        document.getElementById('cvc-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('cvc-error').style.display = 'none';
       }
       const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
       if (!addressRegex.test(this.delivery.address)) {
-        if (this.errors.length < 4) { this.errors.push('Invalid Delivery Address'); }
+        document.getElementById('address-error').style.display = 'block';
+        this.isError = true;
       } else {
-        this.errors = [];
+        document.getElementById('address-error').style.display = 'none';
+      }
+      if (!this.isError) {
         this.completePayment();
+      }
+    },
+    checkInputsHaveContent() {
+      if (!this.card.name) {
+        document.getElementById('card-name-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('card-name-error').style.display = 'none';
+      }
+      if (!this.card.number) {
+        document.getElementById('number-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('number-error').style.display = 'none';
+      }
+      if (!this.card.expiry) {
+        document.getElementById('expiry-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('expiry-error').style.display = 'none';
+      }
+      if (!this.card.cvc) {
+        document.getElementById('cvc-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('cvc-error').style.display = 'none';
+      }
+      if (!this.delivery.firstName) {
+        document.getElementById('first-name-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('first-name-error').style.display = 'none';
+      }
+      if (!this.delivery.surname) {
+        document.getElementById('surname-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('surname-error').style.display = 'none';
+      }
+      if (!this.delivery.email) {
+        document.getElementById('email-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('email-error').style.display = 'none';
+      }
+      if (!this.delivery.address) {
+        document.getElementById('address-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('address-error').style.display = 'none';
       }
     },
     async completePayment() {
@@ -286,5 +339,13 @@ hr{
   border-top: thin #a26360 solid;
   margin: 1em 0;
   margin-top: 2em;
+}
+#card-name-error, #number-error, #expiry-error, #cvc-error {
+  display: none;
+  color: red;
+}
+#first-name-error,#surname-error,#email-error,#address-error{
+  display: none;
+  color: red;
 }
 </style>
