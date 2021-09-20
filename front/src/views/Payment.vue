@@ -4,7 +4,7 @@
     <h2>Payment</h2>
     <form
       id="payment-form"
-      @submit.prevent="checkForm "
+      @submit.prevent="checkForm"
     >
       <div class="form-group">
         <label for="input-cardname">Name on Card</label>
@@ -147,39 +147,7 @@ export default {
   },
   methods: {
     checkForm() {
-      const cardNumberRegex = /^4[0-9]{12}(?:[0-9]{3})?$/;
-      if (!cardNumberRegex.test(this.card.number)) {
-        document.getElementById('number-error').style.display = 'block';
-        this.isError = true;
-      } else {
-        document.getElementById('number-error').style.display = 'none';
-      }
-      const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/;
-      if (!cardExpiryRegex.test(this.card.expiry)) {
-        document.getElementById('expiry-error').style.display = 'block';
-        this.isError = true;
-      } else {
-        document.getElementById('expiry-error').style.display = 'none';
-      }
-      const cardCvc = /^[0-9]{3,4}$/;
-      if (!cardCvc.test(this.card.cvc)) {
-        document.getElementById('cvc-error').style.display = 'block';
-        this.isError = true;
-      } else {
-        document.getElementById('cvc-error').style.display = 'none';
-      }
-      const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
-      if (!addressRegex.test(this.delivery.address)) {
-        document.getElementById('address-error').style.display = 'block';
-        this.isError = true;
-      } else {
-        document.getElementById('address-error').style.display = 'none';
-      }
-      if (!this.isError) {
-        this.completePayment();
-      }
-    },
-    checkInputsHaveContent() {
+      this.isError = false;
       if (!this.card.name) {
         document.getElementById('card-name-error').style.display = 'block';
         this.isError = true;
@@ -228,9 +196,40 @@ export default {
       } else {
         document.getElementById('address-error').style.display = 'none';
       }
+      const cardNumberRegex = /^4[0-9]{12}(?:[0-9]{3})?$/;
+      if (!cardNumberRegex.test(this.card.number)) {
+        document.getElementById('number-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('number-error').style.display = 'none';
+      }
+      const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/;
+      if (!cardExpiryRegex.test(this.card.expiry)) {
+        document.getElementById('expiry-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('expiry-error').style.display = 'none';
+      }
+      const cardCvc = /^[0-9]{3,4}$/;
+      if (!cardCvc.test(this.card.cvc)) {
+        document.getElementById('cvc-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('cvc-error').style.display = 'none';
+      }
+      const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
+      if (!addressRegex.test(this.delivery.address)) {
+        document.getElementById('address-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('address-error').style.display = 'none';
+      }
+      console.log(this.isError);
+      if (this.isError === false) {
+        this.completePayment();
+      }
     },
     async completePayment() {
-      console.log('Yes');
       const response = await fetch(
         `http://localhost:3000/listings/${this.listingId}/sold`,
         {
