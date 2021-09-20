@@ -62,17 +62,17 @@ const Listing = require("./models/Listing");
 // });
 
 // Filter Categories End Point - Annabel
-app.get("/listing/:category", async (req, res) => {
-  let listings;
-  if (req.params.category !== "all") {
-    listings = await listing
-      .find({ category: req.params.category })
-      .populate("author", "name");
-  } else {
-    listings = await listing.find().populate("author", "name");
-  }
-  res.status(200).json(listings);
-});
+// app.get("/listing/:category", async (req, res) => {
+//   let listings;
+//   if (req.params.category !== "all") {
+//     listings = await listing
+//       .find({ category: req.params.category })
+//       .populate("author", "name");
+//   } else {
+//     listings = await listing.find().populate("author", "name");
+//   }
+//   res.status(200).json(listings);
+// });
 
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {

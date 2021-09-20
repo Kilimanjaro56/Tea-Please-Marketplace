@@ -2,40 +2,21 @@
   <div>
     <!-- Filter front End - Annabel -->
     <select
-      id="category-filter"
-      v-model="key"
-      name=""
-      @change="onChange($event)"
+      v-model="filteredCategory"
+      @change="$emit('categoryFilter',filteredCategory)"
     >
       <option
-        value=""
-        selected
+        v-for="category of categories"
+        :key="category"
+        :value="category"
       >
-        Filter By
+        {{ category }}
       </option>
-      <option value="all">
-        All Listings
-      </option>
-      <option value="Tea">
-        Tea
-      </option>
-      <option value="Teacups">
-        Tea Cups
-      </option>
-      <option value="Teapots">
-        Tea Pots
-      </option>
-      <option value="Teasets">
-        Tea Sets
-      </option>
-      <option value="Misc">
-        Misc
-      </option>
-      <span>
-        <i class="fas fa-caret-up" />
-        <i class="fas fa-caret-down" />
-      </span>
     </select>
+    <span>
+      <i class="fas fa-caret-up" />
+      <i class="fas fa-caret-down" />
+    </span>
   </div>
 </template>
 
@@ -45,12 +26,17 @@ export default {
     listings: Object,
     filter: String,
   },
-  emits: ['filtered', 'showAll'],
-  // methods: onChange,
-  function(event) {
-    console.log(event.target.value);
+
+  emits: ['categoryFilter'],
+  data() {
+    return {
+      categories: ['Tea', 'Teapots', 'Teacups', 'Matching Sets', 'All Listings'],
+      filteredCategory: 'All Listings',
+    };
   },
+
 };
+
 </script>
 
 <style scoped>
