@@ -30,7 +30,7 @@
       Back to Profile
     </button>
     <button>
-    <LogOutButton />
+      <LogOutButton />
     </button>
   </div>
 </template>

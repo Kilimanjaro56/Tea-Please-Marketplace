@@ -152,6 +152,26 @@ app.delete("/listings/edit/:listingId", async (req, res, next) => {
   }
 });
 
+  app.patch("/listings/edit/:listingId", async (req, res, next) => {
+    try {
+      const listingData = {
+        author: req.body.author,
+        title: req.body.title,
+        imageUrl: req.body.imageUrl,
+        description: req.body.description,
+        price: req.body.price,
+        category: req.body.category,
+      };
+      const updatedListing = await Listing.findByIdAndUpdate(
+        req.params.listingId,
+        listingData
+      );
+      res.json(updatedListing);
+    } catch (error) {
+      next(error);
+    }
+  });
+
 //User Schema - Keely
 const User = require("./models/User");
 
