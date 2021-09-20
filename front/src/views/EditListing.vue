@@ -1,82 +1,88 @@
 <template>
   <div class="edit">
     <h2>Edit</h2>
-    <form
-      v-if="listing.title"
-      @submit.prevent="updateListing"
-    >
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input
-          v-model="listing.title"
-          type="text"
-          name="title"
-        >
+        <div v-if="!listing.title">
+        <h3>Error!</h3>
+        <h4>Sorry this page isn't avalible, please check the link and try again</h4>
+        <button>Return to Home</button>
       </div>
-      <div id="price-and-category">
+    <div v-else-if="user.id === listing.author._id">
+      <form
+        @submit.prevent="updateListing"
+      >
         <div class="form-group">
-          <label for="price">Price</label>
+          <label for="title">Title</label>
           <input
-            v-model="listing.price"
-            type="number"
-            name="price"
-            placeholder="$"
+            v-model="listing.title"
+            type="text"
+            name="title"
           >
+        </div>
+        <div id="price-and-category">
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input
+              v-model="listing.price"
+              type="number"
+              name="price"
+              placeholder="$"
+            >
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select
+              id="category"
+              v-model="listing.category"
+              name="category"
+              placeholder="select"
+            >
+              <option value="Tea">
+                Tea
+              </option>
+              <option value="Teacups">
+                Teacups
+              </option>
+              <option value="Teapots">
+                Teapots
+              </option>
+              <option value="Tea Sets">
+                Tea Sets
+              </option>
+              <option value="Misc">
+                Misc
+              </option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
-          <label for="category">Category</label>
-          <select
-            id="category"
-            v-model="listing.category"
-            name="category"
-            placeholder="select"
-          >
-            <option value="Tea">
-              Tea
-            </option>
-            <option value="Teacups">
-              Teacups
-            </option>
-            <option value="Teapots">
-              Teapots
-            </option>
-            <option value="Tea Sets">
-              Tea Sets
-            </option>
-            <option value="Misc">
-              Misc
-            </option>
-          </select>
+          <label for="description">Product Description</label>
+          <textarea
+            v-model="listing.description"
+            maxlength="200"
+            row="50"
+            name="description"
+          />
         </div>
-      </div>
-      <div class="form-group">
-        <label for="description">Product Description</label>
-        <textarea
-          v-model="listing.description"
-          maxlength="200"
-          row="50"
-          name="description"
-        />
-      </div>
-      <div class="form-group">
-        <label for="image-url">Image URL</label>
-        <input
-          v-model="listing.imageUrl"
-          type="text"
-          name="image-url"
-          placeholder="eg: https://image-url"
-        >
-      </div>
-      <button type="submit">
-        Save Changes
-      </button>
-    </form>
+        <div class="form-group">
+          <label for="image-url">Image URL</label>
+          <input
+            v-model="listing.imageUrl"
+            type="text"
+            name="image-url"
+            placeholder="eg: https://image-url"
+          >
+        </div>
+        <button type="submit">
+          Save Changes
+        </button>
+        <Delete :listing-id="listingId" />
+      </form>
+    </div>
     <div v-else>
       <h3>Error!</h3>
-      <h4>Sorry this page isn't avalible, please check the link and try again</h4>
+      <h4>Sorry you don't have the authorization to view this page</h4>
       <button>Return to Home</button>
     </div>
-    <Delete :listing-id="listingId" />
   </div>
 </template>
 
@@ -90,13 +96,14 @@ export default {
   },
   props: {
     listingId: String,
+    user: Object,
   },
   data() {
     return {
       listing: [],
     };
   },
-  mounted() {
+  created() {
     this.getListingDetail();
   },
   methods: {
