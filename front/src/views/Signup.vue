@@ -83,6 +83,7 @@ export default {
   },
   methods: {
     async registerUser() {
+      console.log(this.message);
       const response = await fetch('http://localhost:3000/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -90,8 +91,9 @@ export default {
       });
       const data = await response.json();
       this.message = data;
-      this.resetForm();
-      window.location.assign('http://localhost:8080/login');
+      if (this.message.message !== 'This email already exists, log in below') {
+        window.location.assign('http://localhost:8080/login');
+      }
     },
     checkForm() {
       if (!this.user.name) {
