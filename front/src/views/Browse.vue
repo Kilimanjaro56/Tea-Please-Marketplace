@@ -252,5 +252,34 @@ i {
     background-color:red;
   }
 }
+@media screen and (min-width: 1024px) {
+  .browse{
+    font-size: 1.2em;
+  }
+  .filter-search-group{
+    display: flex;
+    justify-content: end;
+  }
+  select{
+    width: 30%;
+    margin-right: 1.5em;
+  }
+  ul{
+    border: red thin solid;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  li{
+    width: 18%;
+    margin: 1em auto;
+  }
+  li>.desc{
+    max-height: 5vh;
+    overflow: scroll;
+  }
+  button{
+    background-color:blue;
+  }
+}
 
 </style>
