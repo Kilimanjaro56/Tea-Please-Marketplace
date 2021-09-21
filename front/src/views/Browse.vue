@@ -59,7 +59,7 @@
         </p>
         <button>
           <router-link
-            to="/listings/:listingId"
+            :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
             class="view-detail-btn"
           >
             View Details
@@ -241,4 +241,45 @@ a {
 i {
   color: #a26360;
 }
+@media screen and (min-width: 768px) {
+  .browse{
+    font-size: 1.2em;
+  }
+  select{
+    width: 60%;
+  }
+  button{
+    background-color:red;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .browse{
+    font-size: 1.2em;
+  }
+  .filter-search-group{
+    display: flex;
+    justify-content: end;
+  }
+  select{
+    width: 30%;
+    margin-right: 1.5em;
+  }
+  ul{
+    border: red thin solid;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  li{
+    width: 18%;
+    margin: 1em auto;
+  }
+  li>.desc{
+    max-height: 5vh;
+    overflow: scroll;
+  }
+  button{
+    background-color:blue;
+  }
+}
+
 </style>
