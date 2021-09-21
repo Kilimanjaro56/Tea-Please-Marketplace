@@ -59,7 +59,7 @@
         </p>
         <button>
           <router-link
-            :to="{ name: 'ListingDetail'}"
+            :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
             class="view-detail-btn"
           >
             View Details
