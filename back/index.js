@@ -56,10 +56,10 @@ const authUser = (req, res, next) => {
 const Listing = require("./models/Listing");
 
 // VIEW LIST TESTING FOR FILTER -Keely
-// app.get("/listings", async (req, res) => {
-//   const listings = await Listing.find().populate('author', 'name');
-//   res.status(200).json(listings);
-// });
+app.get("/listings", async (req, res) => {
+  const listings = await Listing.find().populate('author', 'name');
+  res.status(200).json(listings);
+});
 
 
 //Get Single Post End Point - Keely
