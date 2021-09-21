@@ -71,14 +71,11 @@ export default {
 <style scoped>
 #search-bar{
   display: none;
-  position: absolute;
-  right: 4vw;
-  top: 42vw;
 }
 #search-input{
   border-radius: 5px;
   border: thin #A26360 solid;
-  padding: 0.6em 6.3em;
+  padding: 0.3em 3em;
   text-align: center;
 }
 form i{
@@ -87,6 +84,8 @@ form i{
   font-size: 1.1em;
 }
 #search-icon{
+  position: relative;
+  /* left: 30vw; */
   font-size: 1.4em;
 }
 </style>

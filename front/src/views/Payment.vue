@@ -342,11 +342,9 @@ hr{
 #card-name-error, #number-error, #expiry-error, #cvc-error {
   display: none;
   color: red;
-  text-align: left;
 }
 #first-name-error,#surname-error,#email-error,#address-error{
   display: none;
   color: red;
-  text-align: left;
 }
 </style>

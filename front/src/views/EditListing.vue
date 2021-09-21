@@ -136,7 +136,6 @@ export default {
       this.listing = data;
     },
     checkForm() {
-      this.isError = false;
       if (!this.listing.title) {
         document.getElementById('title-error').style.display = 'block';
         this.isError = true;
@@ -183,7 +182,7 @@ export default {
       );
       const data = await response.json();
       console.log(data);
-      window.location.assign(`/listings/${this.listingId}`);
+      this.$router.push(`/listings/${this.listingId}`);
     },
   },
 };
@@ -301,6 +300,5 @@ button {
 #title-error, #price-error, #description-error, #image-error{
   display: none;
   color: red;
-  text-align: left;
 }
 </style>

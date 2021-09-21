@@ -199,7 +199,7 @@ export default {
 
 form {
   width: 80vw;
-  height: 60vh;
+  height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -309,6 +309,5 @@ b{
 #title-error, #price-error, #description-error, #image-error{
   display: none;
   color: red;
-  text-align: left;
 }
 </style>

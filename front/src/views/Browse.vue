@@ -5,10 +5,7 @@
       <h2>Browse Listings Here !!</h2>
     </div>
     <div class="filter-search-group">
-      <select
-        id="category-filter"
-        name="filter"
-      >
+      <select name="filter">
         <option value="">
           Filter by
         </option>
@@ -22,15 +19,15 @@
           Filter by ...
         </option>
       </select>
-      <a
-        id="clear-search"
-        @click="clearSearch"
-      >Clear Search</a>
       <Search
         :listings="listings"
         @searched="displayFilteredListings"
         @showAll="getListings"
       />
+      <a
+        id="clear-search"
+        @click="clearSearch"
+      >Clear Search</a>
     </div>
     <ul>
       <li
@@ -62,7 +59,7 @@
         </p>
         <button>
           <router-link
-            to="/listings/:listingId"
+            :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
             class="view-detail-btn"
           >
             View Details
@@ -120,20 +117,14 @@ export default {
         this.listings = filteredArray;
         this.message = null;
         document.getElementById('clear-search').style.display = 'block';
-        document.getElementById('category-filter').style.display = 'none';
-        document.getElementById('search-icon').style.display = 'none';
       } else {
         this.listings = null;
         this.message = 'Sorry, No Matches';
         document.getElementById('clear-search').style.display = 'block';
-        document.getElementById('category-filter').style.display = 'none';
-        document.getElementById('search-icon').style.display = 'none';
       }
     },
     clearSearch() {
       document.getElementById('clear-search').style.display = 'none';
-      document.getElementById('category-filter').style.display = 'flex';
-      document.getElementById('search-icon').style.display = 'flex';
       this.getListings();
     },
   },
@@ -171,7 +162,6 @@ select > option {
 .filter-search-group {
   display: flex;
   justify-content: space-around;
-  align-items: center;
 }
 ul {
   display: flex;
@@ -251,4 +241,45 @@ a {
 i {
   color: #a26360;
 }
+@media screen and (min-width: 768px) {
+  .browse{
+    font-size: 1.2em;
+  }
+  select{
+    width: 60%;
+  }
+  button{
+    background-color:red;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .browse{
+    font-size: 1.2em;
+  }
+  .filter-search-group{
+    display: flex;
+    justify-content: end;
+  }
+  select{
+    width: 30%;
+    margin-right: 1.5em;
+  }
+  ul{
+    border: red thin solid;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  li{
+    width: 18%;
+    margin: 1em auto;
+  }
+  li>.desc{
+    max-height: 5vh;
+    overflow: scroll;
+  }
+  button{
+    background-color:blue;
+  }
+}
+
 </style>
