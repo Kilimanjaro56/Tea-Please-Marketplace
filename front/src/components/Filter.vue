@@ -3,7 +3,7 @@
     <!-- Filter front End - Annabel -->
     <select
       v-model="filteredCategory"
-      @change="$emit('categoryFilter',filteredCategory)"
+      @change="$emit('categoryFilter', filteredCategory)"
     >
       <option
         v-for="category of categories"
@@ -35,18 +35,19 @@ export default {
     };
   },
 
-};
+  // methods: {
 
+  // },
+};
 </script>
 
 <style scoped>
-#category-filter{
+#category-filter {
   display: flex;
   flex-direction: row;
   margin: auto;
   justify-content: center;
   align-items: center;
-
 }
 
 select {
@@ -54,26 +55,26 @@ select {
   -moz-appearance: none;
   position: relative;
   border-radius: 5px;
-  border: thin #A26360 solid;
+  border: thin #a26360 solid;
   padding: 0.3em 3em;
   text-align: center;
 }
 
 option {
-  color: #2B463C;
-  font-family: 'Questrial', sans-serif;
+  color: #2b463c;
+  font-family: "Questrial", sans-serif;
 }
 
-span{
+span {
   position: absolute;
   display: flex;
   flex-direction: column;
   flex: flex-end;
-  color: #2B463C;
+  color: #2b463c;
 }
 
-i{
-  color: #2B463C;
+i {
+  color: #2b463c;
   font-size: 0.75em;
 }
 </style>
