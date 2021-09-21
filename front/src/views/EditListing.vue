@@ -183,7 +183,7 @@ export default {
       );
       const data = await response.json();
       console.log(data);
-      this.$router.push(`/listings/${this.listingId}`);
+      window.location.assign(`/listings/${this.listingId}`);
     },
   },
 };
@@ -301,5 +301,6 @@ button {
 #title-error, #price-error, #description-error, #image-error{
   display: none;
   color: red;
+  text-align: left;
 }
 </style>

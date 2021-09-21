@@ -174,4 +174,9 @@ button{
   margin-left: -0.6em;
   margin-bottom: -2.5em;
 }
+.fa-chevron-left:before{
+  position: absolute;
+  top: 3.5em;
+  left: 1em;
+}
 </style>
