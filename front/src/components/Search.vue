@@ -85,7 +85,7 @@ form i{
 }
 #search-icon{
   position: relative;
-  left: 30vw;
+  /* left: 30vw; */
   font-size: 1.4em;
 }
 </style>

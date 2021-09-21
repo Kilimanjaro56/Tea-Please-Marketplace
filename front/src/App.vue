@@ -73,4 +73,9 @@ a{
 i{
   color: #A26360;
 }
+input, select,textarea{
+  box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+-webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+-moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+}
 </style>
