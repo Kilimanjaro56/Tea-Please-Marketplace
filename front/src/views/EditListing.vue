@@ -136,6 +136,7 @@ export default {
       this.listing = data;
     },
     checkForm() {
+      this.isError = false;
       if (!this.listing.title) {
         document.getElementById('title-error').style.display = 'block';
         this.isError = true;
