@@ -3,20 +3,6 @@
     <!-- Keely Sign Up Front + Validation -->
     <h2>Sign Up</h2>
     <hr>
-    <p
-      v-if="errors.length"
-      id="errors"
-    >
-      <b>Please check the following field(s):</b>
-      <ul>
-        <li
-          v-for="error in errors"
-          :key="error"
-        >
-          {{ error }}
-        </li>
-      </ul>
-    </p>
     <form @submit.prevent="checkForm">
       <div class="form-group">
         <label for="name">User Name</label>
@@ -28,6 +14,7 @@
           placeholder="e.g: John Doe"
         >
       </div>
+      <span id="name-error"><p>Please Enter A Valid Name</p></span>
       <div class="form-group">
         <label for="password">Password</label>
         <input
@@ -39,6 +26,10 @@
           minlength="8"
         >
       </div>
+      <span id="password-error">
+        <p>Please Enter A Valid Password.</p>
+        <p>Minimum eight characters, at least one letter and one number</p>
+      </span>
       <div class="form-group">
         <label for="email">Email Address</label>
         <input
@@ -50,6 +41,7 @@
           @keyup="message.message = null"
         >
       </div>
+      <span id="email-error"><p>Please Enter A Valid Email</p></span>
       <p
         v-if="message"
         id="error-message"
@@ -85,12 +77,13 @@ export default {
         password: null,
         email: null,
       },
-      errors: [],
+      isError: false,
       message: [],
     };
   },
   methods: {
     async registerUser() {
+      console.log(this.message);
       const response = await fetch('http://localhost:3000/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -98,22 +91,42 @@ export default {
       });
       const data = await response.json();
       this.message = data;
-      this.resetForm();
-      window.location.assign('http://localhost:8080/login');
+      if (this.message.message !== 'This email already exists, log in below') {
+        window.location.assign('http://localhost:8080/login');
+      }
     },
     checkForm() {
-      this.errors = [];
       if (!this.user.name) {
-        this.errors.push('Name required.');
+        document.getElementById('name-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('name-error').style.display = 'none';
+        this.isError = false;
       }
       if (!this.user.password) {
-        this.errors.push('Password required. Minimum eight characters, at least one letter and one number:');
+        document.getElementById('password-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('password-error').style.display = 'none';
+        this.isError = false;
       }
       if (!this.user.email) {
-        this.errors.push('Email required.');
+        document.getElementById('email-error').style.display = 'block';
+        this.isError = true;
       } else {
+        document.getElementById('email-error').style.display = 'none';
+        this.isError = false;
+      }
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      if (!passwordRegex.test(this.user.password)) {
+        document.getElementById('password-error').style.display = 'block';
+        this.isError = true;
+      } else {
+        document.getElementById('password-error').style.display = 'none';
+        this.isError = false;
+      }
+      if (this.isError === false) {
         this.registerUser();
-        this.errors = [];
       }
     },
     resetForm() {
@@ -198,5 +211,9 @@ p, #login-link{
   text-decoration: none;
   margin-top: 1.4em;
   line-height: 120%;
+}
+#name-error, #password-error, #email-error{
+  display: none;
+  color: red;
 }
 </style>
