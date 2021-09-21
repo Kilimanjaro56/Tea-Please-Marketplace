@@ -3,7 +3,7 @@
     <!-- Filter front End - Annabel -->
     <select
       v-model="filteredCategory"
-      @change="$emit('categoryFilter', filteredCategory)"
+      @change="getFilteredListings()"
     >
       <option
         v-for="category of categories"
@@ -24,10 +24,10 @@
 export default {
   props: {
     listings: Object,
-    filter: String,
+    // filter: String,
   },
 
-  emits: ['categoryFilter'],
+  emits: ['categoryFilter', 'clearCategories'],
   data() {
     return {
       categories: ['Tea', 'Teapots', 'Teacups', 'Matching Sets', 'All Listings'],
@@ -35,9 +35,19 @@ export default {
     };
   },
 
-  // methods: {
-
-  // },
+  methods: {
+    getFilteredListings() {
+      if (this.filteredCategory !== 'All Listings') {
+        const filteredArray = this.listings.filter(
+          (listing) => listing.category === this.filteredCategory,
+        );
+        console.log(filteredArray);
+        this.$emit('categoryFilter', filteredArray);
+      } else {
+        this.$emit('clearCategories');
+      }
+    },
+  },
 };
 </script>
 

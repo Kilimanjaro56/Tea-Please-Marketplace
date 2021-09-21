@@ -2,8 +2,9 @@
   <div class="browse">
     <h3>Browse Listings</h3>
     <Filter
-      :listings="listings"
-      @categoryFilter="getFilteredListings"
+      :listings="listingStore"
+      @categoryFilter="displayFilteredCategory"
+      @clearCategories="getListings"
     />
     <Search
       :listings="listings"
@@ -46,6 +47,7 @@ export default {
   emits: ['categoryFilter'],
   data() {
     return {
+      listingStore: [],
       listings: [],
       message: null,
       filter: 'all',
@@ -65,6 +67,7 @@ export default {
       const data = await response.json();
       console.log(data);
       this.listings = data;
+      this.listingStore = data;
       this.message = null;
       document.getElementById('clear-search').style.display = 'none';
     },
@@ -86,24 +89,8 @@ export default {
       this.getListings();
     },
 
-    getFilteredListings(filteredCategory) {
-      const filteredArray = this.listings.filter(
-        (listing) => listing.category === filteredCategory,
-      );
-      this.filteredListings = filteredArray;
-      this.$emit('categoryFilter', this.filteredListings);
-      console.log(this.filteredListings);
-    },
-
     displayFilteredCategory(filteredArray) {
-      if (filteredArray.category) {
-        this.filteredListings = filteredArray.category;
-        this.message = null;
-        document.getElementById('categoryFilter').style.display = 'block';
-      } else {
-        this.filteredListings = null;
-        document.getElementById('categoryFilter').style.display = 'block';
-      }
+      this.listings = filteredArray;
     },
   },
 };
