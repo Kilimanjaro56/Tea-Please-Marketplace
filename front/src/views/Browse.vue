@@ -5,10 +5,7 @@
       <h2>Browse Listings Here !!</h2>
     </div>
     <div class="filter-search-group">
-      <select
-        id="category-filter"
-        name="filter"
-      >
+      <select name="filter">
         <option value="">
           Filter by
         </option>
@@ -22,15 +19,15 @@
           Filter by ...
         </option>
       </select>
-      <a
-        id="clear-search"
-        @click="clearSearch"
-      >Clear Search</a>
       <Search
         :listings="listings"
         @searched="displayFilteredListings"
         @showAll="getListings"
       />
+      <a
+        id="clear-search"
+        @click="clearSearch"
+      >Clear Search</a>
     </div>
     <ul>
       <li
@@ -120,20 +117,14 @@ export default {
         this.listings = filteredArray;
         this.message = null;
         document.getElementById('clear-search').style.display = 'block';
-        document.getElementById('category-filter').style.display = 'none';
-        document.getElementById('search-icon').style.display = 'none';
       } else {
         this.listings = null;
         this.message = 'Sorry, No Matches';
         document.getElementById('clear-search').style.display = 'block';
-        document.getElementById('category-filter').style.display = 'none';
-        document.getElementById('search-icon').style.display = 'none';
       }
     },
     clearSearch() {
       document.getElementById('clear-search').style.display = 'none';
-      document.getElementById('category-filter').style.display = 'flex';
-      document.getElementById('search-icon').style.display = 'flex';
       this.getListings();
     },
   },
@@ -171,7 +162,6 @@ select > option {
 .filter-search-group {
   display: flex;
   justify-content: space-around;
-  align-items: center;
 }
 ul {
   display: flex;
