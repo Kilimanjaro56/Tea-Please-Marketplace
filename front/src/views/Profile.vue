@@ -42,6 +42,19 @@
         Create Listing
       </button>
     </div>
+    <h2>My Latest Listing</h2>
+    <div
+      v-for="listing of listings"
+      :key="listing.author_id"
+    >
+      <div v-if="listing.author._id === user.id">
+        <div>
+          <div class="listings">
+            <p>{{ listing.author._id }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <UserErrorMessage v-else />
 </template>
@@ -61,12 +74,24 @@ export default {
   data() {
     return {
       currentUser: [],
+      listings: [],
     };
   },
   mounted() {
     this.getUser();
   },
+  created() {
+    this.getMyListing();
+  },
   methods: {
+    async getMyListing() {
+      if (this.user) {
+        const response = await fetch('http://localhost:3000/listings');
+        const data = await response.json();
+        this.listings = data;
+        this.message = null;
+      }
+    },
     async getUser() {
       if (this.user) {
         const response = await fetch(
@@ -98,7 +123,8 @@ export default {
         },
       );
       const data = await response.json();
-      this.currentUser = data;
+      this.currentUser.bio = data.bio;
+      this.getUser();
     },
   },
 };

@@ -98,7 +98,7 @@ export default {
         window.localStorage.setItem('id', data.id);
       }
       if (window.localStorage.getItem('email')) {
-        window.location.assign('http://localhost:8080/');
+        window.location.assign('http://localhost:8080/listings');
       }
       this.$emit('loggedin');
     },

@@ -15,7 +15,7 @@
           <h3>Seller: {{ listing.author.name }}</h3>
         </div>
         <button
-          v-if="listing.isAvaliable"
+          v-if="listing.isAvaliable && user.id !== listing.author._id"
           @click="$router.push(`/payment/${listingId}`);"
         >
           Purchase

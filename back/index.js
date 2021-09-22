@@ -76,11 +76,11 @@ try{
   const updatedUser = await User.findByIdAndUpdate(
     req.params.userId,
     userData
-  );
-  res.status(200).json(updatedUser);
-} catch (error) {
-  console.log(error);
-}
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //Get Single Post End Point - Keely

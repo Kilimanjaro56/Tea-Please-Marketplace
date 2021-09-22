@@ -190,7 +190,6 @@ li {
   align-items: center;
 }
 .first-group > p {
-  text-transform: uppercase;
   padding: 0.2em;
 }
 .second-group {
