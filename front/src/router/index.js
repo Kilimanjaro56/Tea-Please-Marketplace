@@ -7,21 +7,25 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue'),
+    props: true,
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
+    props: true,
   },
   {
     path: '/signup',
     name: 'Signup',
     component: () => import('../views/Signup.vue'),
+    props: true,
   },
   {
-    path: '/listings',
+    path: '/',
     name: 'Browse',
     component: () => import('../views/Browse.vue'),
+    props: true,
   },
   {
     path: '/listings/:listingId',
@@ -39,11 +43,13 @@ const routes = [
     path: '/create-listing',
     name: 'CreateListing',
     component: () => import('../views/CreateListing.vue'),
+    props: true,
   },
   {
     path: '/my-listings',
     name: 'MyListings',
     component: () => import('../views/MyListings.vue'),
+    props: true,
   },
   {
     path: '/payment/:listingId',
@@ -61,6 +67,7 @@ const routes = [
     path: '/favourites',
     name: 'Favourites',
     component: () => import('../views/Favourites.vue'),
+    props: true,
   },
   {
     path: '/profile',

@@ -1,5 +1,8 @@
 <template>
-  <div class="edit">
+  <div
+    v-if="user"
+    class="edit"
+  >
     <h2>Edit</h2>
     <div v-if="!listing.author">
       <h3>Error!</h3>
@@ -104,15 +107,18 @@
       <button>Return to Home</button>
     </div>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
 import Delete from '../components/delete.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 // discussed with Simon - 14/09
 
 export default {
   components: {
     Delete,
+    UserErrorMessage,
   },
   props: {
     listingId: String,

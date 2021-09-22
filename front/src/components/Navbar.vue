@@ -8,7 +8,7 @@
       v-if="user"
       class="navbar"
     >
-      <router-link to="/listings">
+      <router-link to="/">
         <img
           src="../assets/Logo.png"
           alt=""
@@ -20,7 +20,7 @@
       >
         <router-link
           id="no-shadow"
-          to="/listings"
+          to="/"
           class="alt-link"
         >
           Home

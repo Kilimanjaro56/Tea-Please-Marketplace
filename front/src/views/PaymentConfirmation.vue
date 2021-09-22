@@ -1,5 +1,8 @@
 <template>
-  <div class="payment-confirmation">
+  <div
+    v-if="user"
+    class="payment-confirmation"
+  >
     <h2>Thank you for your purchase!</h2>
     <div
       v-if="listing.author"
@@ -23,7 +26,7 @@
       <hr>
       <p>{{ listing.description }}</p>
     </div>
-    <button @click="$router.push(`/listings`)">
+    <button @click="$router.push('/')">
       Back to Home
     </button>
     <button @click="$router.push(`/profile`)">
@@ -33,13 +36,16 @@
       <LogOutButton />
     </button>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
 import LogOutButton from '../components/LogOut.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   components: {
+    UserErrorMessage,
     LogOutButton,
   },
   props: {
@@ -56,12 +62,14 @@ export default {
   },
   methods: {
     async getListingDetail() {
-      const response = await fetch(
-        `http://localhost:3000/listings/${this.listingId}`,
-      );
-      const data = await response.json();
-      console.log(data);
-      this.listing = await data;
+      if (this.user) {
+        const response = await fetch(
+          `http://localhost:3000/listings/${this.listingId}`,
+        );
+        const data = await response.json();
+        console.log(data);
+        this.listing = await data;
+      }
     },
   },
 };

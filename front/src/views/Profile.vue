@@ -1,5 +1,9 @@
 <template>
-  <div class="profile">
+  <div
+    v-if="user"
+    class="profile"
+  >
+    <BackButton />
     <h2>Profile</h2>
     <div id="user-name">
       <h3>{{ currentUser.name }}</h3>
@@ -31,14 +35,26 @@
     />
     <hr>
     <div>
-      <button @click="$router.push('/my-listings')">My Listings</button>
-      <button @click="$router.push('/create-listing')">Create Listing</button>
+      <button @click="$router.push('/my-listings')">
+        My Listings
+      </button>
+      <button @click="$router.push('/create-listing')">
+        Create Listing
+      </button>
     </div>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
+import BackButton from '../components/BackButton.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
+
 export default {
+  components: {
+    BackButton,
+    UserErrorMessage,
+  },
   props: {
     user: Object,
   },
@@ -52,11 +68,13 @@ export default {
   },
   methods: {
     async getUser() {
-      const response = await fetch(
-        `http://localhost:3000/profile/${this.user.id}`,
-      );
-      const data = await response.json();
-      this.currentUser = data;
+      if (this.user) {
+        const response = await fetch(
+          `http://localhost:3000/profile/${this.user.id}`,
+        );
+        const data = await response.json();
+        this.currentUser = data;
+      }
     },
     editBio() {
       document.getElementById('active-bio').style.display = 'inline';

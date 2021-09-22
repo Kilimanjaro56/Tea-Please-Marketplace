@@ -1,5 +1,8 @@
 <template>
-  <div class="browse">
+  <div
+    v-if="user"
+    class="browse"
+  >
     <div class="greeting">
       <h2>Welcome {{ user.email }}!!</h2>
       <h2>Browse Listings Here !!</h2>
@@ -74,13 +77,16 @@
       {{ message }}
     </h2>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
 import Search from '../components/Search.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   components: {
+    UserErrorMessage,
     Search,
   },
   props: {
@@ -100,17 +106,18 @@ export default {
   },
   methods: {
     async getListings() {
-      const response = await fetch('http://localhost:3000/listings');
-      const data = await response.json();
-      const dataWithFavs = data.map((element) => {
-        const item = element;
-        item.favourited = false;
-        return item;
-      });
-      console.log(dataWithFavs);
-      this.listings = dataWithFavs;
-      this.message = null;
-      document.getElementById('clear-search').style.display = 'none';
+      if (this.user) {
+        const response = await fetch('http://localhost:3000/listings');
+        const data = await response.json();
+        const dataWithFavs = data.map((element) => {
+          const item = element;
+          item.favourited = false;
+          return item;
+        });
+        this.listings = dataWithFavs;
+        this.message = null;
+        document.getElementById('clear-search').style.display = 'none';
+      }
     },
     displayFilteredListings(filteredArray) {
       if (filteredArray.length >= 1) {

@@ -29,7 +29,7 @@ export default {
       await fetch(`http://localhost:3000/listings/edit/${this.listingId}`, {
         method: 'DELETE',
       }).then((response) => {
-        if (response.status === 200) this.$router.push('/listings');
+        if (response.status === 200) this.$router.push('/');
       });
     },
   },

@@ -90,11 +90,13 @@ export default {
   },
   methods: {
     async getListingDetail() {
-      const response = await fetch(
-        `http://localhost:3000/listings/${this.listingId}`,
-      );
-      const data = await response.json();
-      this.listing = data;
+      if (this.user) {
+        const response = await fetch(
+          `http://localhost:3000/listings/${this.listingId}`,
+        );
+        const data = await response.json();
+        this.listing = data;
+      }
     },
   },
 };
