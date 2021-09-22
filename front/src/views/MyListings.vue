@@ -20,15 +20,15 @@
         >
           <p id="seller">
             {{ listing.author.name }}
-          <span id="edit-delete">
-            <DeleteIcon :listing-id="listing._id" />
-            <router-link
-              :to="{ name: 'EditListing', params:{ listingId: listing._id } }"
-              class="view-detail-btn"
-            >
-              <i class="fas fa-edit" />
-          </router-link>
-          </span>
+            <span id="edit-delete">
+              <DeleteIcon :listing-id="listing._id" />
+              <router-link
+                :to="{ name: 'EditListing', params:{ listingId: listing._id } }"
+                class="view-detail-btn"
+              >
+                <i class="fas fa-edit" />
+              </router-link>
+            </span>
           </p>
           <div class="image-container">
             <img :src="listing.imageUrl">

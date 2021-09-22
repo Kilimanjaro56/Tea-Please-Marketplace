@@ -43,16 +43,41 @@
       </button>
     </div>
     <h2>My Latest Listing</h2>
-    <div
-      v-for="listing of listings"
-      :key="listing.author_id"
-    >
-      <div v-if="listing.author._id === user.id">
-        <div>
-          <div class="listings">
-            <p>{{ listing.author._id }}</p>
-          </div>
+    <div>
+      <div
+        v-if="listings[0]"
+        class="listings"
+      >
+        <p id="seller">
+          {{ listings[0].author.name }}
+          <span id="edit-delete">
+            <DeleteIcon :listing-id="listings[0]._id" />
+            <router-link
+              :to="{ name: 'EditListing', params:{ listingId: listings[0]._id } }"
+              class="view-detail-btn"
+            >
+              <i class="fas fa-edit" />
+            </router-link>
+          </span>
+        </p>
+        <div class="image-container">
+          <img :src="listings[0].imageUrl">
         </div>
+        <div class="second-group">
+          <p>{{ listings[0].title }}</p>
+          <p>${{ listings[0].price }}</p>
+        </div>
+        <p class="desc">
+          {{ listings[0].description }}
+        </p>
+        <button>
+          <router-link
+            :to="{ name: 'ListingDetail', params:{ listingId: listings[0]._id } }"
+            class="view-detail-btn"
+          >
+            View Details
+          </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -62,11 +87,13 @@
 <script>
 import BackButton from '../components/BackButton.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
+import DeleteIcon from '../components/DeleteIcon.vue';
 
 export default {
   components: {
     BackButton,
     UserErrorMessage,
+    DeleteIcon,
   },
   props: {
     user: Object,
@@ -88,8 +115,11 @@ export default {
       if (this.user) {
         const response = await fetch('http://localhost:3000/listings');
         const data = await response.json();
-        this.listings = data;
-        this.message = null;
+        for (const listing of data) {
+          if (listing.author._id === this.user.id) {
+            this.listings.push(listing);
+          }
+        }
       }
     },
     async getUser() {
@@ -178,5 +208,63 @@ hr{
 button{
   width:39vw;
   margin: 0.5em;
+}
+.second-group {
+  width: 70vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #a26360 thin solid;
+  padding-bottom: 0.3em;
+}
+.image-container{
+  width: 80vw;
+  height: 40vh;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+  border-radius: 10px;
+  margin-bottom: 0.4em;
+  margin-top: 0.5em;
+}
+img{
+  width: 140%;
+  min-height: 100%;
+  border-radius: 10px;
+  margin: 1em 0;
+}
+.desc {
+  padding: 1em;
+  text-align: left;
+}
+#seller{
+width: 79vw;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin: 0;
+}
+.listings{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  background-color: #fff;
+  margin: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 1em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+}
+#edit-delete{
+  width: 5em;
+  padding: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

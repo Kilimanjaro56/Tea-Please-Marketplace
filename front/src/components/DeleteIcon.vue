@@ -47,5 +47,6 @@ export default {
 i{
   color: #A26360;
   margin: auto;
+  font-size: 1.2em
 };
 </style>
