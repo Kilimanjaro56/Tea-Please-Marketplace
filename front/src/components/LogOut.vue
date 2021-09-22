@@ -21,7 +21,7 @@ export default {
       this.user = data;
       this.user = window.localStorage.removeItem('email');
       this.user = null;
-      window.location.assign('http://localhost:8080/login');
+      window.location.assign('http://localhost:8080/');
     },
   },
 };

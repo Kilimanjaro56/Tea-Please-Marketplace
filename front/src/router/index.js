@@ -10,7 +10,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: () => import('../views/Login.vue'),
     props: true,
@@ -22,7 +22,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/',
+    path: '/listings',
     name: 'Browse',
     component: () => import('../views/Browse.vue'),
     props: true,

@@ -26,7 +26,7 @@
       <hr>
       <p>{{ listing.description }}</p>
     </div>
-    <button @click="$router.push('/')">
+    <button @click="$router.push('/listings')">
       Back to Home
     </button>
     <button @click="$router.push(`/profile`)">
