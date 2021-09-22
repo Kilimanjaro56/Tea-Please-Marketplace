@@ -182,7 +182,7 @@ export default {
       );
       const data = await response.json();
       console.log(data);
-      this.$router.push(`/listings/${this.listingId}`);
+      window.location.assign(`/listings/${this.listingId}`);
     },
   },
 };

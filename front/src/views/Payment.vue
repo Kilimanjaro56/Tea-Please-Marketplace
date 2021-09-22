@@ -118,7 +118,7 @@
       <button type="submit">
         Finalise Purchase
       </button>
-      <a @click="$router.push(`/Z/${listingId}`);">Cancel Purchase</a>
+      <a @click="$router.push(`/listings/${listingId}`);">Cancel Purchase</a>
     </form>
   </div>
 </template>
