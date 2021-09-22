@@ -111,10 +111,10 @@ export default {
     Search,
     Filter,
   },
-  emits: ['categoryFilter'],
   props: {
     user: Object,
   },
+  emits: ['categoryFilter'],
   data() {
     return {
       listingStore: [],

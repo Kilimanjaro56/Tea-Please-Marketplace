@@ -107,6 +107,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-unresolved
 import Delete from '../components/Delete.vue';
 // discussed with Simon - 14/09
 
