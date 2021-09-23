@@ -1,66 +1,68 @@
 <template>
   <!-- Listing Detail Front End + Styling - Keely -->
-  <div
-    v-if="user"
-    class="item-detail"
-  >
-    <BackButton />
-    <h2>Listing Details</h2>
+  <div class="app-wrapper">
     <div
-      v-if="listing.title"
-      class="listing"
+      v-if="user"
+      class="item-detail"
     >
-      <div id="content-above-image">
-        <div id="seller-container">
-          <h3>Seller: {{ listing.author.name }}</h3>
+      <BackButton />
+      <h2>Listing Details</h2>
+      <div
+        v-if="listing.title"
+        class="listing"
+      >
+        <div id="content-above-image">
+          <div id="seller-container">
+            <h3>Seller: {{ listing.author.name }}</h3>
+          </div>
+          <button
+            v-if="listing.isAvaliable && user.id !== listing.author._id"
+            @click="$router.push(`/payment/${listingId}`);"
+          >
+            Purchase
+          </button>
         </div>
-        <button
-          v-if="listing.isAvaliable && user.id !== listing.author._id"
-          @click="$router.push(`/payment/${listingId}`);"
+        <div class="image-container">
+          <img
+            :src="listing.imageUrl"
+            alt=""
+          >
+        </div>
+        <div class="listing-details">
+          <h3>{{ listing.title }}</h3>
+          <h4>${{ listing.price }}.00</h4>
+        </div>
+        <hr>
+        <p>{{ listing.description }}</p>
+        <div
+          v-if="listing.isAvaliable"
+          class="comments"
         >
-          Purchase
-        </button>
-      </div>
-      <div class="image-container">
-        <img
-          :src="listing.imageUrl"
-          alt=""
+          <Comments
+            :user="user"
+            :listing-id="listingId"
+            :listing="listing"
+          />
+        </div>
+        <div
+          v-else
+          class="reviews"
         >
+          <Reviews
+            :listing-id="listingId"
+            :listing="listing"
+            :user="user"
+          />
+        </div>
       </div>
-      <div class="listing-details">
-        <h3>{{ listing.title }}</h3>
-        <h4>${{ listing.price }}.00</h4>
-      </div>
-      <hr>
-      <p>{{ listing.description }}</p>
-      <div
-        v-if="listing.isAvaliable"
-        class="comments"
-      >
-        <Comments
-          :user="user"
-          :listing-id="listingId"
-          :listing="listing"
-        />
-      </div>
-      <div
-        v-else
-        class="reviews"
-      >
-        <Reviews
-          :listing-id="listingId"
-          :listing="listing"
-          :user="user"
-        />
+      <div v-else>
+        <h3>Error!</h3>
+        <h4>Sorry this listing isn't avalible, please check the link and try again</h4>
+        <button>Return to Home</button>
       </div>
     </div>
-    <div v-else>
-      <h3>Error!</h3>
-      <h4>Sorry this listing isn't avalible, please check the link and try again</h4>
-      <button>Return to Home</button>
-    </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -103,9 +105,21 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 102vw;
+  height: 105vh;
+  overflow-x: hidden;
+}
 .item-detail{
-  margin-top: 3em;
-  margin-left: 8vw;
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .image-container{
   width: 80vw;
@@ -121,6 +135,7 @@ export default {
 p{
   text-align: left;
   line-height: 125%;
+  font-size: 0.9em;
 }
 
 img{
@@ -140,7 +155,7 @@ h3{
 }
 hr{
   width: 80vw;
-  border: 1px #A26360 solid;
+  border-top: 1px #A26360 solid;
   margin: 0;
   margin-top: 0.5em;
 }

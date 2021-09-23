@@ -3,7 +3,8 @@
     v-if="user"
     class="edit"
   >
-    <h2>Edit</h2>
+    <BackButton />
+    <h2>Edit or Delete</h2>
     <div v-if="!listing.author">
       <h3>Error!</h3>
       <h4>Sorry this page isn't avalible, please check the link and try again</h4>
@@ -49,7 +50,10 @@
             </div>
             <span id="price-error"><p>Please Enter A Valid Price</p></span>
           </div>
-          <div class="form-group">
+          <div
+            id="category-selection"
+            class="form-group"
+          >
             <label for="category">Category</label>
             <select
               id="category"
@@ -104,7 +108,14 @@
     <div v-else>
       <h3>Error!</h3>
       <h4>Sorry you don't have the authorization to view this page</h4>
-      <button>Return to Home</button>
+      <button>
+        <router-link
+          :to="('/listings')"
+          class="view-detail-btn"
+        >
+          Return to Home
+        </router-link>
+      </button>
     </div>
   </div>
   <UserErrorMessage v-else />
@@ -113,13 +124,15 @@
 <script>
 // eslint-disable-next-line import/no-unresolved
 import Delete from '../components/Delete.vue';
-import UserErrorMessage from '../components/UserErrorMessage.vue';
 // discussed with Simon - 14/09
+import UserErrorMessage from '../components/UserErrorMessage.vue';
+import BackButton from '../components/BackButton.vue';
 
 export default {
   components: {
     Delete,
     UserErrorMessage,
+    BackButton,
   },
   props: {
     listingId: String,
@@ -143,6 +156,7 @@ export default {
       this.listing = data;
     },
     checkForm() {
+      this.isError = false;
       if (!this.listing.title) {
         document.getElementById('title-error').style.display = 'block';
         this.isError = true;
@@ -195,14 +209,31 @@ export default {
 };
 </script>
 
-<style>
-form {
-  width: 80vw;
-  margin-left: 11vw;
-  height: 70vh;
+<style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 105vh;
+}
+.edit{
+  margin-top: 1em;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+}
+h2{
+  margin-bottom: 1.5em;
+}
+form {
+  width: 80vw;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   justify-content: space-between;
 }
@@ -226,8 +257,9 @@ select {
 }
 
 textarea {
-  height: 10vh;
+  height: 15vh;
   font-family: 'Questrial', sans-serif;
+  resize: none;
 }
 
 input:focus, textarea:focus {
@@ -235,7 +267,7 @@ input:focus, textarea:focus {
 }
 
 #price-and-category {
-  width: 75vw;
+  width: 76vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -244,11 +276,11 @@ input:focus, textarea:focus {
 
 #price-and-category input,
 #price-and-category select {
-  width: 10.2em;
+  width: 9.8em;
 }
 
 .form-group {
-  width: 90%;
+  width: 93%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -266,7 +298,6 @@ button {
   border: none;
   margin-bottom: 1.5em;
   margin-top: 0em;
-  margin-left: 20vw;
 }
 
 #wrap-price{
@@ -274,7 +305,7 @@ button {
 }
 
 #wrap-price input{
-  width: 5.9vw;
+  width: 6vw;
   padding: 0.56em 0.1em;
   padding-left: 0.2em;
 }
@@ -303,6 +334,9 @@ button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   color: #2b463c77;
+}
+#category-selection{
+  margin-right: -2.5em;
 }
 #title-error, #price-error, #description-error, #image-error{
   display: none;

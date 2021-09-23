@@ -187,11 +187,12 @@ textarea {
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin-left: 25%;
+  margin-left: 35%;
 }
 #close-comments i {
   font-size: 1.6em;
   color: #a26360;
+  margin-left: 1em;
 }
 .comments-error {
   height: 10em;

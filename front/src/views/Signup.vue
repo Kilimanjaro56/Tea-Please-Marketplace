@@ -1,69 +1,71 @@
 <template>
-  <div class="signup">
-    <!-- Keely Sign Up Front + Validation -->
-    <h2>Sign Up</h2>
-    <hr>
-    <form @submit.prevent="checkForm">
-      <div class="form-group">
-        <label for="name">User Name</label>
-        <input
-          id="name"
-          v-model="user.name"
-          type="text"
-          name="name"
-          placeholder="e.g: John Doe"
+  <div class="app-wrapper">
+    <div class="signup">
+      <!-- Keely Sign Up Front + Validation -->
+      <h2>Sign Up</h2>
+      <hr>
+      <form @submit.prevent="checkForm">
+        <div class="form-group">
+          <label for="name">User Name</label>
+          <input
+            id="name"
+            v-model="user.name"
+            type="text"
+            name="name"
+            placeholder="e.g: John Doe"
+          >
+        </div>
+        <span id="name-error"><p>Please Enter A Valid Name</p></span>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="user.password"
+            type="password"
+            name="password"
+            placeholder="e.g: i10veT3a"
+            minlength="8"
+          >
+        </div>
+        <span id="password-error">
+          <p>Please Enter A Valid Password.</p>
+          <p>Minimum eight characters, at least one letter and one number</p>
+        </span>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            id="email"
+            v-model="user.email"
+            type="email"
+            name="email"
+            placeholder="e.g: example@eg.com"
+            @keyup="message.message = null"
+          >
+        </div>
+        <span id="email-error"><p>Please Enter A Valid Email</p></span>
+        <p
+          v-if="message"
+          id="error-message"
         >
+          {{ message.message }}
+        </p>
+        <div class="form-group">
+          <button type="submit">
+            Sign Up
+          </button>
+        </div>
+      </form>
+      <div id="login-buttons">
+        <p>
+          Already have an account?<br>
+          <router-link
+            id="login-link"
+            to="/"
+          >
+            Click here to Login
+          </router-link>
+        </p>
       </div>
-      <span id="name-error"><p>Please Enter A Valid Name</p></span>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="user.password"
-          type="password"
-          name="password"
-          placeholder="e.g: i10veT3a"
-          minlength="8"
-        >
-      </div>
-      <span id="password-error">
-        <p>Please Enter A Valid Password.</p>
-        <p>Minimum eight characters, at least one letter and one number</p>
-      </span>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input
-          id="email"
-          v-model="user.email"
-          type="email"
-          name="email"
-          placeholder="e.g: example@eg.com"
-          @keyup="message.message = null"
-        >
-      </div>
-      <span id="email-error"><p>Please Enter A Valid Email</p></span>
-      <p
-        v-if="message"
-        id="error-message"
-      >
-        {{ message.message }}
-      </p>
-      <div class="form-group">
-        <button type="submit">
-          Sign Up
-        </button>
-      </div>
-    </form>
-    <div>
-      <p>
-        Already have an account?<br>
-        <router-link
-          id="login-link"
-          to="/"
-        >
-          Click here to Login
-        </router-link>
-      </p>
     </div>
   </div>
 </template>
@@ -139,23 +141,30 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
 .signup{
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  margin-top: 10em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 hr{
   width: 80vw;
-  border: 1px #A26360 solid;
+  border-top: 1px #A26360 solid;
   margin: 0;
-  margin-left: 8vw;
 }
 h2{
   margin-bottom: 0.2em;
 }
 form {
-  margin-left: 9vw;
   width: 75vw;
   height: 45vh;
   margin-top: 3em;
@@ -170,7 +179,7 @@ form {
 }
 input,
 textarea {
-  width: 100%;
+  width: 95%;
 }
 
 input,
@@ -215,5 +224,8 @@ p, #login-link{
 #name-error, #password-error, #email-error{
   display: none;
   color: red;
+}
+#login-buttons{
+  font-size: 0.88em;
 }
 </style>

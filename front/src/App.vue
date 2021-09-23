@@ -46,9 +46,6 @@ export default ({
   text-align: center;
   color: #2B463C;
 }
-body{
-  background-color: #F4F1E9;
-}
 h2{
   font-family: 'Cormorant', serif;
   color: #A26360;
@@ -75,7 +72,7 @@ i{
 }
 input, select,textarea{
   box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
--webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
--moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
 }
 </style>

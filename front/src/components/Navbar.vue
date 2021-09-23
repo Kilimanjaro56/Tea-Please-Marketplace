@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar-wrapper">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -131,15 +131,21 @@ img {
 }
 .navbar {
   background-color: white;
+  text-align: left;
+  font-family: 'Cormorant', serif;
+  font-weight: bold;
   position: relative;
-  right: 0.5em;
+  right: 1.2em;
   bottom: 0.5em;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5em;
-  width: 101vw;
+  width: 105vw;
   z-index: 50;
+  box-shadow: 0px 6px 17px -8px rgba(0,0,0,0.35);
+-webkit-box-shadow: 0px 6px 17px -8px rgba(0,0,0,0.35);
+-moz-box-shadow: 0px 6px 17px -8px rgba(0,0,0,0.35);
 }
 .navbar #links {
   display: none;
@@ -147,16 +153,16 @@ img {
   justify-content: space-evenly;
   width: 105vw;
   position: absolute;
-  top: 4.5em;
+  top: 6em;
   height: 35vh;
 }
 .navbar a {
   text-decoration: none;
-  font-size: 17px;
   display: block;
   color: #a26360;
 }
 #links a {
+  font-size: 1.2em;
   padding: 1.15em 2em;
   background-color: white;
   border-bottom: thin #a26360 solid;

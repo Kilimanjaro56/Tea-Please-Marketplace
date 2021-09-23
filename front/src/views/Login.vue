@@ -1,68 +1,70 @@
 <template>
-  <div class="login">
-    <!-- Keely Log In + Validation -->
-    <h2>Log In</h2>
-    <hr>
-    <p
-      v-if="errors.length"
-      id="errors"
-    >
-      <b>Please check the following field(s):</b>
-      <ul>
-        <li
-          v-for="error in errors"
-          :key="error"
-        >
-          {{ error }}
-        </li>
-      </ul>
-    </p>
-    <form @submit.prevent="checkForm">
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input
-          id="email"
-          v-model="user.email"
-          type="email"
-          name="email"
-          placeholder="e.g: example@eg.com"
-          @keyup="message.message = null"
-        >
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          v-model="user.password"
-          type="password"
-          name="password"
-          placeholder="e.g: i10veT3a"
-        >
-      </div>
+  <div class="app-wrapper">
+    <div class="login">
+      <!-- Keely Log In + Validation -->
+      <h2>Login</h2>
+      <hr>
       <p
-        v-if="message"
-        id="error-message"
+        v-if="errors.length"
+        id="errors"
       >
-        {{ message.message }}
+        <b>Please check the following field(s):</b>
+        <ul>
+          <li
+            v-for="error in errors"
+            :key="error"
+          >
+            {{ error }}
+          </li>
+        </ul>
       </p>
-      <div class="form-group">
-        <button
-          type="submit"
-          @click="checkForm"
+      <form @submit.prevent="checkForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            v-model="user.email"
+            type="email"
+            name="email"
+            placeholder="e.g: example@eg.com"
+            @keyup="message.message = null"
+          >
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="user.password"
+            type="password"
+            name="password"
+            placeholder="e.g: i10veT3a"
+          >
+        </div>
+        <p
+          v-if="message"
+          id="error-message"
         >
-          Log In
-        </button>
+          {{ message.message }}
+        </p>
+        <div class="form-group">
+          <button
+            type="submit"
+            @click="checkForm"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+      <div>
+        <p>
+          <router-link
+            id="signup-link"
+            to="/signup"
+          >
+            Click here to Sign Up
+          </router-link>
+        </p>
       </div>
-    </form>
-    <div>
-      <p>
-        <router-link
-          id="signup-link"
-          to="/signup"
-        >
-          Click here to Sign Up
-        </router-link>
-      </p>
     </div>
   </div>
 </template>
@@ -123,23 +125,30 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
 .login{
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  margin-top: 11em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 hr{
   width: 80vw;
-  border: 1px #A26360 solid;
+  border-top: 1px #A26360 solid;
   margin: 0;
-  margin-left: 8vw;
 }
 h2{
   margin-bottom: 0.2em;
 }
 form {
-  margin-left: 9vw;
   width: 75vw;
   height: 35vh;
   margin-top: 3em;
@@ -195,5 +204,8 @@ p, #signup-link{
   text-decoration: none;
   margin-top: 1.4em;
   line-height: 120%;
+}
+p{
+  font-size: 0.88em;
 }
 </style>

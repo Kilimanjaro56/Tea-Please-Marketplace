@@ -1,87 +1,95 @@
 <template>
-  <div
-    v-if="user"
-    class="profile"
-  >
-    <BackButton />
-    <h2>Profile</h2>
-    <div id="user-name">
-      <h3>{{ currentUser.name }}</h3>
-      <i
-        id="edit-bio-icon"
-        class="fas fa-edit"
-        @click="editBio"
+  <div class="app-wrapper">
+    <div
+      v-if="user"
+      class="profile"
+    >
+      <BackButton />
+      <h2>Profile</h2>
+      <div id="user-name">
+        <h3>{{ currentUser.name }}</h3>
+        <i
+          id="edit-bio-icon"
+          class="fas fa-edit"
+          @click="editBio"
+        />
+        <i
+          id="update-bio-icon"
+          class="fas fa-check"
+          @click="updateBio"
+        />
+      </div>
+      <textarea
+        id="inactive-bio"
+        v-model="currentUser.bio"
+        name="bio"
+        cols="30"
+        rows="10"
+        disabled
       />
-      <i
-        id="update-bio-icon"
-        class="fas fa-check"
-        @click="updateBio"
+      <textarea
+        id="active-bio"
+        v-model="currentUser.bio"
+        name="bio"
+        cols="30"
+        rows="10"
       />
-    </div>
-    <textarea
-      id="inactive-bio"
-      v-model="currentUser.bio"
-      name="bio"
-      cols="30"
-      rows="10"
-      disabled
-    />
-    <textarea
-      id="active-bio"
-      v-model="currentUser.bio"
-      name="bio"
-      cols="30"
-      rows="10"
-    />
-    <hr>
-    <div>
-      <button @click="$router.push('/my-listings')">
-        My Listings
-      </button>
-      <button @click="$router.push('/create-listing')">
-        Create Listing
-      </button>
-    </div>
-    <h2>My Latest Listing</h2>
-    <div>
-      <div
-        v-if="listings[0]"
-        class="listings"
-      >
-        <p id="seller">
-          {{ listings[0].author.name }}
-          <span id="edit-delete">
-            <DeleteIcon :listing-id="listings[0]._id" />
-            <router-link
-              :to="{ name: 'EditListing', params:{ listingId: listings[0]._id } }"
-              class="view-detail-btn"
-            >
-              <i class="fas fa-edit" />
-            </router-link>
-          </span>
-        </p>
-        <div class="image-container">
-          <img :src="listings[0].imageUrl">
-        </div>
-        <div class="second-group">
-          <p>{{ listings[0].title }}</p>
-          <p>${{ listings[0].price }}</p>
-        </div>
-        <p class="desc">
-          {{ listings[0].description }}
-        </p>
-        <button>
-          <router-link
-            :to="{ name: 'ListingDetail', params:{ listingId: listings[0]._id } }"
-            class="view-detail-btn"
-          >
-            View Details
-          </router-link>
+      <hr>
+      <div>
+        <button @click="$router.push('/my-listings')">
+          My Listings
+        </button>
+        <button @click="$router.push('/create-listing')">
+          Create Listing
         </button>
       </div>
+      <h2>My Latest Listing</h2>
+      <div>
+        <div
+          v-if="listings[0]"
+          class="listings"
+        >
+          <p id="seller">
+            {{ listings[0].author.name }}
+            <span id="edit-delete">
+              <DeleteIcon :listing-id="listings[0]._id" />
+              <router-link
+                :to="{ name: 'EditListing', params:{ listingId: listings[0]._id } }"
+                class="edit"
+              >
+                <i class="fas fa-edit" />
+              </router-link>
+            </span>
+          </p>
+          <div class="image-container">
+            <img :src="listings[0].imageUrl">
+          </div>
+          <div class="second-group">
+            <p>{{ listings[0].title }}</p>
+            <p id="price">
+              ${{ listings[0].price }}
+            </p>
+          </div>
+          <p class="desc">
+            {{ listings[0].description }}
+          </p>
+          <button>
+            <router-link
+              :to="{ name: 'ListingDetail', params:{ listingId: listings[0]._id } }"
+              class="view-detail-btn"
+            >
+              View Details
+            </router-link>
+          </button>
+        </div>
+        <div v-else>
+          <h4>Sorry!</h4>
+          <p>You haven't posted any listings! Try creating one above!</p>
+        </div>
+      </div>
     </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -161,11 +169,29 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 102vw;
+  height: 120vh;
+  overflow-x: hidden;
+}
+.profile{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 #user-name{
-  width: 87vw;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-left: 1em;
+  margin-top: 1em;
 }
 h3{
   background-color: #E0D3BD;
@@ -176,9 +202,26 @@ h3{
   text-align: left;
   width: 8em;
 }
+h2{
+  margin-bottom: 0;
+}
+.desc {
+  font-size: 0.9em;
+  width: 75vw;
+  text-align: left;
+  font-family: 'Questrial', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+h4{
+  color: #A26360;
+  font-family: 'Cormorant', serif;
+  font-size: 1.2em;
+}
 textarea{
   background-color: white;
   width: 80vw;
+  height: 20vh;
   border: transparent;
   border-radius: 10px;
   resize: none;
@@ -190,6 +233,7 @@ textarea{
 }
 i{
   font-size: 1.2em;
+  margin-left: 5em;
   margin-bottom: 0.5em;
 }
 #update-bio-icon{
@@ -210,12 +254,13 @@ button{
   margin: 0.5em;
 }
 .second-group {
-  width: 70vw;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   border-bottom: #a26360 thin solid;
-  padding-bottom: 0.3em;
+  font-family: 'Cormorant', serif;
+  font-size: 1.1em;
 }
 .image-container{
   width: 80vw;
@@ -227,17 +272,23 @@ button{
   justify-content: center;
   border-radius: 10px;
   margin-bottom: 0.4em;
-  margin-top: 0.5em;
+  margin-top: 0.2em;
 }
 img{
   width: 140%;
   min-height: 100%;
   border-radius: 10px;
-  margin: 1em 0;
+  margin: 0.1em 0;
 }
 .desc {
+  font-size: 0.9em;
   padding: 1em;
+  padding-left: 0;
   text-align: left;
+  font-family: 'Questrial', sans-serif;
+}
+#price{
+  font-family: 'Questrial', sans-serif;
 }
 #seller{
 width: 79vw;
@@ -245,6 +296,9 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 margin: 0;
+margin-top: 0.2em;
+font-family: 'Cormorant', serif;
+font-size: 1.1em;
 }
 .listings{
   display: flex;
@@ -252,19 +306,28 @@ margin: 0;
   align-items: center;
   width: 80%;
   background-color: #fff;
-  margin: 1em;
+  margin: 1.3em;
   margin-top: 2em;
   margin-bottom: 2em;
-  padding: 1em;
+  padding: 0 1em;
   border-radius: 10px;
   box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+}
+#edit-delete i{
+  margin: 0;
 }
 #edit-delete{
   width: 5em;
   padding: 0.5em 0;
   display: flex;
   justify-content: space-between;
+}
+#edit-bio-icon{
+  margin-right: 2.5em;
+}
+p{
+  margin: 0.4em 0;
 }
 </style>
