@@ -123,7 +123,7 @@
 
 <script>
 // eslint-disable-next-line import/no-unresolved
-import Delete from '../components/Delete.vue';
+import Delete from '../components/DeleteButton.vue';
 // discussed with Simon - 14/09
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 import BackButton from '../components/BackButton.vue';
