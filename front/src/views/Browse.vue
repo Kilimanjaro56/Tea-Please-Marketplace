@@ -26,85 +26,86 @@
       <h2>{{ listing._id }}</h2>
     </div>
 
-  <div
-    v-if="user"
-    class="browse"
-  >
-    <div class="greeting">
-      <h2>Welcome {{ user.email }}!!</h2>
-      <h2>Browse Listings Here !!</h2>
-    </div>
-    <div class="filter-search-group">
-      <select name="filter">
-        <option value="">
-          Filter by
-        </option>
-        <option value="">
-          Filter by Price
-        </option>
-        <option value="">
-          Filter by tea
-        </option>
-        <option value="">
-          Filter by ...
-        </option>
-      </select>
-      <Search
-        :listings="listings"
-        @searched="displayFilteredListings"
-        @showAll="getListings"
-      />
-      <a
-        id="clear-search"
-        @click="clearSearch"
-      >Clear Search</a>
-    </div>
-    <ul>
-      <li
-        v-for="listing of listings"
-        :key="listing._id"
-      >
-        <div class="first-group">
-          <p>{{ listing.author.name }}</p>
-          <div class="heart-group">
-            <i
-              v-if="!listing.favourited"
-              class="far fa-heart heart-btn"
-              @click="listing.favourited=!listing.favourited"
-            />
-            <i
-              v-else
-              class="fas fa-heart filled-heart-btn"
-              @click="listing.favourited=!listing.favourited"
-            />
-          </div>
-        </div>
-        <img :src="listing.imageUrl">
-        <div class="second-group">
-          <p>{{ listing.title }}</p>
-          <p>${{ listing.price }}</p>
-        </div>
-        <p class="desc">
-          {{ listing.description }}
-        </p>
-        <button>
-          <router-link
-            :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
-            class="view-detail-btn"
-          >
-            View Details
-          </router-link>
-        </button>
-      </li>
-    </ul>
-    <h2
-      v-if="message"
-      id="search-error"
+    <div
+      v-if="user"
+      class="browse"
     >
-      {{ message }}
-    </h2>
+      <div class="greeting">
+        <h2>Welcome {{ user.email }}!!</h2>
+        <h2>Browse Listings Here !!</h2>
+      </div>
+      <div class="filter-search-group">
+        <select name="filter">
+          <option value="">
+            Filter by
+          </option>
+          <option value="">
+            Filter by Price
+          </option>
+          <option value="">
+            Filter by tea
+          </option>
+          <option value="">
+            Filter by ...
+          </option>
+        </select>
+        <Search
+          :listings="listings"
+          @searched="displayFilteredListings"
+          @showAll="getListings"
+        />
+        <a
+          id="clear-search"
+          @click="clearSearch"
+        >Clear Search</a>
+      </div>
+      <ul>
+        <li
+          v-for="listing of listings"
+          :key="listing._id"
+        >
+          <div class="first-group">
+            <p>{{ listing.author.name }}</p>
+            <div class="heart-group">
+              <i
+                v-if="!listing.favourited"
+                class="far fa-heart heart-btn"
+                @click="listing.favourited=!listing.favourited"
+              />
+              <i
+                v-else
+                class="fas fa-heart filled-heart-btn"
+                @click="listing.favourited=!listing.favourited"
+              />
+            </div>
+          </div>
+          <img :src="listing.imageUrl">
+          <div class="second-group">
+            <p>{{ listing.title }}</p>
+            <p>${{ listing.price }}</p>
+          </div>
+          <p class="desc">
+            {{ listing.description }}
+          </p>
+          <button>
+            <router-link
+              :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
+              class="view-detail-btn"
+            >
+              View Details
+            </router-link>
+          </button>
+        </li>
+      </ul>
+      <h2
+        v-if="message"
+        id="search-error"
+      >
+        {{ message }}
+      </h2>
+    </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>

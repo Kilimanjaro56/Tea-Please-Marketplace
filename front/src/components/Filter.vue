@@ -70,7 +70,8 @@ select {
   text-align: center;
 }
 
-option {
+select > option {
+  text-align: center;
   color: #2b463c;
   font-family: "Questrial", sans-serif;
 }
