@@ -1,5 +1,8 @@
 <template>
-  <div class="edit">
+  <div
+    v-if="user"
+    class="edit"
+  >
     <h2>Edit</h2>
     <div v-if="!listing.author">
       <h3>Error!</h3>
@@ -104,16 +107,19 @@
       <button>Return to Home</button>
     </div>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
 // eslint-disable-next-line import/no-unresolved
 import Delete from '../components/Delete.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 // discussed with Simon - 14/09
 
 export default {
   components: {
     Delete,
+    UserErrorMessage,
   },
   props: {
     listingId: String,
@@ -183,7 +189,7 @@ export default {
       );
       const data = await response.json();
       console.log(data);
-      this.$router.push(`/listings/${this.listingId}`);
+      window.location.assign(`/listings/${this.listingId}`);
     },
   },
 };

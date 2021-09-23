@@ -59,7 +59,7 @@
         Already have an account?<br>
         <router-link
           id="login-link"
-          to="/login"
+          to="/"
         >
           Click here to Login
         </router-link>
@@ -92,7 +92,7 @@ export default {
       const data = await response.json();
       this.message = data;
       if (this.message.message !== 'This email already exists, log in below') {
-        window.location.assign('http://localhost:8080/login');
+        window.location.assign('http://localhost:8080/');
       }
     },
     checkForm() {

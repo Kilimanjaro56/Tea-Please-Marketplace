@@ -6,7 +6,7 @@
     <div id="error-buttons">
       <router-link
         id="login-link"
-        to="/login"
+        to="/"
       >
         <button>Login</button>
       </router-link>

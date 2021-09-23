@@ -26,6 +26,10 @@
       <h2>{{ listing._id }}</h2>
     </div>
 
+  <div
+    v-if="user"
+    class="browse"
+  >
     <div class="greeting">
       <h2>Welcome {{ user.email }}!!</h2>
       <h2>Browse Listings Here !!</h2>
@@ -100,14 +104,17 @@
       {{ message }}
     </h2>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
 import Search from '../components/Search.vue';
 import Filter from '../components/Filter.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   components: {
+    UserErrorMessage,
     Search,
     Filter,
   },
@@ -145,6 +152,18 @@ export default {
       this.listings = dataWithFavs;
       this.message = null;
       document.getElementById('clear-search').style.display = 'none';
+      if (this.user) {
+        const response = await fetch('http://localhost:3000/listings');
+        const data = await response.json();
+        const dataWithFavs = data.map((element) => {
+          const item = element;
+          item.favourited = false;
+          return item;
+        });
+        this.listings = dataWithFavs;
+        this.message = null;
+        document.getElementById('clear-search').style.display = 'none';
+      }
     },
     displayFilteredListings(filteredArray) {
       if (filteredArray.length >= 1) {
@@ -221,7 +240,6 @@ li {
   align-items: center;
 }
 .first-group > p {
-  text-transform: uppercase;
   padding: 0.2em;
 }
 .second-group {

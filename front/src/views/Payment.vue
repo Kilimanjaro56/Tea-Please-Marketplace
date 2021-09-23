@@ -1,6 +1,9 @@
 <template>
   <!-- Payment + Delivery + Error Validation - Keely -->
-  <div class="payment">
+  <div
+    v-if="user"
+    class="payment"
+  >
     <h2>Payment</h2>
     <form
       id="payment-form"
@@ -118,15 +121,22 @@
       <button type="submit">
         Finalise Purchase
       </button>
-      <a @click="$router.push(`/Z/${listingId}`);">Cancel Purchase</a>
+      <a @click="$router.push(`/listings/${listingId}`);">Cancel Purchase</a>
     </form>
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
+import UserErrorMessage from '../components/UserErrorMessage.vue';
+
 export default {
+  components: {
+    UserErrorMessage,
+  },
   props: {
     listingId: String,
+    user: Object,
   },
   data() {
     return {

@@ -15,7 +15,7 @@
           <h3>Seller: {{ listing.author.name }}</h3>
         </div>
         <button
-          v-if="listing.isAvaliable"
+          v-if="listing.isAvaliable && user.id !== listing.author._id"
           @click="$router.push(`/payment/${listingId}`);"
         >
           Purchase
@@ -90,11 +90,13 @@ export default {
   },
   methods: {
     async getListingDetail() {
-      const response = await fetch(
-        `http://localhost:3000/listings/${this.listingId}`,
-      );
-      const data = await response.json();
-      this.listing = data;
+      if (this.user) {
+        const response = await fetch(
+          `http://localhost:3000/listings/${this.listingId}`,
+        );
+        const data = await response.json();
+        this.listing = data;
+      }
     },
   },
 };

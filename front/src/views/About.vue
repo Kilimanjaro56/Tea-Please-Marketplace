@@ -1,6 +1,9 @@
 <template>
-  <div class="about">
-    <!-- about static information - Annabel -->
+  <div
+    v-if="user"
+    class="about"
+  >
+    <BackButton />
     <h2>About</h2>
     <p>
       Welcome to Tea Please! We created this app for the tea lovers and for the love of tea. Tea
@@ -12,14 +15,22 @@
     </p>
     <Contact />
   </div>
+  <UserErrorMessage v-else />
 </template>
 
 <script>
 import Contact from '../components/Contact.vue';
+import BackButton from '../components/BackButton.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   components: {
+    BackButton,
+    UserErrorMessage,
     Contact,
+  },
+  props: {
+    user: Object,
   },
 };
 </script>

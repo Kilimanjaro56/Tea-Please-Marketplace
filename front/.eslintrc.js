@@ -23,6 +23,7 @@ module.exports = {
   rules: {
     'vue/require-default-prop': 'off',
     'no-restricted-globals': 'off',
+    'no-restricted-syntax': 'off',
     'no-alert': 'off',
     'no-underscore-dangle': 'off',
   },

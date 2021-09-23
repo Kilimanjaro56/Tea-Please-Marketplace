@@ -61,6 +61,27 @@ app.get("/listings", async (req, res) => {
   res.status(200).json(listings);
 });
 
+//Get User Profile - Keely
+app.get("/profile/:userId", async (req, res) => {
+  const user = await User.findById(req.params.userId);
+  res.status(200).json(user);
+});
+
+//User Biography - Keely
+app.patch("/profile/:userId", async (req, res) => {
+try{
+  const userData = {
+    bio: req.body.bio
+  };
+  const updatedUser = await User.findByIdAndUpdate(
+    req.params.userId,
+    userData
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 //Get Single Post End Point - Keely
 app.get("/listings/:listingId", async (req, res) => {
