@@ -13,10 +13,10 @@
         {{ category }}
       </option>
     </select>
-    <span>
+    <!-- <span>
       <i class="fas fa-caret-up" />
       <i class="fas fa-caret-down" />
-    </span>
+    </span> -->
   </div>
 </template>
 

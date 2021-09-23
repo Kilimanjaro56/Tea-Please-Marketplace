@@ -66,7 +66,9 @@
           </div>
           <div class="second-group">
             <p>{{ listings[0].title }}</p>
-            <p id="price">${{ listings[0].price }}</p>
+            <p id="price">
+              ${{ listings[0].price }}
+            </p>
           </div>
           <p class="desc">
             {{ listings[0].description }}
@@ -219,6 +221,7 @@ h4{
 textarea{
   background-color: white;
   width: 80vw;
+  height: 20vh;
   border: transparent;
   border-radius: 10px;
   resize: none;

@@ -84,7 +84,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 102vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .payment-confirmation{
   margin-top: 5.5em;

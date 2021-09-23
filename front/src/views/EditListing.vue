@@ -50,8 +50,10 @@
             </div>
             <span id="price-error"><p>Please Enter A Valid Price</p></span>
           </div>
-          <div class="form-group"
-          id="category-selection">
+          <div
+            id="category-selection"
+            class="form-group"
+          >
             <label for="category">Category</label>
             <select
               id="category"
@@ -106,12 +108,14 @@
     <div v-else>
       <h3>Error!</h3>
       <h4>Sorry you don't have the authorization to view this page</h4>
-      <button> <router-link
-              :to="('/listings')"
-              class="view-detail-btn"
-            >
-              Return to Home
-            </router-link></button>
+      <button>
+        <router-link
+          :to="('/listings')"
+          class="view-detail-btn"
+        >
+          Return to Home
+        </router-link>
+      </button>
     </div>
   </div>
   <UserErrorMessage v-else />
@@ -120,7 +124,6 @@
 <script>
 // eslint-disable-next-line import/no-unresolved
 import Delete from '../components/Delete.vue';
-import UserErrorMessage from '../components/UserErrorMessage.vue';
 // discussed with Simon - 14/09
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 import BackButton from '../components/BackButton.vue';

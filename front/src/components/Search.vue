@@ -77,15 +77,20 @@ export default {
   border: thin #A26360 solid;
   padding: 0.3em 3em;
   text-align: center;
+  position: absolute;
+  left:20%;
+   z-index: 50;
 }
 form i{
   position: relative;
-  right: 1.2em;
+  left: 1em;
+  top: 0.25em;
   font-size: 1.1em;
+  z-index: 50;
 }
 #search-icon{
   position: relative;
-  /* left: 30vw; */
   font-size: 1.4em;
+  margin-left: 1em;
 }
 </style>

@@ -32,8 +32,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 102vw;
+  height: 102vh;
+  overflow-x: hidden;
 }
 .favourites{
   margin-top: 5.5em;

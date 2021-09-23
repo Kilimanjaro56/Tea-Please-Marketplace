@@ -12,9 +12,9 @@
       </div>
       <div v-else>
         <div
-        class="wrap-listings"
           v-for="listing in listings"
           :key="listing.id"
+          class="wrap-listings"
         >
           <div
             v-if="listing.author._id === user.id"
@@ -37,7 +37,9 @@
             </div>
             <div class="second-group">
               <p>{{ listing.title }}</p>
-              <p id="price">${{ listing.price }}</p>
+              <p id="price">
+                ${{ listing.price }}
+              </p>
             </div>
             <p class="desc">
               {{ listing.description }}
@@ -102,8 +104,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 102vw;
   height: 105vh;
+  overflow-x: hidden;
 }
 .my-listings{
   margin-top: 5.5em;
