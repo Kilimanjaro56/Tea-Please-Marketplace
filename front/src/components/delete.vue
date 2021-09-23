@@ -37,12 +37,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .delete-function {
   display: flex;
   flex-direction: column;
-  margin-left: 8vw;
+  font-size: 0.8em;
 }
 
 .bin {
@@ -51,14 +51,20 @@ export default {
   width: 10em;
   margin: auto;
 }
-
+h3{
+  font-family: 'Questrial', sans-serif;
+}
 i, h3 {
   color: #A26360;
   margin: auto;
-
+  font-size: 1.2em;
 };
 
 p {
   color: #2B463C;
+  font-size: 0.8em;
+}
+i{
+  font-size: 1.5em;
 }
 </style>

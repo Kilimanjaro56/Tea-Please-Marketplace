@@ -187,11 +187,12 @@ textarea {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    margin-left: 25%;
+    margin-left: 35%;
 }
 #close-review i{
     font-size: 1.6em;
     color: #A26360;
+    margin: 0;
 }
 .reviews-error{
     height: 5em;
@@ -200,7 +201,7 @@ textarea {
     justify-content: center;
 }
 .review{
-    background-color: white;
+  background-color: white;
     border-radius: 5px;
     border: thin #A26360 solid;
     width: 80vw;
@@ -209,6 +210,9 @@ textarea {
     margin-left: 8.5vw;
     margin-top: 5vw;
     margin-bottom: 1em;
+}
+.review p{
+  font-size: 0.88em;
 }
 h3{
     margin-top: 0.3em;

@@ -105,11 +105,11 @@ ul{
 }
 form {
   width: 80vw;
-  height: 55vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: center;
+  text-align: left;
   justify-content: space-between;
   margin-left: 11%;
 }
@@ -134,8 +134,9 @@ select {
 }
 
 textarea {
-  height: 10vh;
+  height: 15vh;
   font-family: 'Questrial', sans-serif;
+  resize: none;
 }
 .form-group {
   width: 90%;

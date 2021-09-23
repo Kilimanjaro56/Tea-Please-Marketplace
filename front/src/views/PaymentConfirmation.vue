@@ -129,7 +129,7 @@ h3{
 }
 hr{
   width: 80vw;
-  border: 1px #A26360 solid;
+  border-top: 1px #A26360 solid;
   margin: 0;
   margin-top: 0.5em;
 }

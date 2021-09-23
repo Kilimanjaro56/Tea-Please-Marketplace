@@ -37,7 +37,7 @@
             </div>
             <div class="second-group">
               <p>{{ listing.title }}</p>
-              <p>${{ listing.price }}</p>
+              <p id="price">${{ listing.price }}</p>
             </div>
             <p class="desc">
               {{ listing.description }}
@@ -118,18 +118,24 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: #F4F1E9;
-  padding: 1em;
+  padding: 0.3em 1em;
 
 }
 .second-group {
-  width: 70vw;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   border-bottom: #a26360 thin solid;
+  font-family: 'Cormorant', serif;
+  font-size: 1.1em;
 }
 .second-group p{
+margin: 0;
 margin-bottom: 0.5em;
+margin-right: 1em;
+text-align: left;
+
 }
 .image-container{
   width: 80vw;
@@ -150,16 +156,22 @@ img{
   margin: 1em 0;
 }
 .desc {
-  padding: 1em;
+  font-size: 0.9em;
+  width: 80vw;
   text-align: left;
+  font-family: 'Questrial', sans-serif;
+}
+#price{
+  font-family: 'Questrial', sans-serif;
 }
 #seller{
-width: 79vw;
+  width: 79vw;
 display: flex;
 justify-content: space-between;
 align-items: center;
 margin: 0;
 font-family: 'Cormorant', serif;
+font-size: 1.1em;
 }
 button{
   margin: 0;
@@ -171,8 +183,8 @@ button{
   width: 80%;
   background-color: #fff;
   margin: 1em;
-  margin-top: 2em;
-  padding: 1em;
+  margin-top: 0em;
+  padding: 0.5em 1em;
   border-radius: 10px;
   box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);

@@ -55,7 +55,7 @@
           </button>
         </div>
       </form>
-      <div>
+      <div id="login-buttons">
         <p>
           Already have an account?<br>
           <router-link
@@ -224,5 +224,8 @@ p, #login-link{
 #name-error, #password-error, #email-error{
   display: none;
   color: red;
+}
+#login-buttons{
+  font-size: 0.88em;
 }
 </style>

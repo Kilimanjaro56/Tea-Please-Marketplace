@@ -66,7 +66,7 @@
           </div>
           <div class="second-group">
             <p>{{ listings[0].title }}</p>
-            <p>${{ listings[0].price }}</p>
+            <p id="price">${{ listings[0].price }}</p>
           </div>
           <p class="desc">
             {{ listings[0].description }}
@@ -172,8 +172,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 155vh;
+  width: 102vw;
+  height: 120vh;
+  overflow-x: hidden;
 }
 .profile{
   margin-top: 5.5em;
@@ -201,6 +202,14 @@ h3{
 }
 h2{
   margin-bottom: 0;
+}
+.desc {
+  font-size: 0.9em;
+  width: 75vw;
+  text-align: left;
+  font-family: 'Questrial', sans-serif;
+  padding: 0;
+  margin: 0;
 }
 h4{
   color: #A26360;
@@ -242,12 +251,13 @@ button{
   margin: 0.5em;
 }
 .second-group {
-  width: 70vw;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   border-bottom: #a26360 thin solid;
-  padding-bottom: 0.3em;
+  font-family: 'Cormorant', serif;
+  font-size: 1.1em;
 }
 .image-container{
   width: 80vw;
@@ -259,17 +269,23 @@ button{
   justify-content: center;
   border-radius: 10px;
   margin-bottom: 0.4em;
-  margin-top: 0.5em;
+  margin-top: 0.2em;
 }
 img{
   width: 140%;
   min-height: 100%;
   border-radius: 10px;
-  margin: 1em 0;
+  margin: 0.1em 0;
 }
 .desc {
+  font-size: 0.9em;
   padding: 1em;
+  padding-left: 0;
   text-align: left;
+  font-family: 'Questrial', sans-serif;
+}
+#price{
+  font-family: 'Questrial', sans-serif;
 }
 #seller{
 width: 79vw;
@@ -277,6 +293,9 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 margin: 0;
+margin-top: 0.2em;
+font-family: 'Cormorant', serif;
+font-size: 1.1em;
 }
 .listings{
   display: flex;
@@ -287,7 +306,7 @@ margin: 0;
   margin: 1.3em;
   margin-top: 2em;
   margin-bottom: 2em;
-  padding: 1em;
+  padding: 0 1em;
   border-radius: 10px;
   box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
@@ -301,5 +320,11 @@ margin: 0;
   padding: 0.5em 0;
   display: flex;
   justify-content: space-between;
+}
+#edit-bio-icon{
+  margin-right: 2.5em;
+}
+p{
+  margin: 0.4em 0;
 }
 </style>

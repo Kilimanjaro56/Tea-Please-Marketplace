@@ -5,8 +5,8 @@
       class="browse"
     >
       <div class="greeting">
-        <h2>Welcome {{ user.email }}!!</h2>
-        <h2>Browse Listings Here !!</h2>
+        <h2>Welcome {{ currentUser.name }}!</h2>
+        <h2>Browse Listings Here!</h2>
       </div>
       <div class="filter-search-group">
         <select name="filter">
@@ -101,16 +101,27 @@ export default {
   data() {
     return {
       listings: [],
+      currentUser: [],
       message: null,
     };
   },
   created() {
     this.getListings();
+    this.getUser();
   },
   mounted() {
     this.getListings();
   },
   methods: {
+    async getUser() {
+      if (this.user) {
+        const response = await fetch(
+          `http://localhost:3000/profile/${this.user.id}`,
+        );
+        const data = await response.json();
+        this.currentUser = data;
+      }
+    },
     async getListings() {
       if (this.user) {
         const response = await fetch('http://localhost:3000/listings');
@@ -150,8 +161,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 102vw;
   height: 105vh;
+  overflow-x: hidden;
 }
 .browse{
   margin-top: 5.5em;
@@ -202,6 +214,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #F4F1E9;
 }
 li {
   width: 80%;
@@ -225,6 +238,12 @@ li {
 .second-group {
   border-bottom: #a26360 thin solid;
   padding-bottom: 0.3em;
+  padding-top: 0.3em;
+  text-align: left;
+  align-items: flex-end;
+}
+.second-group p{
+  margin-right: 1em;
 }
 .image-container{
   width: 80vw;
@@ -245,8 +264,11 @@ img{
   margin: 1em 0;
 }
 .desc {
+  font-size: 0.9em;
   padding: 1em;
+  padding-left: 0;
   text-align: left;
+  font-family: 'Questrial', sans-serif;
 }
 .heart-group {
   font-size: 1.2em;

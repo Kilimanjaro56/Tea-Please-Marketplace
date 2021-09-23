@@ -12,7 +12,7 @@
         @submit.prevent="checkForm"
       >
         <div class="form-group">
-          <label for="input-cardname">Name on Card</label>
+          <label for="input-cardname">Name On Card</label>
           <input
             v-model="card.name"
             type="text"
@@ -23,7 +23,7 @@
         </div>
         <span id="card-name-error"><p>Please Enter A Valid Name</p></span>
         <div class="form-group">
-          <label for="input-cardnumber">Card number</label>
+          <label for="input-cardnumber">Card Number</label>
           <input
             v-model="card.number"
             type="text"

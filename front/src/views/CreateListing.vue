@@ -214,7 +214,7 @@ h2{
 }
 form {
   width: 80vw;
-  height: 55vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -241,8 +241,9 @@ select {
 }
 
 textarea {
-  height: 10vh;
+  height: 15vh;
   font-family: 'Questrial', sans-serif;
+  resize: none;
 }
 
 input:focus, textarea:focus {

@@ -110,8 +110,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 102vw;
   height: 105vh;
+  overflow-x: hidden;
 }
 .item-detail{
   margin-top: 5.5em;

@@ -106,7 +106,12 @@
     <div v-else>
       <h3>Error!</h3>
       <h4>Sorry you don't have the authorization to view this page</h4>
-      <button>Return to Home</button>
+      <button> <router-link
+              :to="('/listings')"
+              class="view-detail-btn"
+            >
+              Return to Home
+            </router-link></button>
     </div>
   </div>
   <UserErrorMessage v-else />
@@ -146,6 +151,7 @@ export default {
       this.listing = data;
     },
     checkForm() {
+      this.isError = false;
       if (!this.listing.title) {
         document.getElementById('title-error').style.display = 'block';
         this.isError = true;
@@ -219,10 +225,10 @@ h2{
 }
 form {
   width: 80vw;
-  height: 70vh;
+  height: 75vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   text-align: center;
   justify-content: space-between;
 }
@@ -246,8 +252,9 @@ select {
 }
 
 textarea {
-  height: 10vh;
+  height: 15vh;
   font-family: 'Questrial', sans-serif;
+  resize: none;
 }
 
 input:focus, textarea:focus {
@@ -255,7 +262,7 @@ input:focus, textarea:focus {
 }
 
 #price-and-category {
-  width: 75vw;
+  width: 76vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -264,11 +271,11 @@ input:focus, textarea:focus {
 
 #price-and-category input,
 #price-and-category select {
-  width: 10.2em;
+  width: 9.8em;
 }
 
 .form-group {
-  width: 96%;
+  width: 93%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -286,7 +293,6 @@ button {
   border: none;
   margin-bottom: 1.5em;
   margin-top: 0em;
-  margin-left: 20vw;
 }
 
 #wrap-price{

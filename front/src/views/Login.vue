@@ -51,7 +51,7 @@
             type="submit"
             @click="checkForm"
           >
-            Log In
+            Login
           </button>
         </div>
       </form>
@@ -204,5 +204,8 @@ p, #signup-link{
   text-decoration: none;
   margin-top: 1.4em;
   line-height: 120%;
+}
+p{
+  font-size: 0.88em;
 }
 </style>
