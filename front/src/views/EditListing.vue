@@ -118,7 +118,9 @@
 </template>
 
 <script>
-import Delete from '../components/delete.vue';
+// eslint-disable-next-line import/no-unresolved
+import Delete from '../components/Delete.vue';
+import UserErrorMessage from '../components/UserErrorMessage.vue';
 // discussed with Simon - 14/09
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 import BackButton from '../components/BackButton.vue';

@@ -2,8 +2,107 @@
   <div class="app-wrapper">
     <div
       v-if="user"
-      class="browse"
+      class="browse">
+    <h3>Browse Listings</h3>
+    <Filter
+      :listings="listingStore"
+      @categoryFilter="displayFilteredCategory"
+      @clearCategories="getListings"
+    />
+    <Search
+      :listings="listings"
+      @searched="displayFilteredListings"
+      @showAll="getListings"
+    />
+    <a
+      id="clear-search"
+      @click="clearSearch"
+    >Clear Search</a>
+
+    <!-- View List Code Here -->
+
+    <div
+      v-for="listing of listings"
+      :key="listing._id"
     >
+      <h2>{{ listing.title }}</h2>
+      <h2>{{ listing._id }}</h2>
+    </div>
+
+  <div
+    v-if="user"
+    class="browse"
+  >
+    <div class="greeting">
+      <h2>Welcome {{ user.email }}!!</h2>
+      <h2>Browse Listings Here !!</h2>
+    </div>
+    <div class="filter-search-group">
+      <select name="filter">
+        <option value="">
+          Filter by
+        </option>
+        <option value="">
+          Filter by Price
+        </option>
+        <option value="">
+          Filter by tea
+        </option>
+        <option value="">
+          Filter by ...
+        </option>
+      </select>
+      <Search
+        :listings="listings"
+        @searched="displayFilteredListings"
+        @showAll="getListings"
+      />
+      <a
+        id="clear-search"
+        @click="clearSearch"
+      >Clear Search</a>
+    </div>
+    <ul>
+      <li
+        v-for="listing of listings"
+        :key="listing._id"
+      >
+        <div class="first-group">
+          <p>{{ listing.author.name }}</p>
+          <div class="heart-group">
+            <i
+              v-if="!listing.favourited"
+              class="far fa-heart heart-btn"
+              @click="listing.favourited=!listing.favourited"
+            />
+            <i
+              v-else
+              class="fas fa-heart filled-heart-btn"
+              @click="listing.favourited=!listing.favourited"
+            />
+          </div>
+        </div>
+        <img :src="listing.imageUrl">
+        <div class="second-group">
+          <p>{{ listing.title }}</p>
+          <p>${{ listing.price }}</p>
+        </div>
+        <p class="desc">
+          {{ listing.description }}
+        </p>
+        <button>
+          <router-link
+            :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
+            class="view-detail-btn"
+          >
+            View Details
+          </router-link>
+        </button>
+      </li>
+    </ul>
+    <h2
+      v-if="message"
+      id="search-error">
       <div class="greeting">
         <h2>Welcome {{ currentUser.name }}!</h2>
         <h2>Browse Listings Here!</h2>
@@ -88,21 +187,26 @@
 
 <script>
 import Search from '../components/Search.vue';
+import Filter from '../components/Filter.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   components: {
     UserErrorMessage,
     Search,
+    Filter,
   },
   props: {
     user: Object,
   },
+  emits: ['categoryFilter'],
   data() {
     return {
+      listingStore: [],
       listings: [],
       currentUser: [],
       message: null,
+      filter: 'all',
     };
   },
   created() {
@@ -123,6 +227,20 @@ export default {
       }
     },
     async getListings() {
+      const response = await fetch('http://localhost:3000/listings');
+      const data = await response.json();
+      console.log(data);
+      this.listings = data;
+      this.listingStore = data;
+      const dataWithFavs = data.map((element) => {
+        const item = element;
+        item.favourited = false;
+        return item;
+      });
+      console.log(dataWithFavs);
+      this.listings = dataWithFavs;
+      this.message = null;
+      document.getElementById('clear-search').style.display = 'none';
       if (this.user) {
         const response = await fetch('http://localhost:3000/listings');
         const data = await response.json();
@@ -150,6 +268,10 @@ export default {
     clearSearch() {
       document.getElementById('clear-search').style.display = 'none';
       this.getListings();
+    },
+
+    displayFilteredCategory(filteredArray) {
+      this.listings = filteredArray;
     },
   },
 };
