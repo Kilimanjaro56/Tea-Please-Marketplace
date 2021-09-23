@@ -1,42 +1,43 @@
 <template>
-  <div
-    v-if="user"
-    class="payment-confirmation"
-  >
-    <h2>Thank you for your purchase!</h2>
+  <div class="app-wrapper">
     <div
-      v-if="listing.author"
-      class="listing"
+      v-if="user"
+      class="payment-confirmation"
     >
-      <div id="content-above-image">
-        <div id="seller-container">
-          <h3>Seller: {{ listing.author.name }}</h3>
+      <h2>Thank you for your purchase!</h2>
+      <div
+        v-if="listing.author"
+        class="listing"
+      >
+        <div id="content-above-image">
+          <div id="seller-container">
+            <h3>Seller: {{ listing.author.name }}</h3>
+          </div>
         </div>
+        <div class="image-container">
+          <img
+            :src="listing.imageUrl"
+            alt=""
+          >
+        </div>
+        <div class="listing-details">
+          <h3>{{ listing.title }}</h3>
+          <h4>${{ listing.price }}.00</h4>
+        </div>
+        <hr>
+        <p>{{ listing.description }}</p>
       </div>
-      <div class="image-container">
-        <img
-          :src="listing.imageUrl"
-          alt=""
-        >
+      <div class="bottom-buttons">
+        <button @click="$router.push('/listings')">
+          Back to Home
+        </button>
+        <button>
+          <LogOutButton />
+        </button>
       </div>
-      <div class="listing-details">
-        <h3>{{ listing.title }}</h3>
-        <h4>${{ listing.price }}.00</h4>
-      </div>
-      <hr>
-      <p>{{ listing.description }}</p>
     </div>
-    <button @click="$router.push('/listings')">
-      Back to Home
-    </button>
-    <button @click="$router.push(`/profile`)">
-      Back to Profile
-    </button>
-    <button>
-      <LogOutButton />
-    </button>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -76,9 +77,24 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 102vh;
+  overflow: hidden;
+}
+.payment-confirmation{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .item-detail{
   margin-top: 3em;
-  margin-left: 8vw;
 }
 .image-container{
   width: 80vw;
@@ -119,6 +135,7 @@ hr{
 }
 h2{
   margin: 2em 1em;
+  margin-bottom: 0;
 }
 .listing{
   width:80vw;
@@ -128,17 +145,23 @@ h2{
   background-color: white;
   padding: 0.4em 1em;
   border-radius: 10px;
-  margin-left: 3.5vw;
   margin-top: 3.5vh;
   margin-bottom: 3.5vh;
+    box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
 }
 
 #content-above-image{
-  height: 3em;
+  height: 2.5em;
   display: flex;
   width: 75vw;
   justify-content: space-between;
   align-items: center;
+}
+.bottom-buttons{
+  margin-top: 1em;
+  display: flex;
 }
 button{
   width: 11.1em;

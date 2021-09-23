@@ -1,87 +1,93 @@
 <template>
-  <div
-    v-if="user"
-    class="profile"
-  >
-    <BackButton />
-    <h2>Profile</h2>
-    <div id="user-name">
-      <h3>{{ currentUser.name }}</h3>
-      <i
-        id="edit-bio-icon"
-        class="fas fa-edit"
-        @click="editBio"
+  <div class="app-wrapper">
+    <div
+      v-if="user"
+      class="profile"
+    >
+      <BackButton />
+      <h2>Profile</h2>
+      <div id="user-name">
+        <h3>{{ currentUser.name }}</h3>
+        <i
+          id="edit-bio-icon"
+          class="fas fa-edit"
+          @click="editBio"
+        />
+        <i
+          id="update-bio-icon"
+          class="fas fa-check"
+          @click="updateBio"
+        />
+      </div>
+      <textarea
+        id="inactive-bio"
+        v-model="currentUser.bio"
+        name="bio"
+        cols="30"
+        rows="10"
+        disabled
       />
-      <i
-        id="update-bio-icon"
-        class="fas fa-check"
-        @click="updateBio"
+      <textarea
+        id="active-bio"
+        v-model="currentUser.bio"
+        name="bio"
+        cols="30"
+        rows="10"
       />
-    </div>
-    <textarea
-      id="inactive-bio"
-      v-model="currentUser.bio"
-      name="bio"
-      cols="30"
-      rows="10"
-      disabled
-    />
-    <textarea
-      id="active-bio"
-      v-model="currentUser.bio"
-      name="bio"
-      cols="30"
-      rows="10"
-    />
-    <hr>
-    <div>
-      <button @click="$router.push('/my-listings')">
-        My Listings
-      </button>
-      <button @click="$router.push('/create-listing')">
-        Create Listing
-      </button>
-    </div>
-    <h2>My Latest Listing</h2>
-    <div>
-      <div
-        v-if="listings[0]"
-        class="listings"
-      >
-        <p id="seller">
-          {{ listings[0].author.name }}
-          <span id="edit-delete">
-            <DeleteIcon :listing-id="listings[0]._id" />
-            <router-link
-              :to="{ name: 'EditListing', params:{ listingId: listings[0]._id } }"
-              class="view-detail-btn"
-            >
-              <i class="fas fa-edit" />
-            </router-link>
-          </span>
-        </p>
-        <div class="image-container">
-          <img :src="listings[0].imageUrl">
-        </div>
-        <div class="second-group">
-          <p>{{ listings[0].title }}</p>
-          <p>${{ listings[0].price }}</p>
-        </div>
-        <p class="desc">
-          {{ listings[0].description }}
-        </p>
-        <button>
-          <router-link
-            :to="{ name: 'ListingDetail', params:{ listingId: listings[0]._id } }"
-            class="view-detail-btn"
-          >
-            View Details
-          </router-link>
+      <hr>
+      <div>
+        <button @click="$router.push('/my-listings')">
+          My Listings
+        </button>
+        <button @click="$router.push('/create-listing')">
+          Create Listing
         </button>
       </div>
+      <h2>My Latest Listing</h2>
+      <div>
+        <div
+          v-if="listings[0]"
+          class="listings"
+        >
+          <p id="seller">
+            {{ listings[0].author.name }}
+            <span id="edit-delete">
+              <DeleteIcon :listing-id="listings[0]._id" />
+              <router-link
+                :to="{ name: 'EditListing', params:{ listingId: listings[0]._id } }"
+                class="edit"
+              >
+                <i class="fas fa-edit" />
+              </router-link>
+            </span>
+          </p>
+          <div class="image-container">
+            <img :src="listings[0].imageUrl">
+          </div>
+          <div class="second-group">
+            <p>{{ listings[0].title }}</p>
+            <p>${{ listings[0].price }}</p>
+          </div>
+          <p class="desc">
+            {{ listings[0].description }}
+          </p>
+          <button>
+            <router-link
+              :to="{ name: 'ListingDetail', params:{ listingId: listings[0]._id } }"
+              class="view-detail-btn"
+            >
+              View Details
+            </router-link>
+          </button>
+        </div>
+        <div v-else>
+          <h4>Sorry!</h4>
+          <p>You haven't posted any listings! Try creating one above!</p>
+        </div>
+      </div>
     </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -161,11 +167,28 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 155vh;
+}
+.profile{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 #user-name{
-  width: 87vw;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-left: 1em;
+  margin-top: 1em;
 }
 h3{
   background-color: #E0D3BD;
@@ -175,6 +198,14 @@ h3{
   margin-bottom: -1em;
   text-align: left;
   width: 8em;
+}
+h2{
+  margin-bottom: 0;
+}
+h4{
+  color: #A26360;
+  font-family: 'Cormorant', serif;
+  font-size: 1.2em;
 }
 textarea{
   background-color: white;
@@ -190,6 +221,7 @@ textarea{
 }
 i{
   font-size: 1.2em;
+  margin-left: 5em;
   margin-bottom: 0.5em;
 }
 #update-bio-icon{
@@ -252,7 +284,7 @@ margin: 0;
   align-items: center;
   width: 80%;
   background-color: #fff;
-  margin: 1em;
+  margin: 1.3em;
   margin-top: 2em;
   margin-bottom: 2em;
   padding: 1em;
@@ -260,6 +292,9 @@ margin: 0;
   box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+}
+#edit-delete i{
+  margin: 0;
 }
 #edit-delete{
   width: 5em;

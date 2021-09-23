@@ -1,138 +1,145 @@
 <template>
   <!-- Payment + Delivery + Error Validation - Keely -->
-  <div
-    v-if="user"
-    class="payment"
-  >
-    <h2>Payment</h2>
-    <form
-      id="payment-form"
-      @submit.prevent="checkForm"
+  <div class="app-wrapper">
+    <BackButton />
+    <div
+      v-if="user"
+      class="payment"
     >
-      <div class="form-group">
-        <label for="input-cardname">Name on Card</label>
-        <input
-          v-model="card.name"
-          type="text"
-          name="input-cardname"
-          placeholder="e.g: John Doe"
-          required
-        >
-      </div>
-      <span id="card-name-error"><p>Please Enter A Valid Name</p></span>
-      <div class="form-group">
-        <label for="input-cardnumber">Card number</label>
-        <input
-          v-model="card.number"
-          type="text"
-          name="input-cardnumber"
-          placeholder="4111-2222-3333-4444"
-          required
-        >
-      </div>
-      <span id="number-error"><p>Please Enter A Valid Card Number</p></span>
-      <div class="exp-cvc-inputs">
-        <div
-          class="form-group"
-        >
-          <label for="input-expdate">Expiry Date</label>
+      <h2>Enter Your Details</h2>
+      <form
+        id="payment-form"
+        @submit.prevent="checkForm"
+      >
+        <div class="form-group">
+          <label for="input-cardname">Name on Card</label>
           <input
-            v-model="card.expiry"
+            v-model="card.name"
             type="text"
-            name="input-expdate"
-            placeholder="MM / YY"
-            maxlength="7"
+            name="input-cardname"
+            placeholder="e.g: John Doe"
             required
           >
         </div>
-        <span id="expiry-error"><p>Please Enter A Valid Expiry Date</p></span>
-        <div
-          id="smallerInputs"
-          class="form-group"
-        >
-          <label for="input-cvc">CVC</label>
+        <span id="card-name-error"><p>Please Enter A Valid Name</p></span>
+        <div class="form-group">
+          <label for="input-cardnumber">Card number</label>
           <input
-            id="input-cvc"
-            v-model="card.cvc"
+            v-model="card.number"
             type="text"
-            name="input-cvc"
-            maxlength="4"
+            name="input-cardnumber"
+            placeholder="4111-2222-3333-4444"
             required
           >
         </div>
-        <span id="cvc-error"><p>Please Enter A Valid CVC</p></span>
-      </div>
-      <hr>
-      <h2>Delivery Details</h2>
-      <div class="form-group">
-        <label for="input-cardname">First Name</label>
-        <input
-          v-model="delivery.firstName"
-          type="text"
-          name="input-cardname"
-          placeholder="e.g: John"
-          required
-        >
-      </div>
-      <span id="first-name-error"><p>Please Enter A Valid Name</p></span>
-      <div class="form-group">
-        <label for="input-surname">Surname</label>
-        <input
-          v-model="delivery.surname"
-          type="text"
-          name="input-surname"
-          placeholder="eg: Doe"
-          required
-        >
-      </div>
-      <span id="surname-error"><p>Please Enter A Valid Name</p></span>
-      <div class="form-group">
-        <label for="input-email">Email Address</label>
-        <input
-          v-model="delivery.email"
-          type="email"
-          name="input-email"
-          placeholder="eg: example@email.com"
-          required
-        >
-      </div>
-      <span id="email-error"><p>Please Enter A Valid Email</p></span>
-      <div class="form-group">
-        <label for="input-cardnumber">Street Address</label>
-        <input
-          v-model="delivery.address"
-          type="text"
-          name="input-cardnumber"
-          placeholder="eg: 12 example st, region, postcode"
-          required
-        >
-      </div>
-      <span id="address-error"><p>Please Enter A Valid Address</p></span>
-      <div class="form-group">
-        <label for="input-cardnumber">Delivery Instructions</label>
-        <textarea
-          id="input-cardnumber"
-          v-model="delivery.message"
-          type="text"
-          name="input-cardnumber"
-          placeholder="Type your message here ..."
-        />
-      </div>
-      <button type="submit">
-        Finalise Purchase
-      </button>
-      <a @click="$router.push(`/listings/${listingId}`);">Cancel Purchase</a>
-    </form>
+        <span id="number-error"><p>Please Enter A Valid Card Number</p></span>
+        <div class="exp-cvc-inputs">
+          <div
+            class="form-group"
+          >
+            <label for="input-expdate">Expiry Date</label>
+            <input
+              v-model="card.expiry"
+              type="text"
+              name="input-expdate"
+              placeholder="MM / YY"
+              maxlength="7"
+              required
+            >
+          </div>
+          <span id="expiry-error"><p>Please Enter A Valid Expiry Date</p></span>
+          <div
+            id="smallerInputs"
+            class="form-group"
+          >
+            <label for="input-cvc">CVC</label>
+            <input
+              id="input-cvc"
+              v-model="card.cvc"
+              type="text"
+              name="input-cvc"
+              maxlength="4"
+              required
+            >
+          </div>
+          <span id="cvc-error"><p>Please Enter A Valid CVC</p></span>
+        </div>
+        <hr>
+        <h2>Delivery Details</h2>
+        <div class="form-group">
+          <label for="input-cardname">First Name</label>
+          <input
+            v-model="delivery.firstName"
+            type="text"
+            name="input-cardname"
+            placeholder="e.g: John"
+            required
+          >
+        </div>
+        <span id="first-name-error"><p>Please Enter A Valid Name</p></span>
+        <div class="form-group">
+          <label for="input-surname">Surname</label>
+          <input
+            v-model="delivery.surname"
+            type="text"
+            name="input-surname"
+            placeholder="eg: Doe"
+            required
+          >
+        </div>
+        <span id="surname-error"><p>Please Enter A Valid Name</p></span>
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input
+            v-model="delivery.email"
+            type="email"
+            name="input-email"
+            placeholder="eg: example@eg.com"
+            required
+          >
+        </div>
+        <span id="email-error"><p>Please Enter A Valid Email</p></span>
+        <div class="form-group">
+          <label for="input-cardnumber">Street Address</label>
+          <input
+            v-model="delivery.address"
+            type="text"
+            name="input-cardnumber"
+            placeholder="eg: 12 example st, region, postcode"
+            required
+          >
+        </div>
+        <span id="address-error"><p>Please Enter A Valid Address</p></span>
+        <div class="form-group">
+          <label for="input-cardnumber">Delivery Instructions</label>
+          <textarea
+            id="input-cardnumber"
+            v-model="delivery.message"
+            type="text"
+            name="input-cardnumber"
+            placeholder="Type your message here ..."
+          />
+        </div>
+        <div id="cancel">
+          <button type="submit">
+            Finalise Purchase
+          </button>
+          <a @click="$router.push(`/listings/${listingId}`);">Cancel Purchase</a>
+        </div>
+      </form>
+    </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
 import UserErrorMessage from '../components/UserErrorMessage.vue';
+import BackButton from '../components/BackButton.vue';
 
 export default {
   components: {
     UserErrorMessage,
+    BackButton,
   },
   props: {
     listingId: String,
@@ -259,15 +266,29 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 126vh;
+}
+.payment{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 form {
   width: 80vw;
   height: 35vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   text-align: center;
   justify-content: space-between;
-  margin-left: 11vw;
 }
 
 input,
@@ -317,19 +338,18 @@ button {
   border-radius: 5px;
   border: none;
   margin-top: 2em;
-  margin-left: 20vw;
 }
 form h2{
-  margin-left: 18vw;
   margin-bottom: 0.5em;
 }
 .exp-cvc-inputs{
   display: flex;
   width: 80vw;
+  margin-left: 2em;
 }
 
 .exp-cvc-inputs input{
-  width: 85%;
+  width: 82%;
   padding: 0.56em 0.1em;
 }
 
@@ -340,7 +360,6 @@ a{
   text-align: center;
   font-size: 0.9em;
   margin: 1em;
-  margin-left: 25vw;
   padding-bottom: 1.5em;
 }
 hr{
@@ -356,5 +375,11 @@ hr{
 #first-name-error,#surname-error,#email-error,#address-error{
   display: none;
   color: red;
+}
+#cancel{
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

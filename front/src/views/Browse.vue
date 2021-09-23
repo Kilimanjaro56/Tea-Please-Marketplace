@@ -1,83 +1,89 @@
 <template>
-  <div
-    v-if="user"
-    class="browse"
-  >
-    <div class="greeting">
-      <h2>Welcome {{ user.email }}!!</h2>
-      <h2>Browse Listings Here !!</h2>
-    </div>
-    <div class="filter-search-group">
-      <select name="filter">
-        <option value="">
-          Filter by
-        </option>
-        <option value="">
-          Filter by Price
-        </option>
-        <option value="">
-          Filter by tea
-        </option>
-        <option value="">
-          Filter by ...
-        </option>
-      </select>
-      <Search
-        :listings="listings"
-        @searched="displayFilteredListings"
-        @showAll="getListings"
-      />
-      <a
-        id="clear-search"
-        @click="clearSearch"
-      >Clear Search</a>
-    </div>
-    <ul>
-      <li
-        v-for="listing of listings"
-        :key="listing._id"
-      >
-        <div class="first-group">
-          <p>{{ listing.author.name }}</p>
-          <div class="heart-group">
-            <i
-              v-if="!listing.favourited"
-              class="far fa-heart heart-btn"
-              @click="listing.favourited=!listing.favourited"
-            />
-            <i
-              v-else
-              class="fas fa-heart filled-heart-btn"
-              @click="listing.favourited=!listing.favourited"
-            />
-          </div>
-        </div>
-        <img :src="listing.imageUrl">
-        <div class="second-group">
-          <p>{{ listing.title }}</p>
-          <p>${{ listing.price }}</p>
-        </div>
-        <p class="desc">
-          {{ listing.description }}
-        </p>
-        <button>
-          <router-link
-            :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
-            class="view-detail-btn"
-          >
-            View Details
-          </router-link>
-        </button>
-      </li>
-    </ul>
-    <h2
-      v-if="message"
-      id="search-error"
+  <div class="app-wrapper">
+    <div
+      v-if="user"
+      class="browse"
     >
-      {{ message }}
-    </h2>
+      <div class="greeting">
+        <h2>Welcome {{ user.email }}!!</h2>
+        <h2>Browse Listings Here !!</h2>
+      </div>
+      <div class="filter-search-group">
+        <select name="filter">
+          <option value="">
+            Filter by
+          </option>
+          <option value="">
+            Filter by Price
+          </option>
+          <option value="">
+            Filter by tea
+          </option>
+          <option value="">
+            Filter by ...
+          </option>
+        </select>
+        <Search
+          :listings="listings"
+          @searched="displayFilteredListings"
+          @showAll="getListings"
+        />
+        <a
+          id="clear-search"
+          @click="clearSearch"
+        >Clear Search</a>
+      </div>
+      <ul>
+        <li
+          v-for="listing of listings"
+          :key="listing._id"
+        >
+          <div class="first-group">
+            <p>{{ listing.author.name }}</p>
+            <div class="heart-group">
+              <i
+                v-if="!listing.favourited"
+                class="far fa-heart heart-btn"
+                @click="listing.favourited=!listing.favourited"
+              />
+              <i
+                v-else
+                class="fas fa-heart filled-heart-btn"
+                @click="listing.favourited=!listing.favourited"
+              />
+            </div>
+          </div>
+          <div class="image-container">
+            <img :src="listing.imageUrl">
+          </div>
+          <div class="second-group">
+            <p>{{ listing.title }}</p>
+            <p id="price">
+              ${{ listing.price }}
+            </p>
+          </div>
+          <p class="desc">
+            {{ listing.description }}
+          </p>
+          <button>
+            <router-link
+              :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
+              class="view-detail-btn"
+            >
+              View Details
+            </router-link>
+          </button>
+        </li>
+      </ul>
+      <h2
+        v-if="message"
+        id="search-error"
+      >
+        {{ message }}
+      </h2>
+    </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -139,12 +145,30 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 105vh;
+}
+.browse{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 #clear-search {
   display: none;
   margin: 1em;
   padding: 0;
   background-color: transparent;
   text-align: center;
+}
+#price{
+  font-family: inherit;
 }
 * {
   margin: 0;
@@ -155,6 +179,10 @@ export default {
   font-size: 0.8em;
   padding: 1em;
   color: #a26360;
+}
+p{
+  font-family: 'Cormorant', serif;
+  font-size:1.1em ;
 }
 select {
   border: #a26360 thin solid;
@@ -181,7 +209,9 @@ li {
   margin: 1em;
   padding: 1em;
   border-radius: 10px;
-  box-shadow: 1px 3px 5px -2px #000000;
+    box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
 }
 .first-group,
 .second-group {
@@ -196,9 +226,21 @@ li {
   border-bottom: #a26360 thin solid;
   padding-bottom: 0.3em;
 }
-img {
-  width: 100%;
-  height: 30vh;
+.image-container{
+  width: 80vw;
+  height: 40vh;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+  border-radius: 10px;
+  margin-bottom: 0.4em;
+  margin-top: 0.5em;
+}
+img{
+  width: 140%;
+  min-height: 100%;
   border-radius: 10px;
   margin: 1em 0;
 }
@@ -246,6 +288,7 @@ a {
 }
 i {
   color: #a26360;
+  font-size: 1em;
 }
 @media screen and (min-width: 768px) {
   .browse{

@@ -3,7 +3,8 @@
     v-if="user"
     class="edit"
   >
-    <h2>Edit</h2>
+    <BackButton />
+    <h2>Edit or Delete</h2>
     <div v-if="!listing.author">
       <h3>Error!</h3>
       <h4>Sorry this page isn't avalible, please check the link and try again</h4>
@@ -49,7 +50,8 @@
             </div>
             <span id="price-error"><p>Please Enter A Valid Price</p></span>
           </div>
-          <div class="form-group">
+          <div class="form-group"
+          id="category-selection">
             <label for="category">Category</label>
             <select
               id="category"
@@ -112,13 +114,15 @@
 
 <script>
 import Delete from '../components/delete.vue';
-import UserErrorMessage from '../components/UserErrorMessage.vue';
 // discussed with Simon - 14/09
+import UserErrorMessage from '../components/UserErrorMessage.vue';
+import BackButton from '../components/BackButton.vue';
 
 export default {
   components: {
     Delete,
     UserErrorMessage,
+    BackButton,
   },
   props: {
     listingId: String,
@@ -194,10 +198,27 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 105vh;
+}
+.edit{
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+h2{
+  margin-bottom: 1.5em;
+}
 form {
   width: 80vw;
-  margin-left: 11vw;
   height: 70vh;
   display: flex;
   flex-direction: column;
@@ -247,7 +268,7 @@ input:focus, textarea:focus {
 }
 
 .form-group {
-  width: 90%;
+  width: 96%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -273,7 +294,7 @@ button {
 }
 
 #wrap-price input{
-  width: 5.9vw;
+  width: 6vw;
   padding: 0.56em 0.1em;
   padding-left: 0.2em;
 }
@@ -302,6 +323,9 @@ button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   color: #2b463c77;
+}
+#category-selection{
+  margin-right: -2.5em;
 }
 #title-error, #price-error, #description-error, #image-error{
   display: none;

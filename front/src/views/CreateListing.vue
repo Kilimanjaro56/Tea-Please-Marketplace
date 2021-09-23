@@ -1,103 +1,105 @@
 <template>
   <!-- Create Listing Front End + Validation + Styling - Keely -->
-  <div
-    v-if="user"
-    class="create-listing-component"
-  >
-    <BackButton />
-    <div class="form">
-      <h2>Create a Listing</h2>
-      <form @submit.prevent="checkForm">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            v-model="listing.title"
-            type="text"
-            name="title"
-          >
-        </div>
-        <span id="title-error"><p>Please Enter A Title</p></span>
-        <div id="price-and-category">
+  <div class="app-wrapper">
+    <div
+      v-if="user"
+      class="create-listing-component"
+    >
+      <BackButton />
+      <div class="form">
+        <h2>Create a Listing</h2>
+        <form @submit.prevent="checkForm">
           <div class="form-group">
-            <label for="price">Price</label>
-            <div id="wrap-price">
-              <input
-                id="price-sign"
-                type="text"
-                value="$"
-                readonly="readonly"
-              >
-              <input
-                id="price-input"
-                v-model="listing.price"
-                type="number"
-                name="price"
-                max="999"
-                min="1"
-              >
-              <input
-                id="price-static"
-                type="text"
-                value=".00"
-                readonly="readonly"
-              >
-            </div>
-            <span id="price-error"><p>Please Enter A Valid Price</p></span>
-          </div>
-          <div class="form-group">
-            <label for="category">Category</label>
-            <select
-              id="category"
-              v-model="listing.category"
-              name="category"
-              placeholder="select"
+            <label for="title">Title</label>
+            <input
+              v-model="listing.title"
+              type="text"
+              name="title"
             >
-              <option value="Tea">
-                Tea
-              </option>
-              <option value="Teacups">
-                Teacups
-              </option>
-              <option value="Teapots">
-                Teapots
-              </option>
-              <option value="Tea Sets">
-                Tea Sets
-              </option>
-              <option value="Misc">
-                Misc
-              </option>
-            </select>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="description">Product Description</label>
-          <textarea
-            v-model="listing.description"
-            maxlength="800"
-            row="50"
-            name="description"
-            placeholder="Max limit 800 characters"
-          />
-        </div>
-        <span id="description-error"><p>Please Enter A Product Description</p></span>
-        <div class="form-group">
-          <label for="image-url">Image URL</label>
-          <input
-            v-model="listing.imageUrl"
-            type="url"
-            name="image-url"
-            placeholder="eg: https://image-url"
-          >
-        </div>
-        <span id="image-error"><p>Please Enter A Valid Image URL</p></span>
-        <button type="submit">
-          Upload Listing
-        </button>
-      </form>
+          <span id="title-error"><p>Please Enter A Title</p></span>
+          <div id="price-and-category">
+            <div class="form-group">
+              <label for="price">Price</label>
+              <div id="wrap-price">
+                <input
+                  id="price-sign"
+                  type="text"
+                  value="$"
+                  readonly="readonly"
+                >
+                <input
+                  id="price-input"
+                  v-model="listing.price"
+                  type="number"
+                  name="price"
+                  max="999"
+                  min="1"
+                >
+                <input
+                  id="price-static"
+                  type="text"
+                  value=".00"
+                  readonly="readonly"
+                >
+              </div>
+              <span id="price-error"><p>Please Enter A Valid Price</p></span>
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select
+                id="category"
+                v-model="listing.category"
+                name="category"
+                placeholder="select"
+              >
+                <option value="Tea">
+                  Tea
+                </option>
+                <option value="Teacups">
+                  Teacups
+                </option>
+                <option value="Teapots">
+                  Teapots
+                </option>
+                <option value="Tea Sets">
+                  Tea Sets
+                </option>
+                <option value="Misc">
+                  Misc
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Product Description</label>
+            <textarea
+              v-model="listing.description"
+              maxlength="800"
+              row="50"
+              name="description"
+              placeholder="Max limit 800 characters"
+            />
+          </div>
+          <span id="description-error"><p>Please Enter A Product Description</p></span>
+          <div class="form-group">
+            <label for="image-url">Image URL</label>
+            <input
+              v-model="listing.imageUrl"
+              type="url"
+              name="image-url"
+              placeholder="eg: https://image-url"
+            >
+          </div>
+          <span id="image-error"><p>Please Enter A Valid Image URL</p></span>
+          <button type="submit">
+            Upload Listing
+          </button>
+        </form>
+      </div>
     </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -188,15 +190,28 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 105vh;
+}
 .create-listing-component{
-  margin-top: 3em;
+  margin-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .form {
   color: #2b463c;
   width: 75vw;
-  margin-left: 11vw;
 }
-
+h2{
+  margin-bottom: 2em;
+}
 form {
   width: 80vw;
   height: 55vh;
@@ -309,5 +324,6 @@ b{
 #title-error, #price-error, #description-error, #image-error{
   display: none;
   color: red;
+  text-align: left;
 }
 </style>

@@ -17,14 +17,14 @@ export default {
 <style scoped>
 button{
   background-color: transparent;
-  font-size: 1.8em;
+  font-size: 1.5em;
   height: 1em;
   color: #A26360;
   padding: 0;
   border-radius: 0;
   border: none;
   position: absolute;
-  top: 3.5em;
+  top: 4.5em;
   left: 1em;
 }
 

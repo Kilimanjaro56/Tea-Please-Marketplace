@@ -1,58 +1,61 @@
 <template>
-  <div
-    v-if="user"
-    class="my-listings"
-  >
-    <BackButton />
-    <h2>My Listings</h2>
-    <div v-if="listings === null">
-      <h3>Sorry!</h3>
-      <p>You haven't posted any listings! Try creating one from your profile</p>
-    </div>
-    <div v-else>
-      <div
-        v-for="listing in listings"
-        :key="listing.id"
-      >
+  <div class="app-wrapper">
+    <div
+      v-if="user"
+      class="my-listings"
+    >
+      <BackButton />
+      <h2>My Listings</h2>
+      <div v-if="listings.length === 0">
+        <h3>Sorry!</h3>
+        <p>You haven't posted any listings! Try creating one from your profile</p>
+      </div>
+      <div v-else>
         <div
-          v-if="listing.author._id === user.id"
-          class="listings"
+        class="wrap-listings"
+          v-for="listing in listings"
+          :key="listing.id"
         >
-          <p id="seller">
-            {{ listing.author.name }}
-            <span id="edit-delete">
-              <DeleteIcon :listing-id="listing._id" />
+          <div
+            v-if="listing.author._id === user.id"
+            class="listings"
+          >
+            <p id="seller">
+              {{ listing.author.name }}
+              <span id="edit-delete">
+                <DeleteIcon :listing-id="listing._id" />
+                <router-link
+                  :to="{ name: 'EditListing', params:{ listingId: listing._id } }"
+                  class="view-detail-btn"
+                >
+                  <i class="fas fa-edit" />
+                </router-link>
+              </span>
+            </p>
+            <div class="image-container">
+              <img :src="listing.imageUrl">
+            </div>
+            <div class="second-group">
+              <p>{{ listing.title }}</p>
+              <p>${{ listing.price }}</p>
+            </div>
+            <p class="desc">
+              {{ listing.description }}
+            </p>
+            <button>
               <router-link
-                :to="{ name: 'EditListing', params:{ listingId: listing._id } }"
+                :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
                 class="view-detail-btn"
               >
-                <i class="fas fa-edit" />
+                View Details
               </router-link>
-            </span>
-          </p>
-          <div class="image-container">
-            <img :src="listing.imageUrl">
+            </button>
           </div>
-          <div class="second-group">
-            <p>{{ listing.title }}</p>
-            <p>${{ listing.price }}</p>
-          </div>
-          <p class="desc">
-            {{ listing.description }}
-          </p>
-          <button>
-            <router-link
-              :to="{ name: 'ListingDetail', params:{ listingId: listing._id } }"
-              class="view-detail-btn"
-            >
-              View Details
-            </router-link>
-          </button>
         </div>
       </div>
     </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -71,7 +74,7 @@ export default {
   },
   data() {
     return {
-      listings: null,
+      listings: [],
     };
   },
   created() {
@@ -82,8 +85,11 @@ export default {
       if (this.user) {
         const response = await fetch('http://localhost:3000/listings');
         const data = await response.json();
-        this.listings = data;
-        this.message = null;
+        for (const listing of data) {
+          if (listing.author._id === this.user.id) {
+            this.listings.push(listing);
+          }
+        }
       }
     },
   },
@@ -91,13 +97,39 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 105vh;
+}
+.my-listings{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.wrap-listings{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #F4F1E9;
+  padding: 1em;
+
+}
 .second-group {
   width: 70vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: #a26360 thin solid;
-  padding-bottom: 0.3em;
+}
+.second-group p{
+margin-bottom: 0.5em;
 }
 .image-container{
   width: 80vw;
@@ -127,6 +159,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 margin: 0;
+font-family: 'Cormorant', serif;
 }
 button{
   margin: 0;

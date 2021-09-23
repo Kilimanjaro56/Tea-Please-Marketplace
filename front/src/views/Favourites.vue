@@ -1,12 +1,14 @@
 <template>
-  <div
-    v-if="user"
-    class="favourites"
-  >
-    <BackButton />
-    <h2>Favourites</h2>
+  <div class="app-wrapper">
+    <div
+      v-if="user"
+      class="favourites"
+    >
+      <BackButton />
+      <h2>Favourites</h2>
+    </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -24,6 +26,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.app-wrapper{
+  background-color: #F4F1E9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.favourites{
+  margin-top: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>

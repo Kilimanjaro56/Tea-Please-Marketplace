@@ -127,6 +127,9 @@ export default {
 </script>
 
 <style scoped>
+.reviews{
+  background-color: #F4F1E9;
+}
 #review-preview{
     width: 80vw;
     display: flex;
@@ -151,6 +154,8 @@ span{
 }
 #reviews-pop-up{
     display: none;
+    background-color: #F4F1E9;
+    padding: 1em;
 }
 #review-preview{
     display: flex;
