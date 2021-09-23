@@ -1,4 +1,31 @@
 <template>
+  <div class="browse">
+    <h3>Browse Listings</h3>
+    <Filter
+      :listings="listingStore"
+      @categoryFilter="displayFilteredCategory"
+      @clearCategories="getListings"
+    />
+    <Search
+      :listings="listings"
+      @searched="displayFilteredListings"
+      @showAll="getListings"
+    />
+    <a
+      id="clear-search"
+      @click="clearSearch"
+    >Clear Search</a>
+
+    <!-- View List Code Here -->
+
+    <div
+      v-for="listing of listings"
+      :key="listing._id"
+    >
+      <h2>{{ listing.title }}</h2>
+      <h2>{{ listing._id }}</h2>
+    </div>
+
   <div
     v-if="user"
     class="browse"
@@ -82,20 +109,25 @@
 
 <script>
 import Search from '../components/Search.vue';
+import Filter from '../components/Filter.vue';
 import UserErrorMessage from '../components/UserErrorMessage.vue';
 
 export default {
   components: {
     UserErrorMessage,
     Search,
+    Filter,
   },
   props: {
     user: Object,
   },
+  emits: ['categoryFilter'],
   data() {
     return {
+      listingStore: [],
       listings: [],
       message: null,
+      filter: 'all',
     };
   },
   created() {
@@ -106,6 +138,20 @@ export default {
   },
   methods: {
     async getListings() {
+      const response = await fetch('http://localhost:3000/listings');
+      const data = await response.json();
+      console.log(data);
+      this.listings = data;
+      this.listingStore = data;
+      const dataWithFavs = data.map((element) => {
+        const item = element;
+        item.favourited = false;
+        return item;
+      });
+      console.log(dataWithFavs);
+      this.listings = dataWithFavs;
+      this.message = null;
+      document.getElementById('clear-search').style.display = 'none';
       if (this.user) {
         const response = await fetch('http://localhost:3000/listings');
         const data = await response.json();
@@ -133,6 +179,10 @@ export default {
     clearSearch() {
       document.getElementById('clear-search').style.display = 'none';
       this.getListings();
+    },
+
+    displayFilteredCategory(filteredArray) {
+      this.listings = filteredArray;
     },
   },
 };
