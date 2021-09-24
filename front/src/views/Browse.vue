@@ -326,7 +326,7 @@ i {
   color: #a26360;
   font-size: 1em;
 }
-/* Respnsive styling x2 tablet sizes and desktop - Simon */
+/* Responsive styling x2 tablet sizes and desktop - Simon */
 @media screen and (min-width: 768px) {
   .browse{
     font-size: 1.2em;

@@ -1,124 +1,129 @@
 <template>
-  <div
-    v-if="user"
-    class="edit"
-  >
-    <BackButton />
-    <h2>Edit or Delete</h2>
-    <div v-if="!listing.author">
-      <h3>Error!</h3>
-      <h4>Sorry this page isn't avalible, please check the link and try again</h4>
-      <button>Return to Home</button>
+  <div class="app-wrapper">
+    <div class="cover-img">
+      <img src="https://picsum.photos/200/300" alt="">
     </div>
-    <div v-else-if="user.id === listing.author._id">
-      <form
-        @submit.prevent="checkForm"
-      >
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            v-model="listing.title"
-            type="text"
-            name="title"
-          >
-        </div>
-        <span id="title-error"><p>Please Enter A Title</p></span>
-        <div id="price-and-category">
-          <div class="form-group">
-            <label for="price">Price</label>
-            <div id="wrap-price">
-              <input
-                id="price-sign"
-                type="text"
-                value="$"
-                readonly="readonly"
-              >
-              <input
-                id="price-input"
-                v-model="listing.price"
-                type="number"
-                name="price"
-                max="999"
-                min="1"
-              >
-              <input
-                id="price-static"
-                type="text"
-                value=".00"
-                readonly="readonly"
-              >
-            </div>
-            <span id="price-error"><p>Please Enter A Valid Price</p></span>
-          </div>
-          <div
-            id="category-selection"
-            class="form-group"
-          >
-            <label for="category">Category</label>
-            <select
-              id="category"
-              v-model="listing.category"
-              name="category"
-              placeholder="select"
-            >
-              <option value="Tea">
-                Tea
-              </option>
-              <option value="Teacups">
-                Teacups
-              </option>
-              <option value="Teapots">
-                Teapots
-              </option>
-              <option value="Tea Sets">
-                Tea Sets
-              </option>
-              <option value="Misc">
-                Misc
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="description">Product Description</label>
-          <textarea
-            v-model="listing.description"
-            maxlength="200"
-            row="50"
-            name="description"
-          />
-        </div>
-        <span id="description-error"><p>Please Enter A Description</p></span>
-        <div class="form-group">
-          <label for="image-url">Image URL</label>
-          <input
-            v-model="listing.imageUrl"
-            type="text"
-            name="image-url"
-            placeholder="eg: https://image-url"
-          >
-        </div>
-        <span id="image-error"><p>Please Enter A Valid Image URL</p></span>
-        <button type="submit">
-          Save Changes
-        </button>
-        <Delete :listing-id="listingId" />
-      </form>
-    </div>
-    <div v-else>
-      <h3>Error!</h3>
-      <h4>Sorry you don't have the authorization to view this page</h4>
-      <button>
-        <router-link
-          :to="('/listings')"
-          class="view-detail-btn"
+    <div
+      v-if="user"
+      class="edit"
+    >
+      <BackButton />
+      <h2>Edit or Delete</h2>
+      <div v-if="!listing.author">
+        <h3>Error!</h3>
+        <h4>Sorry this page isn't avalible, please check the link and try again</h4>
+        <button>Return to Home</button>
+      </div>
+      <div v-else-if="user.id === listing.author._id">
+        <form
+          @submit.prevent="checkForm"
         >
-          Return to Home
-        </router-link>
-      </button>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              v-model="listing.title"
+              type="text"
+              name="title"
+            >
+          </div>
+          <span id="title-error"><p>Please Enter A Title</p></span>
+          <div id="price-and-category">
+            <div class="form-group price-group">
+              <label for="price">Price</label>
+              <div id="wrap-price">
+                <input
+                  id="price-sign"
+                  type="text"
+                  value="$"
+                  readonly="readonly"
+                >
+                <input
+                  id="price-input"
+                  v-model="listing.price"
+                  type="number"
+                  name="price"
+                  max="999"
+                  min="1"
+                >
+                <input
+                  id="price-static"
+                  type="text"
+                  value=".00"
+                  readonly="readonly"
+                >
+              </div>
+              <span id="price-error"><p>Please Enter A Valid Price</p></span>
+            </div>
+            <div
+              id="category-selection"
+              class="form-group"
+            >
+              <label for="category">Category</label>
+              <select
+                id="category"
+                v-model="listing.category"
+                name="category"
+                placeholder="select"
+              >
+                <option value="Tea">
+                  Tea
+                </option>
+                <option value="Teacups">
+                  Teacups
+                </option>
+                <option value="Teapots">
+                  Teapots
+                </option>
+                <option value="Tea Sets">
+                  Tea Sets
+                </option>
+                <option value="Misc">
+                  Misc
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Product Description</label>
+            <textarea
+              v-model="listing.description"
+              maxlength="200"
+              row="50"
+              name="description"
+            />
+          </div>
+          <span id="description-error"><p>Please Enter A Description</p></span>
+          <div class="form-group">
+            <label for="image-url">Image URL</label>
+            <input
+              v-model="listing.imageUrl"
+              type="text"
+              name="image-url"
+              placeholder="eg: https://image-url"
+            >
+          </div>
+          <span id="image-error"><p>Please Enter A Valid Image URL</p></span>
+          <button type="submit">
+            Save Changes
+          </button>
+          <Delete :listing-id="listingId" />
+        </form>
+      </div>
+      <div v-else>
+        <h3>Error!</h3>
+        <h4>Sorry you don't have the authorization to view this page</h4>
+        <button>
+          <router-link
+            :to="('/listings')"
+            class="view-detail-btn"
+          >
+            Return to Home
+          </router-link>
+        </button>
+      </div>
     </div>
+    <UserErrorMessage v-else />
   </div>
-  <UserErrorMessage v-else />
 </template>
 
 <script>
@@ -297,7 +302,8 @@ button {
   border-radius: 5px;
   border: none;
   margin-bottom: 1.5em;
-  margin-top: 0em;
+  /* margin-top: 0em; */
+  cursor: pointer;
 }
 
 #wrap-price{
@@ -341,5 +347,56 @@ button {
 #title-error, #price-error, #description-error, #image-error{
   display: none;
   color: red;
+}
+.cover-img{
+  display: none;
+}
+h2{
+  margin-top: 4em;
+}
+@media screen and (min-width: 768px) {
+  .edit{
+    font-size: 1.2em;
+  }
+  input{
+    height: 3vh;
+  }
+  button{
+    padding-bottom: 1.8em;
+    font-size: 0.8em;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .app-wrapper{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cover-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    overflow: hidden;
+  }
+  .cover-img>img{
+    margin-top: 5em;
+    width: 40vw;
+    height: 60vh;
+    border-radius: 10px;
+  }
+  .price-group{
+    /* border: red thin solid; */
+    padding-left: 23.5%;
+  }
+  .edit{
+    width: 50vw;
+  }
+  button{
+    margin-top: 2em;
+  }
+  .form-group,h2{
+    width: 50%;
+  }
 }
 </style>

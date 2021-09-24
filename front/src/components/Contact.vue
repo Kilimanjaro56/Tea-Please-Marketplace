@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <!-- Contact Component - Keely  -->
+  <!-- Contact Component - Keely  -->
+  <div class="contact">
     <h2>Contact Us</h2>
     <p
       v-if="errors.length"
@@ -157,7 +157,39 @@ button {
   border-radius: 5px;
   border: none;
   margin-top: 2em;
-  margin-left: 20vw;
+  margin: 1em auto;
+}
+@media screen and (min-width: 768px) {
+  .contact{
+    font-size: 1.2em;
+  }
+  label{
+    margin-top: 0.5em;
+  }
+  input{
+    height: 3vh;
+  }
+  button{
+    padding-bottom: 1.8em;
+    font-size: 0.8em;
+    margin: 1.5em auto;
+  }
+    @media screen and (min-width: 1024px){
+    .container{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      /* grid-template-columns: repeat(2,1fr); */
+      border: red thin solid;
+    }
+    .contact{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      /* grid-template-columns: repeat(2,1fr); */
+      /* border: red thin solid; */
+    }
+  }
 }
 /* Responsive Styling - Simon */
 @media screen and (min-width: 768px) {

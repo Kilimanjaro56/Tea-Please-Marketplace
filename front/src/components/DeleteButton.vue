@@ -43,6 +43,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: 0.8em;
+  cursor: pointer;
 }
 
 .bin {
@@ -66,5 +67,10 @@ p {
 }
 i{
   font-size: 1.5em;
+}
+@media screen and (min-width: 1024px){
+  .delete-function{
+    margin-bottom: 2em;
+  }
 }
 </style>

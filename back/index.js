@@ -55,7 +55,7 @@ const authUser = (req, res, next) => {
 // END POINTS HERE
 const Listing = require("./models/Listing");
 
-// VIEW LIST TESTING FOR FILTER -Keely
+//Get listing - Simon
 app.get("/listings", async (req, res) => {
   const listings = await Listing.find().populate('author', 'name');
   res.status(200).json(listings);
