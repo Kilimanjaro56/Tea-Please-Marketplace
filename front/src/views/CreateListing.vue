@@ -1,6 +1,9 @@
 <template>
   <!-- Create Listing Front End + Validation + Styling - Keely -->
   <div class="app-wrapper">
+    <div class="cover-img">
+      <img src="https://picsum.photos/200/300" alt="">
+    </div>
     <div
       v-if="user"
       class="create-listing-component"
@@ -45,7 +48,7 @@
               </div>
               <span id="price-error"><p>Please Enter A Valid Price</p></span>
             </div>
-            <div class="form-group">
+            <div class="form-group category-group">
               <label for="category">Category</label>
               <select
                 id="category"
@@ -281,9 +284,10 @@ button {
   border-radius: 5px;
   border: none;
   margin-top: 2em;
-  margin-left: 20vw;
+  margin-left: 22vw;
+  /* margin: 1em auto; */
+  cursor: pointer;
 }
-
 #wrap-price{
   display: flex;
 }
@@ -326,5 +330,61 @@ b{
   display: none;
   color: red;
   text-align: left;
+}
+.cover-img{
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .create-listing-component{
+    font-size: 1.2em;
+  }
+  label{
+    margin-top: 0.5em;
+  }
+  input{
+    height: 3vh;
+  }
+  button{
+    padding-bottom: 1.8em;
+    font-size: 0.8em;
+    margin: 1.5em auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .app-wrapper{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cover-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    overflow: hidden;
+  }
+  .cover-img>img{
+    margin-top: 5em;
+    width: 40vw;
+    height: 60vh;
+    border-radius: 10px;
+  }
+  .create-listing-component{
+    margin-top: 2em;
+  }
+  .category-group{
+    /* border: red thin solid; */
+    padding-right: 16%;
+  }
+  .edit{
+    width: 50vw;
+  }
+  .form-group,h2{
+    width: 50%;
+  }
+  button{
+    margin-left: 15em;
+  }
 }
 </style>
