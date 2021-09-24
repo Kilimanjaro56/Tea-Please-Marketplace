@@ -184,4 +184,14 @@ i {
 #close-icon {
   display: none;
 }
+@media screen and (min-width: 768px){
+  .navbar{
+    width: 101vw;
+  }
+}
+@media screen and (min-width: 1024px){
+  .navbar{
+    width: 101vw;
+  }
+}
 </style>

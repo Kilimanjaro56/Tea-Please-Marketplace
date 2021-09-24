@@ -1,5 +1,8 @@
 <template>
   <div class="app-wrapper">
+    <div class="cover-img">
+      <img src="https://picsum.photos/200/300" alt="">
+    </div>
     <div class="signup">
       <!-- Keely Sign Up Front + Validation -->
       <h2>Sign Up</h2>
@@ -202,6 +205,7 @@ button{
   height: 5vh;
   font-size: 1em;
   margin-left: 8vw;
+  cursor: pointer;
 }
 #error-message{
   margin-top: 2em;
@@ -227,5 +231,45 @@ p, #login-link{
 }
 #login-buttons{
   font-size: 0.88em;
+}
+.cover-img{
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .signup{
+    font-size: 1.2em;
+  }
+  input{
+    height: 3vh;
+    font-size: 0.8em;
+  }
+  button{
+    padding-bottom: 1.8em;
+    width: 60vw;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .app-wrapper{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cover-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    overflow: hidden;
+  }
+  .cover-img>img{
+    width: 50vw;
+    height: 100vh;
+  }
+  .signup{
+    width: 50vw;
+  }
+  .form-group,hr,h2,button{
+    width: 50%;
+  }
 }
 </style>

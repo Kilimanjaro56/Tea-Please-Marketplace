@@ -249,9 +249,10 @@ i {
   }
   select{
     width: 60%;
+    padding: 1em;
   }
   input{
-    height: 3.5vh;
+    height: 3vh;
     font-size: 0.8em;
   }
   button{

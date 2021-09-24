@@ -9,23 +9,27 @@
         v-if="listing.author"
         class="listing"
       >
-        <div id="content-above-image">
-          <div id="seller-container">
-            <h3>Seller: {{ listing.author.name }}</h3>
+        <div class="container1">
+          <div id="content-above-image">
+            <div id="seller-container">
+              <h3>Seller: {{ listing.author.name }}</h3>
+            </div>
+          </div>
+          <div class="image-container">
+            <img
+              :src="listing.imageUrl"
+              alt=""
+            >
           </div>
         </div>
-        <div class="image-container">
-          <img
-            :src="listing.imageUrl"
-            alt=""
-          >
+        <div class="container2">
+          <div class="listing-details">
+            <h3>{{ listing.title }}</h3>
+            <h4>${{ listing.price }}.00</h4>
+          </div>
+          <hr>
+          <p>{{ listing.description }}</p>
         </div>
-        <div class="listing-details">
-          <h3>{{ listing.title }}</h3>
-          <h4>${{ listing.price }}.00</h4>
-        </div>
-        <hr>
-        <p>{{ listing.description }}</p>
       </div>
       <div class="bottom-buttons">
         <button @click="$router.push('/listings')">
@@ -180,7 +184,55 @@ button{
   background-color: #E0D3BD;
   padding: 0 1em 2em 0.5em;
   border-radius: 10px 10px 0 0;
-  margin-left: -0.6em;
+  margin-left: 0.2em;
   margin-bottom: -2.5em;
+}
+@media screen and (min-width: 768px) {
+  .payment-confirmation{
+    font-size: 1.2em;
+    margin-top: 3em
+  }
+  #seller-container{
+    margin-left: 0.2em;
+  }
+  button{
+    height: 6vh;
+  }
+}
+@media screen and (min-width: 1024px) {
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  #seller-container{
+    margin-left: 0.2em;
+  }
+  .image-container{
+    width: 20vw;
+  }
+  .listing{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+
+  }
+  .container2{
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    width: 50vw;
+    margin-left: 5em;
+    text-align: center;
+  }
+  .listing-details{
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+  }
+  .container2>hr{
+    margin-bottom: 1em;
+    width: 50vw;
+  }
 }
 </style>
