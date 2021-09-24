@@ -39,6 +39,19 @@ export default {
   p{
     text-align: start;
     margin: 2em
-  };
-
+  }
+  @media (min-width: 1024px){
+    .container{
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .container1{
+      width: 50vw;
+    }
+    .container2{
+      width: 50vw;
+    }
+  }
 </style>

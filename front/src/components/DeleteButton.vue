@@ -1,5 +1,5 @@
 <template>
-  <!--delete front end - Annabel-->
+  <!--Delete Component - Annabel-->
   <div
     class="delete-function"
     @click="confirmDelete"

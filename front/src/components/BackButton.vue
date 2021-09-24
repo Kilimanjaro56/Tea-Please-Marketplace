@@ -1,4 +1,5 @@
 <template>
+  <!-- Back Button Component - Keely -->
   <span class="back-button">
     <button @click="goBack"><i class="fas fa-chevron-left" /></button>
   </span>

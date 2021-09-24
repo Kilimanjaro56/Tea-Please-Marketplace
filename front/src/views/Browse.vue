@@ -1,4 +1,7 @@
 <template>
+  <!-- Filter Categories - Annabel -->
+  <!-- Search Component - Keely -->
+  <!-- View list and remaining styling - Simon -->
   <div class="app-wrapper">
     <div
       v-if="user"
@@ -44,14 +47,11 @@
               />
             </div>
           </div>
-          <div class="image-container">
-            <img :src="listing.imageUrl">
-          </div>
+          <img :src="listing.imageUrl">
           <div class="second-group">
             <p>{{ listing.title }}</p>
-            <p id="price">
-              ${{ listing.price }}
-            </p>
+            <p id="price" />
+            <p>${{ listing.price }}</p>
           </div>
           <p class="desc">
             {{ listing.description }}
@@ -97,6 +97,7 @@ export default {
       listingStore: [],
       listings: [],
       currentUser: [],
+      favouritesArray: [],
       message: null,
       filter: 'all',
     };
@@ -134,6 +135,26 @@ export default {
         document.getElementById('clear-search').style.display = 'none';
       }
     },
+    //  this page was attempted
+    // but priorities had to be rearranged
+    // for more essential elements to the site
+    // - Annabel 24/09
+    // async favouritedItem() {
+    //   const response = await fetch(
+    //     `http://localhost:3000/listings/${this.user.id}/favourited`,
+    //     {
+    //       method: 'PATCH',
+    //       headers: { 'Content-Type': 'application/json' },
+    //       body: JSON.stringify({
+    //         favourites: this.favouritesArray,
+    //       }),
+    //     },
+    //   );
+    //   const data = await response.json();
+    //   console.log(data);
+    //   this.$router.push(`/favourited/${this.listingId}`);
+    // },
+
     displayFilteredListings(filteredArray) {
       if (filteredArray.length >= 1) {
         this.listings = filteredArray;
@@ -163,7 +184,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 102vw;
+  width: 101vw;
   height: 105vh;
   overflow-x: hidden;
 }
@@ -198,16 +219,7 @@ p{
   font-family: 'Cormorant', serif;
   font-size:1.1em ;
 }
-select {
-  border: #a26360 thin solid;
-  width: 50%;
-  padding: 0.5em;
-  border-radius: 5px;
-  background-color: transparent;
-}
-select > option {
-  text-align: center;
-}
+
 #filters {
   display: flex;
   justify-content: space-around;
@@ -224,7 +236,7 @@ li {
   margin: 1em;
   padding: 1em;
   border-radius: 10px;
-    box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
+  box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -webkit-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
   -moz-box-shadow: 0px 0px 25px -14px rgba(0,0,0,0.42);
 }
@@ -259,9 +271,9 @@ li {
   margin-bottom: 0.4em;
   margin-top: 0.5em;
 }
-img{
-  width: 140%;
-  min-height: 100%;
+img {
+  width: 100%;
+  height: 30vh;
   border-radius: 10px;
   margin: 1em 0;
 }
@@ -314,44 +326,43 @@ i {
   color: #a26360;
   font-size: 1em;
 }
+/* Respnsive styling x2 tablet sizes and desktop - Simon */
 @media screen and (min-width: 768px) {
   .browse{
     font-size: 1.2em;
   }
-  select{
-    width: 60%;
+  input{
+    height: 3vh;
+    font-size: 0.8em;
   }
   button{
-    background-color:red;
+    height: 6vh;
   }
 }
 @media screen and (min-width: 1024px) {
   .browse{
     font-size: 1.2em;
   }
-  .filter-search-group{
-    display: flex;
-    justify-content: end;
-  }
-  select{
-    width: 30%;
-    margin-right: 1.5em;
-  }
   ul{
-    border: red thin solid;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
   }
   li{
-    width: 18%;
-    margin: 1em auto;
+    margin-left: 1.6em;
   }
   li>.desc{
-    max-height: 5vh;
+    margin-bottom: 0.2em;
+    max-height: 3vh;
     overflow: scroll;
   }
-  button{
-    background-color:blue;
+}
+@media screen and (min-width: 1387px) {
+  ul{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+  }
+  li{
+    margin-left: 0.8em;
   }
 }
 

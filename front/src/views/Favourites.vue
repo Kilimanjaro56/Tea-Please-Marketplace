@@ -1,11 +1,18 @@
 <template>
   <div class="app-wrapper">
+    <!-- /
+    this page was attempted
+    but priorities had to be rearranged
+    for more essential elements to the site
+    - Annabel 24/09
+    -->
     <div
       v-if="user"
       class="favourites"
     >
       <BackButton />
       <h2>Favourites</h2>
+      <p>{{ currentUser }}</p>
     </div>
     <UserErrorMessage v-else />
   </div>
@@ -22,6 +29,29 @@ export default {
   },
   props: {
     user: Object,
+  },
+
+  data() {
+    return {
+      currentUser: [],
+      favouritesArray: [],
+    };
+  },
+
+  mounted() {
+    this.getUser();
+  },
+
+  methods: {
+    async getUser() {
+      if (this.user) {
+        const response = await fetch(
+          `http://localhost:3000/profile/${this.user.id}`,
+        );
+        const data = await response.json();
+        this.currentUser = data;
+      }
+    },
   },
 };
 </script>

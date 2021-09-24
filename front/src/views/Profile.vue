@@ -327,6 +327,9 @@ font-size: 1.1em;
 #edit-bio-icon{
   margin-right: 2.5em;
 }
+#update-bio-icon{
+  margin-right: 2.5em;
+}
 p{
   margin: 0.4em 0;
 }
