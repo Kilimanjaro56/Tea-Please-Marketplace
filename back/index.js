@@ -109,6 +109,26 @@ app.patch("/listings/:listingId/sold", async (req, res) => {
   }
 });
 
+//Favourites End Point - Annabel
+//  this page was attempted
+// but priorities had to be rearranged
+// for more essential elements to the site
+// - Annabel 24/09
+// app.patch("/listings/:userId/favourited", authUser,async (req, res) => {
+//   try {
+//     const itemFavourited = {
+//       favourites: req.body.favourites,
+//     };
+//     const dataWithFavs = await User.findByIdAndUpdate(
+//       req.params.userId,
+//       itemFavourited
+//     );
+//     res.status(200).json(dataWithFavs);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
 //Comments End Point - Annabel
 app.post("/listings/:listingId/comments", authUser, async (req, res, next) => {
   try {

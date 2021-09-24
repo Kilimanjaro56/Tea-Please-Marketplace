@@ -45,17 +45,19 @@ export default {
   p{
     text-align: start;
     margin: 2em
-  };
-  @media screen and (min-width: 1024px){
+  }
+  @media (min-width: 1024px){
     .container{
+      width: 100vw;
       display: flex;
       flex-direction: row;
       justify-content: center;
-      /* grid-template-columns: repeat(2,1fr); */
-      /* border: red thin solid; */
+    }
+    .container1{
+      width: 50vw;
     }
     .container2{
-      /* border: red thin solid; */
+      width: 50vw;
     }
   }
 </style>

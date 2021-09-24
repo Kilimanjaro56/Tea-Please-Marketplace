@@ -1,5 +1,5 @@
 <template>
-  <!--delete front end - Annabel-->
+  <!--Delete Component - Annabel-->
   <!-- Duplicated for Icon only - Keely, all code is Annabels -->
   <div
     class="delete-function"

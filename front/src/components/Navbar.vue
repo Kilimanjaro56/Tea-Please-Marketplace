@@ -1,4 +1,5 @@
 <template>
+  <!-- Navbar component - Keely  -->
   <div class="navbar-wrapper">
     <link
       rel="stylesheet"
@@ -184,6 +185,7 @@ i {
 #close-icon {
   display: none;
 }
+/* Responsive Styling - Simon */
 @media screen and (min-width: 768px){
   .navbar{
     width: 101vw;

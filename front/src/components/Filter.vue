@@ -41,7 +41,6 @@ export default {
         const filteredArray = this.listings.filter(
           (listing) => listing.category === this.filteredCategory,
         );
-        console.log(filteredArray);
         this.$emit('categoryFilter', filteredArray);
       } else {
         this.$emit('clearCategories');
@@ -68,9 +67,13 @@ select {
   border: thin #a26360 solid;
   padding: 0.3em 3em;
   text-align: center;
+  background-color: transparent;
+  padding: 0.5em;
+  width: 20em;
 }
 
-option {
+select > option {
+  text-align: center;
   color: #2b463c;
   font-family: "Questrial", sans-serif;
 }

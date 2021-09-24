@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Search Component - Keely -->
     <i
       id="search-icon"
       class="fa fa-search"
@@ -75,11 +76,12 @@ export default {
 #search-input{
   border-radius: 5px;
   border: thin #A26360 solid;
-  padding: 0.3em 3em;
+  padding: 0.52em;
+  width: 20em;
   text-align: center;
   position: absolute;
-  left:20%;
-   z-index: 50;
+  left:10%;
+  z-index: 50;
 }
 form i{
   position: relative;
